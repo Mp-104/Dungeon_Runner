@@ -12,7 +12,7 @@ public class Main {
 
         Player p1 = new Player();
 
-        p1.setAgility(10);
+        p1.setAgility(100);
         p1.setExp(0);
         p1.setHealth(10);
         p1.setLevel(1);
@@ -31,7 +31,7 @@ public class Main {
 
         monsterList.add(m1);
 
-        System.out.println(p1.speed());
+        System.out.println("p1.speed(): " + p1.speed());  // ??
 
         //p1.fight(m1,p1);
 
@@ -49,7 +49,7 @@ public class Main {
         System.out.println("ah, your name is " + p1.getName());
 
         //menu
-        System.out.println("hello \nworld0");
+        /*System.out.println("hello \nworld0");
         System.out.println("");
         System.out.println("hello1");
         System.out.println("world1");
@@ -57,14 +57,33 @@ public class Main {
                 hello2
                 
                 world2
-                """);
+                """); */
 
         // souf
         System.out.printf("hello %s, ", p1.getName()); // format
         System.out.println();
 
+        Main main = new Main();
+
+        main.gameMenu(p1,m1);
 
 
+
+
+        /* TODO
+        * --> Where is playerName?   // Player class
+        * --> which file owns variable: playerName?  // Player class perhaps would be relevant
+        * --> How can we make the code better? Move code into other classes and methods
+        * --> Does playerName cause problems in the future?
+        *
+        * */
+
+
+    }
+
+    void gameMenu (Player p1, Monster m1) {
+        List<Monster> monsterList = new ArrayList<>();
+        monsterList.add(m1);
         System.out.println("""
                 1. Fight
                 2. Status
@@ -92,14 +111,6 @@ public class Main {
         }
         while (true);
 
-        /* TODO
-        * --> Where is playerName?   // Player class
-        * --> which file owns variable: playerName?  // Player class perhaps would be relevant
-        * --> How can we make the code better? Move code into other classes and methods
-        * --> Does playerName cause problems in the future?
-        *
-        * */
-
 
     }
 
@@ -121,7 +132,7 @@ public class Main {
             switch (sc.nextLine()) {
                 case "1" -> p1.turnOrder(p1, m1);                               //p1.fight(p1, m1);
                 case "2" -> p1.defend(m1, p1);                                         //System.out.println("Defend");
-                case "3" -> System.out.println("Flee");
+                case "3" -> p1.flee(p1, m1);                                                    //System.out.println("Flee");
                 case "4" -> p1.getStatus();
                 case "5" -> m1.monStatus();
 

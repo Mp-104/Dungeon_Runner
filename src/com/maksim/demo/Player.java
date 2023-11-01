@@ -176,10 +176,10 @@ public class Player implements Combat {
             System.out.println("Monster is attacking!");
             System.out.println("damage: " + m1.getDamage());
 
-            System.out.println("Player health: " + p1.getHealth());
+            System.out.println(p1.getName() + "'s health: " + p1.getHealth());
             System.out.println(m1.getName() + " deals " + (m1.getDamage()) + " damage to " + p1.getName());
             p1.setHealth(p1.getHealth() - (m1.getDamage()));
-            System.out.println("Remaining player health: " + p1.getHealth());
+            System.out.println("Remaining " +p1.getName() + " health: " + p1.getHealth());
 
             if (p1.getHealth() <= 0) {
                 System.out.println("You lost ");
@@ -194,7 +194,7 @@ public class Player implements Combat {
 
             if (playerAlive) {
 
-                System.out.println("Player retaliates");
+                System.out.println( p1.getName() + " retaliates");
                 System.out.println(p1.getName() + " inflicts " + (p1.getBaseDamage() + p1.getStrength() )+ " damage on " + m1.getName());
                 m1.setHealth(m1.getHealth() - ( p1.getBaseDamage() + p1.getStrength() ) );
                 System.out.println("Remaining monster health: " + m1.getHealth());
@@ -237,7 +237,7 @@ public class Player implements Combat {
         int x;
 
         while (defend) {
-            System.out.println("player defends, monster's damage is halved");
+            System.out.println(p1.getName() + " defends, monster's damage is halved");
             x = m1.getDamage();
             m1.setDamage(m1.getDamage()/2);
             monsterAttacks(m1, p1);
@@ -249,13 +249,29 @@ public class Player implements Combat {
     }
 
     public void monsterAttacks (Monster m1, Player p1) {
-        System.out.println("monster attacks for " + m1.getDamage());
-        p1.setHealth(p1.getHealth() - m1.getDamage());
-        System.out.println("Remaining player health: " + p1.getHealth());
+        if (m1.getHealth() > 0) {
+            System.out.println("monster attacks for " + m1.getDamage());
+            p1.setHealth(p1.getHealth() - m1.getDamage());
+            System.out.println("Remaining player health: " + p1.getHealth());
+        } else {
+            System.out.println("Monster is dead");
+        }
+
 
     }
 
-    public void flee () {
+    public void flee (Player p1, Monster m1) {
+
+        Main main = new Main();
+
+
+        if (p1.getAgility() > m1.getAgility()) {
+            System.out.println("Successfully ran away!");
+            main.gameMenu(p1,m1);
+        } else {
+            System.out.println("Failed to run away");
+            monsterAttacks(m1,p1);
+        }
 
     }
 
