@@ -8,6 +8,8 @@ public class Monster {
 
     private int damage;
 
+    private int expYield;
+
     @Override
     public String toString() {
         return "Monster{" +
@@ -26,6 +28,13 @@ public class Monster {
         System.out.println("Damage: " + damage);
         System.out.println("Agility: " + agility);
 
+    }
+
+    public int getExpYield () {
+        return expYield;
+    }
+    public void setExpYield (int expYield) {
+        this.expYield = expYield;
     }
 
     public String getName() {

@@ -13,25 +13,37 @@ public class Main {
         Player p1 = new Player();
 
         p1.setAgility(100);
-        p1.setExp(0);
-        p1.setHealth(10);
-        p1.setLevel(1);
-        p1.setBaseDamage(10);
-        p1.setIntelligence(10);
+        p1.setHealth(100);
         p1.setStrength(10);
+        p1.setIntelligence(10);
+        p1.setBaseDamage(10);
+        p1.setExp(0);
+        p1.setLevel(1);
+
+
+
 
         Monster m1 = new Monster();
 
         m1.setAgility(50);
         m1.setHealth(30);
         m1.setDamage(6);
+        m1.setExpYield(10);
         m1.setName("Monster 1");
+
+        Monster m2 = new Monster();
+        m2.setAgility(100);
+        m2.setHealth(1);
+        m2.setDamage(50);
+        m2.setExpYield(50);
+        m2.setName("Quick Strike");
 
         List <Monster> monsterList = new ArrayList<>();
 
         monsterList.add(m1);
+        monsterList.add(m2);
 
-        System.out.println("p1.speed(): " + p1.speed());  // ??
+        //System.out.println("p1.speed(): " + p1.speed());  // ??
 
         //p1.fight(m1,p1);
 
@@ -62,10 +74,33 @@ public class Main {
         // souf
         System.out.printf("hello %s, ", p1.getName()); // format
         System.out.println();
+        System.out.println("This is how strong you currently are: ");
+        p1.getStatus();
 
         Main main = new Main();
+        System.out.println("Choose which monster to fight");
+        System.out.println(monsterList);
 
-        main.gameMenu(p1,m1);
+        do {
+
+            switch (sc.nextLine()) {
+                case "1" -> {
+                    main.gameMenu(p1, m1);
+                    monsterList.remove(m1);
+
+                }
+                case "2" -> {
+                    main.gameMenu(p1, m2);
+                    monsterList.remove(m2);
+                }
+            }
+            p1.getStatus();
+
+         } while (!monsterList.isEmpty());
+        System.out.println("");
+
+        System.out.println("You defeated game");
+
 
 
 
@@ -109,7 +144,7 @@ public class Main {
                 default -> System.out.println("try again!");
             }
         }
-        while (true);
+        while (m1.getHealth() > 0);
 
 
     }

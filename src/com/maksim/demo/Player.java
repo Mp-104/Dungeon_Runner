@@ -131,6 +131,7 @@ public class Player implements Combat {
             if (m1.getHealth() <= 0) {
                 System.out.println("You defeated " + m1.getName());
                 monsterAlive = false;
+                p1.setExp(p1.getExp() + m1.getExpYield());
                 // Monster dead, ceases to exist
                 // System.out.println("m1 " + m1);
 
@@ -201,6 +202,8 @@ public class Player implements Combat {
 
                 if (m1.getHealth() <= 0) {
                     System.out.println("you defeated: " + m1.getName());
+                    p1.setExp(p1.getExp() + m1.getExpYield());
+
                     monsterAlive = false;
                 }
                 scanner.nextLine();
