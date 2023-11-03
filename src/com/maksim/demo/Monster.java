@@ -1,7 +1,10 @@
 package com.maksim.demo;
 
-public class Monster {
+import java.util.Scanner;
 
+public class Monster implements ICombat {
+
+    Scanner scanner = new Scanner(System.in);
     private String name;
 
     private int health;
@@ -67,5 +70,18 @@ public class Monster {
 
     public void setAgility(int agility) {
         this.agility = agility;
+    }
+
+    @Override
+    public void attacks(Monster m1, Player p1) {
+        if (m1.getHealth() > 0) {
+            System.out.println(m1.getName() + " attacks for " + m1.getDamage());
+            p1.setHealth(p1.getHealth() - m1.getDamage());
+            System.out.println("Remaining player health: " + p1.getHealth());
+        } else {
+            System.out.println("Monster is dead");
+        }
+        scanner.nextLine();
+
     }
 }

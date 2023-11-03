@@ -5,7 +5,7 @@ import java.util.Scanner;
 import static com.maksim.demo.Main.gameMenu;
 import static com.maksim.demo.Main.sc;
 
-public class Player implements Combat {
+public class Player implements ICombat {
 
     Scanner scanner = new Scanner(System.in);
 
@@ -43,7 +43,7 @@ public class Player implements Combat {
 
         }
 
-        System.out.println("How much exp?");
+        System.out.println("How much exp left?");
         System.out.println(getExp());
         System.out.println("Player level");
         System.out.println(getLevel());
@@ -131,24 +131,13 @@ public class Player implements Combat {
 
 
 
-    @Override
-    public int speed() {
-        return 0;
-    }
 
-    @Override
-    public void health() {
-        int health;
 
-    }
 
-    @Override
-    public void damage() {
-        int damage;
 
-    }
 
-    @Override
+
+    /*@Override
     public void fight (Player p1, Monster m1) {
         boolean monsterAlive = true;
         boolean playerAlive = true;
@@ -201,10 +190,10 @@ public class Player implements Combat {
             System.out.println("Game over");
         } */
 
-    }
 
 
-    @Override
+
+   /* @Override
     public void fightSecond (Monster m1, Player p1) {
 
         boolean monsterAlive = true;
@@ -246,7 +235,7 @@ public class Player implements Combat {
                 }
                 scanner.nextLine();
 
-            }
+            } */
 
         //} while (monsterAlive && playerAlive);
 
@@ -256,22 +245,24 @@ public class Player implements Combat {
             System.out.println("Game over");
         }*/
 
-    }
+
 
     public void turnOrder (Player p1, Monster m1) {
 
         if (p1.getAgility() > m1.getAgility()) {
             System.out.println(p1.getName() + " is faster than " + m1.getName());
             //p1.fight (p1,m1);
-            playerAttacks(p1,m1);
-            monsterAttacks(m1,p1);
+            attacks(m1,p1);
+            m1.attacks(m1,p1);
+            //monsterAttacks(m1,p1);
 
         } else {
             System.out.println("monster is faster");
             // Insert method for monster attacking first
             //p1.fightSecond (m1, p1);
-            monsterAttacks(m1,p1);
-            playerAttacks(p1,m1);
+            //monsterAttacks(m1,p1);
+            m1.attacks(m1,p1);
+            attacks(m1,p1);
         }
 
     }
@@ -285,7 +276,7 @@ public class Player implements Combat {
             System.out.println(p1.getName() + " defends, monster's damage is halved");
             x = m1.getDamage();
             m1.setDamage(m1.getDamage()/2);
-            monsterAttacks(m1, p1);
+            m1.attacks(m1, p1);
             m1.setDamage(x);
 
             defend = false;
@@ -293,7 +284,7 @@ public class Player implements Combat {
 
     }
 
-    public void playerAttacks (Player p1, Monster m1) {
+    /*public void playerAttacks (Player p1, Monster m1) {
         if (p1.getHealth() > 0) {
             System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
             m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
@@ -305,9 +296,25 @@ public class Player implements Combat {
             System.exit(0);
         }
         scanner.nextLine();
+    } */
+
+    @Override
+    public void attacks(Monster m1, Player p1) {
+        if (p1.getHealth() > 0) {
+            System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
+            m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
+            System.out.println("Remaining monster health: " + m1.getHealth());
+
+        } else {
+            System.out.println("You are dead");
+            System.out.println("game over");
+            System.exit(0);
+        }
+        scanner.nextLine();
+
     }
 
-    public void monsterAttacks (Monster m1, Player p1) {
+    /*public void monsterAttacks (Monster m1, Player p1) {
         if (m1.getHealth() > 0) {
             System.out.println(m1.getName() + " attacks for " + m1.getDamage());
             p1.setHealth(p1.getHealth() - m1.getDamage());
@@ -317,9 +324,9 @@ public class Player implements Combat {
         }
         scanner.nextLine();
 
-    }
+    } */
 
-    public void flee (Player p1, Monster m1, boolean flee) {
+    /*public void flee (Player p1, Monster m1, boolean flee) {
 
         //Main main = new Main();
 
@@ -332,10 +339,10 @@ public class Player implements Combat {
         } else {
             flee = false;
             System.out.println("Failed to run away");
-            monsterAttacks(m1,p1);
+            m1.attacks(m1,p1);
         }
 
-    }
+    } */
 
     public void growth (Player p1) {
 
@@ -359,5 +366,6 @@ public class Player implements Combat {
 
 
     }
+
 
 }

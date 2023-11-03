@@ -93,7 +93,7 @@ public class Main {
         System.out.println();
         System.out.println();
 
-        Main main = new Main();
+
 
         System.out.println("0. Debugging experience");
 
@@ -111,12 +111,12 @@ public class Main {
 
             switch (sc.nextLine()) {
                 case "1" -> {
-                    main.gameMenu(p1, m1);
+                    gameMenu(p1, m1);
                     monsterList.remove(m1);
 
                 }
                 case "2" -> {
-                    main.gameMenu(p1, m2);
+                    gameMenu(p1, m2);
                     monsterList.remove(m2);
                 }
 
@@ -192,6 +192,7 @@ public class Main {
         do {
 
             System.out.println("inside fightMenu");
+            System.out.println("Battling against " + m1.getName());
             System.out.println("""
                 1. Attack
                 2. Defend
@@ -209,7 +210,7 @@ public class Main {
                 } else {
                     System.out.println("Monster is faster");
                     System.out.println("Failed to run away");
-                    p1.monsterAttacks(m1,p1);
+                    m1.attacks(m1,p1);
                 }
                 }              //p1.flee(p1, m1, flee);                                                    //System.out.println("Flee");
                 case "4" -> p1.getStatus();
@@ -221,6 +222,8 @@ public class Main {
             if (m1.getHealth() <= 0) {
                 monsterAlive = false;
                 System.out.println("you defeated " + m1.getName());
+                System.out.println("");
+                sc.nextLine();
 
             }
 
@@ -237,6 +240,8 @@ public class Main {
             //p1.setExp(p1.getExp() + m1.getExpYield());
             p1.calculateExpToLvl(m1.getExpYield());
             p1.growth(p1);
+            System.out.println("");
+            sc.nextLine();
         }
 
         if (!playerAlive){
