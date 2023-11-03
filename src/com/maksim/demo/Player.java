@@ -11,7 +11,7 @@ public class Player implements ICombat {
 
     private String name;
     private int strength;
-    private int intelligence;
+    private int intelligence;  // Intelligence influences crit damage (double oridinary damage)
     private int agility;
     private int health;
     private int exp;

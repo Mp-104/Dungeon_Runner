@@ -4,8 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/* TODO
+    implement intelligence ( crit damage modifier) G
+    Shop VG
+    Weapons? VG
+    Colours  VG
+    Tests -> enhanced Tests
+* */
+
 public class Main {
     static Scanner sc = new Scanner(System.in);
+    static List <Monster> monsterList = new ArrayList<>();
+
     public static void main(String[] args) {
 
         //String playerName;
@@ -51,7 +61,7 @@ public class Main {
         m2.setExpYield(120);
         m2.setName("Quick Strike");
 
-        List <Monster> monsterList = new ArrayList<>();
+        //List <Monster> monsterList = new ArrayList<>();
 
         monsterList.add(m1);
         monsterList.add(m2);
@@ -112,12 +122,12 @@ public class Main {
             switch (sc.nextLine()) {
                 case "1" -> {
                     gameMenu(p1, m1);
-                    monsterList.remove(m1);
+                    //monsterList.remove(m1);
 
                 }
                 case "2" -> {
                     gameMenu(p1, m2);
-                    monsterList.remove(m2);
+                    //monsterList.remove(m2);
                 }
 
                 case "0" -> p1.calculateExpToLvl(125);                       //p1.debugReceiveExperience(125,p1);
@@ -148,12 +158,13 @@ public class Main {
     }
 
     public static void gameMenu (Player p1, Monster m1) {
-        List<Monster> monsterList = new ArrayList<>();
-        monsterList.add(m1);
+        List<Monster> monsterList2 = new ArrayList<>();
+        monsterList2.add(m1);
 
 
-
+        boolean isPlaying = true;
         do {
+
             System.out.println("inside gameMenu");
             System.out.println("""
                 
@@ -161,7 +172,7 @@ public class Main {
                 2. Status
                 3. Current monster
                 4. Current monster
-                5. Exit game
+                5. Exit to monster menu
                 
                 """);
 
@@ -169,17 +180,23 @@ public class Main {
                 case "1" -> fightMenu(p1,m1);
                 case "2" -> p1.getStatus();
                 case "3" -> {
-                    for (int i = 0; i < monsterList.size(); i++) {
-                        System.out.println(monsterList.get(i));
+                    for (int i = 0; i < monsterList2.size(); i++) {
+                        System.out.println(monsterList2.get(i));
                     }
                 }
-                case "4" -> System.out.println(monsterList);
-                case "5" -> System.exit(0);
+                case "4" -> System.out.println(monsterList2);
+                case "5" -> isPlaying= false;        //System.exit(0);
 
                 default -> System.out.println("try again!");
             }
+            //System.out.println("monsterList.get(0): " );
+            if (m1.getHealth() <= 0) {
+                monsterList.remove(m1);
+                isPlaying=false;
+            }
         }
-        while (m1.getHealth() > 0);
+
+        while ( /*m1.getHealth() > 0 || */isPlaying);
 
 
     }
@@ -224,6 +241,7 @@ public class Main {
                 System.out.println("you defeated " + m1.getName());
                 System.out.println("");
                 sc.nextLine();
+
 
             }
 
