@@ -2,6 +2,9 @@ package com.maksim.demo;
 
 import java.util.Scanner;
 
+import static com.maksim.demo.Main.gameMenu;
+import static com.maksim.demo.Main.sc;
+
 public class Player implements Combat {
 
     Scanner scanner = new Scanner(System.in);
@@ -14,6 +17,41 @@ public class Player implements Combat {
     private int exp;
     private int level;
     private int baseDamage;
+
+    public Player(int strength, int intelligence, int agility, int health, int level, int baseDamage) {
+        this.strength = strength;
+        this.intelligence = intelligence;
+        this.agility = agility;
+        this.health = health;
+        this.level = level;
+        this.baseDamage = baseDamage;
+    }
+
+    public void takeDamage (int damage) {   // kan finnas i ICombat interface eftersom både player och monster påverkas
+        setHealth(getHealth() - damage);
+    }
+
+    public void calculateExpToLvl (int amountOfExp) {
+        for (int i = amountOfExp; i > 0 ; i--) {
+            //System.out.println(i);
+            setExp(getExp() + 1);
+
+            if (getExp() == 100) {
+                setLevel(getLevel() + 1);
+                setExp(0);
+            }
+
+        }
+
+        System.out.println("How much exp?");
+        System.out.println(getExp());
+        System.out.println("Player level");
+        System.out.println(getLevel());
+
+
+    }
+
+
 
     public void getStatus () {
         System.out.printf("Name: %s %n" , name);
@@ -224,12 +262,16 @@ public class Player implements Combat {
 
         if (p1.getAgility() > m1.getAgility()) {
             System.out.println(p1.getName() + " is faster than " + m1.getName());
-            p1.fight (p1,m1);
+            //p1.fight (p1,m1);
+            playerAttacks(p1,m1);
+            monsterAttacks(m1,p1);
 
         } else {
             System.out.println("monster is faster");
             // Insert method for monster attacking first
-            p1.fightSecond (m1, p1);
+            //p1.fightSecond (m1, p1);
+            monsterAttacks(m1,p1);
+            playerAttacks(p1,m1);
         }
 
     }
@@ -251,30 +293,70 @@ public class Player implements Combat {
 
     }
 
+    public void playerAttacks (Player p1, Monster m1) {
+        if (p1.getHealth() > 0) {
+            System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
+            m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
+            System.out.println("Remaining monster health: " + m1.getHealth());
+
+        } else {
+            System.out.println("You are dead");
+            System.out.println("game over");
+            System.exit(0);
+        }
+        scanner.nextLine();
+    }
+
     public void monsterAttacks (Monster m1, Player p1) {
         if (m1.getHealth() > 0) {
-            System.out.println("monster attacks for " + m1.getDamage());
+            System.out.println(m1.getName() + " attacks for " + m1.getDamage());
             p1.setHealth(p1.getHealth() - m1.getDamage());
             System.out.println("Remaining player health: " + p1.getHealth());
         } else {
             System.out.println("Monster is dead");
         }
-
+        scanner.nextLine();
 
     }
 
-    public void flee (Player p1, Monster m1) {
+    public void flee (Player p1, Monster m1, boolean flee) {
 
-        Main main = new Main();
+        //Main main = new Main();
 
 
         if (p1.getAgility() > m1.getAgility()) {
             System.out.println("Successfully ran away!");
-            main.gameMenu(p1,m1);
+            flee = true; //gameMenu(p1,m1);
+
+
         } else {
+            flee = false;
             System.out.println("Failed to run away");
             monsterAttacks(m1,p1);
         }
+
+    }
+
+    public void growth (Player p1) {
+
+        switch (p1.getLevel()) {
+            case 2 -> {
+                p1.setStrength(p1.getStrength() + 10);
+                p1.setIntelligence(p1.getIntelligence() + 10);
+                p1.setAgility(p1.getAgility() + 10);
+            }
+            case 3 -> {
+                p1.setStrength(p1.getStrength() + 10);
+                p1.setIntelligence(p1.getIntelligence() + 10);
+                p1.setAgility(p1.getAgility() + 10);
+            }
+            case 4 -> {
+                p1.setStrength(p1.getStrength() + 10);
+                p1.setIntelligence(p1.getIntelligence() + 10);
+                p1.setAgility(p1.getAgility() + 10);
+            }
+        }
+
 
     }
 

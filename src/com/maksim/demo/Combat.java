@@ -15,6 +15,6 @@ public interface Combat {
 
     void defend (Monster m1, Player p1);
 
-    void flee (Player p1, Monster m1);
+    void flee (Player p1, Monster m1, boolean flee);
 
 }

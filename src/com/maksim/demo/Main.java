@@ -10,7 +10,20 @@ public class Main {
 
         //String playerName;
 
-        Player p1 = new Player();
+        Player p1 = new Player(0,
+                                0,
+                                0,
+                                50,
+                                0,
+                                0);
+
+        p1.takeDamage(5);
+
+        System.out.println(p1.getHealth());
+
+        System.out.println("---Debugging---");
+        System.out.println();
+        System.out.println("---Debugging---");
 
         p1.setAgility(100);
         p1.setHealth(100);
@@ -28,14 +41,14 @@ public class Main {
         m1.setAgility(50);
         m1.setHealth(30);
         m1.setDamage(6);
-        m1.setExpYield(10);
+        m1.setExpYield(100);
         m1.setName("Monster 1");
 
         Monster m2 = new Monster();
         m2.setAgility(100);
         m2.setHealth(1);
         m2.setDamage(50);
-        m2.setExpYield(50);
+        m2.setExpYield(120);
         m2.setName("Quick Strike");
 
         List <Monster> monsterList = new ArrayList<>();
@@ -55,6 +68,7 @@ public class Main {
         System.out.println("what is your name? ");
         //playerName = sc.nextLine();
         p1.setName(sc.nextLine());
+
 
         //System.out.println("ah, your name is " + playerName);
 
@@ -76,12 +90,24 @@ public class Main {
         System.out.println();
         System.out.println("This is how strong you currently are: ");
         p1.getStatus();
+        System.out.println();
+        System.out.println();
 
         Main main = new Main();
-        System.out.println("Choose which monster to fight");
-        System.out.println(monsterList);
+
+        System.out.println("0. Debugging experience");
+
 
         do {
+            System.out.println("Choose which monster to fight");
+            System.out.println("1: " + m1.getName());
+            System.out.println("2: " + m2.getName());
+            System.out.println("Remaining monsters:");
+
+            for (int i = 0; i < monsterList.size(); i++) {
+                System.out.println(monsterList.get(i).getName() );
+            }
+
 
             switch (sc.nextLine()) {
                 case "1" -> {
@@ -93,11 +119,16 @@ public class Main {
                     main.gameMenu(p1, m2);
                     monsterList.remove(m2);
                 }
+
+                case "0" -> p1.calculateExpToLvl(125);                       //p1.debugReceiveExperience(125,p1);
+
+
             }
             p1.getStatus();
 
          } while (!monsterList.isEmpty());
         System.out.println("");
+        System.out.println("All monsters have been unalived!");
 
         System.out.println("You defeated game");
 
@@ -116,19 +147,23 @@ public class Main {
 
     }
 
-    void gameMenu (Player p1, Monster m1) {
+    public static void gameMenu (Player p1, Monster m1) {
         List<Monster> monsterList = new ArrayList<>();
         monsterList.add(m1);
-        System.out.println("""
-                1. Fight
-                2. Status
-                3. List of monsters
-                4. Monster list
-                5. Exit game
-                """);
+
 
 
         do {
+            System.out.println("inside gameMenu");
+            System.out.println("""
+                
+                1. Fight
+                2. Status
+                3. Current monster
+                4. Current monster
+                5. Exit game
+                
+                """);
 
             switch (sc.nextLine()) {
                 case "1" -> fightMenu(p1,m1);
@@ -152,6 +187,7 @@ public class Main {
     public static void fightMenu (Player p1, Monster m1) {
         boolean monsterAlive = true;
         boolean playerAlive = true;
+        boolean flee = false;
 
         do {
 
@@ -167,7 +203,15 @@ public class Main {
             switch (sc.nextLine()) {
                 case "1" -> p1.turnOrder(p1, m1);                               //p1.fight(p1, m1);
                 case "2" -> p1.defend(m1, p1);                                         //System.out.println("Defend");
-                case "3" -> p1.flee(p1, m1);                                                    //System.out.println("Flee");
+                case "3" -> { if (p1.getAgility() > m1.getAgility()) {
+                    flee = true;
+                    System.out.println("Ran away successfully!");
+                } else {
+                    System.out.println("Monster is faster");
+                    System.out.println("Failed to run away");
+                    p1.monsterAttacks(m1,p1);
+                }
+                }              //p1.flee(p1, m1, flee);                                                    //System.out.println("Flee");
                 case "4" -> p1.getStatus();
                 case "5" -> m1.monStatus();
 
@@ -176,19 +220,61 @@ public class Main {
             }
             if (m1.getHealth() <= 0) {
                 monsterAlive = false;
+                System.out.println("you defeated " + m1.getName());
+
             }
+
             if (p1.getHealth() <= 0) {
                 playerAlive = false;
             }
 
-        } while (monsterAlive && playerAlive);
+        } while (monsterAlive && playerAlive && !flee);
 
-        if (playerAlive) {
+
+        if (!monsterAlive && playerAlive) {
             System.out.println("you won");
-        } else {
+            System.out.println("You earned " + m1.getExpYield() + " experience!");
+            //p1.setExp(p1.getExp() + m1.getExpYield());
+            p1.calculateExpToLvl(m1.getExpYield());
+            p1.growth(p1);
+        }
+
+        if (!playerAlive){
             System.out.println("you lost");
+            System.out.println("Game over");
+            System.exit(0);
         }
 
     }
 
-}
+    // public static void debugReceiveExperience (int amountOfExp, Player p1) {
+
+        /* TODO
+               100 -> 1
+               1000 -> 10
+               10 000 -> 100
+               100 000 -> 1000   använd modulus för att optimera kod, för många loop iterationer med höga tal
+
+        *
+
+
+        // 100 exp == +1 level, 1000 exp== +10 level, 1005 exp?
+        // amountOfExp = 100
+        /*for (int i = amountOfExp; i > 0 ; i--) {
+            System.out.println(i);
+            p1.setExp(p1.getExp() + 1);
+
+            if (p1.getExp() == 100) {
+                p1.setLevel(p1.getLevel() + 1);
+                p1.setExp(0);
+            }
+
+        } */
+
+        /*System.out.println("How much exp?");
+        System.out.println(p1.getExp());
+        System.out.println("Player level");
+        System.out.println(p1.getLevel()); */
+
+    }
+
