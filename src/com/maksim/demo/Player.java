@@ -2,13 +2,11 @@ package com.maksim.demo;
 
 import java.util.Scanner;
 
-import static com.maksim.demo.Main.gameMenu;
-import static com.maksim.demo.Main.sc;
-
 public class Player implements ICombat {
 
     Scanner scanner = new Scanner(System.in);
 
+    private boolean axe;  // Implement in Shop class
     private String name;
     private int strength;
     private int intelligence;  // Intelligence influences crit damage (double oridinary damage)
@@ -26,6 +24,26 @@ public class Player implements ICombat {
         this.level = level;
         this.baseDamage = baseDamage;
     }
+
+    private boolean flee;
+
+    /*public void tryFlee(Player p1, Monster m1) {
+
+    }*/
+    @Override
+    public void fleeing(Player p1, Monster m1) {
+        System.out.println(p1.getName() + " tries to run away");
+        if (p1.getAgility() > m1.getAgility()) {
+            System.out.println("Ran away successfully");
+            flee = true;
+        } else {
+            System.out.println("Failed to run away");
+            flee = false;
+            m1.attacks(m1,p1);
+        }
+    }
+
+
 
     public void takeDamage (int damage) {   // kan finnas i ICombat interface eftersom både player och monster påverkas
         setHealth(getHealth() - damage);
@@ -62,6 +80,20 @@ public class Player implements ICombat {
         System.out.printf("Exp: %d %n" , exp);
         System.out.printf("level: %s %n" , level);
 
+    }
+
+    public boolean getAxe () {
+        return axe;
+    }
+    public void setAxe (boolean axe) {
+        this.axe = axe;
+    }
+
+    public boolean getFlee () {
+        return flee;
+    }
+    public void setFlee (boolean flee) {
+        this.flee = flee;
     }
 
     public String getName() {
@@ -253,7 +285,21 @@ public class Player implements ICombat {
             System.out.println(p1.getName() + " is faster than " + m1.getName());
             //p1.fight (p1,m1);
             attacks(m1,p1);
-            m1.attacks(m1,p1);
+
+            if (m1.getHealth() > 0) {
+                if (m1.getCoward()) {
+                    m1.fleeing(p1,m1);
+                } else {
+                    m1.attacks(m1,p1);
+                }
+            }
+
+           /* if (m1.getCoward()) {
+                m1.fleeing(p1,m1);
+            } else {
+                m1.attacks(m1,p1);
+            } */
+
             //monsterAttacks(m1,p1);
 
         } else {
@@ -261,8 +307,16 @@ public class Player implements ICombat {
             // Insert method for monster attacking first
             //p1.fightSecond (m1, p1);
             //monsterAttacks(m1,p1);
-            m1.attacks(m1,p1);
-            attacks(m1,p1);
+
+            if (m1.getCoward()) {
+                m1.fleeing(p1,m1);
+            } else {
+                m1.attacks(m1,p1);
+                attacks(m1,p1);
+            }
+
+
+
         }
 
     }
@@ -301,8 +355,16 @@ public class Player implements ICombat {
     @Override
     public void attacks(Monster m1, Player p1) {
         if (p1.getHealth() > 0) {
-            System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
-            m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
+
+
+            if (axe == true) {
+                m1.setHealth(m1.getHealth() - ( (p1.getBaseDamage() +p1.getStrength())  *2)  );
+                System.out.println(p1.getName() + " attacks for " + ( (p1.getBaseDamage() +p1.getStrength())  *2) );
+            } else {
+                m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
+                System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
+            }
+
             System.out.println("Remaining monster health: " + m1.getHealth());
 
         } else {
@@ -313,6 +375,10 @@ public class Player implements ICombat {
         scanner.nextLine();
 
     }
+
+
+
+
 
     /*public void monsterAttacks (Monster m1, Player p1) {
         if (m1.getHealth() > 0) {

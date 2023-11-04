@@ -2,6 +2,9 @@ package com.maksim.demo;
 
 import java.util.Scanner;
 
+//import static com.maksim.demo.Main.isFighting;
+//import static com.maksim.demo.Main.isPlaying;
+
 public class Monster implements ICombat {
 
     Scanner scanner = new Scanner(System.in);
@@ -13,6 +16,10 @@ public class Monster implements ICombat {
 
     private int expYield;
 
+    private int agility;
+
+    private boolean coward;
+
     @Override
     public String toString() {
         return "Monster{" +
@@ -23,7 +30,7 @@ public class Monster implements ICombat {
                 '}';
     }
 
-    private int agility;
+
 
     public void monStatus () {
         System.out.println("Monster name: " + name);
@@ -31,6 +38,13 @@ public class Monster implements ICombat {
         System.out.println("Damage: " + damage);
         System.out.println("Agility: " + agility);
 
+    }
+
+    public boolean getCoward () {
+        return coward;
+    }
+    public void setCoward (boolean coward) {
+        this.coward = coward;
     }
 
     public int getExpYield () {
@@ -72,16 +86,60 @@ public class Monster implements ICombat {
         this.agility = agility;
     }
 
+    public void flee (Player p1) {
+        if (coward== true) {
+            System.out.println("monster tries to flee ");
+            if (agility > p1.getAgility()) {
+                System.out.println(getName() + "fled successfully");
+              // isFighting = false;
+            } else {
+                System.out.println("monster failed to run");
+            }
+
+        }
+
+    }
+
     @Override
     public void attacks(Monster m1, Player p1) {
+
+
+
         if (m1.getHealth() > 0) {
-            System.out.println(m1.getName() + " attacks for " + m1.getDamage());
-            p1.setHealth(p1.getHealth() - m1.getDamage());
-            System.out.println("Remaining player health: " + p1.getHealth());
-        } else {
-            System.out.println("Monster is dead");
-        }
+            if (coward) {
+                fleeing (p1,m1);
+            }else {
+
+                    System.out.println(m1.getName() + " attacks for " + m1.getDamage());
+                    p1.setHealth(p1.getHealth() - m1.getDamage());
+                    System.out.println("Remaining player health: " + p1.getHealth());
+                }
+
+            }else {
+                System.out.println("Monster is dead");
+            }
+
+
         scanner.nextLine();
+
+    }
+
+    public boolean flee1;
+
+    @Override
+    public void fleeing(Player p1, Monster m1) {
+        if (m1.coward) {
+            System.out.println("monster is a coward");
+            System.out.println("monster tries to run away");
+            if (m1.getAgility() >= p1.getAgility()) {
+                System.out.println("monster ran away successfully");
+                flee1 = true;
+            } else {
+                System.out.println("monster failed to run away");
+                flee1 = false;
+                //p1.attacks(m1,p1);
+            }
+        }
 
     }
 }
