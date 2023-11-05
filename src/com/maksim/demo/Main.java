@@ -39,8 +39,8 @@ public class Main {
 
         p1.setAgility(30);
         p1.setHealth(50);
-        p1.setStrength(10);
-        p1.setIntelligence(50);
+        p1.setStrength(0);
+        p1.setIntelligence(0);
         p1.setBaseDamage(10);
         p1.setExp(0);
         p1.setLevel(1);
@@ -53,17 +53,17 @@ public class Main {
 
         m1.setAlive(true);
         m1.setAgility(50);
-        m1.setHealth(300);
+        m1.setHealth(50);
         m1.setDamage(6);
         m1.setExpYield(100);
         m1.setName("Monster 1");
-        m1.setStamina(3);
+        m1.setStamina(4);
 
         Monster m2 = new Monster();
 
         m2.setAlive(true);
         m2.setAgility(100);
-        m2.setHealth(1);
+        m2.setHealth(20);
         m2.setDamage(50);
         m2.setExpYield(120);
         m2.setName("Quick Strike");
@@ -73,8 +73,8 @@ public class Main {
 
         m3.setAlive(true);
         m3.setAgility(110);
-        m3.setHealth(1);
-        m3.setDamage(35);
+        m3.setHealth(10);
+        m3.setDamage(3);
         m3.setExpYield(200);
         m3.setCoward(true);
         m3.setName("Coward");
@@ -255,7 +255,7 @@ public class Main {
 
             switch (sc.nextLine()) {
                 case "1" -> p1.turnOrder(p1, m1);                               //p1.fight(p1, m1);
-                case "2" -> p1.defend(m1, p1);                                         //System.out.println("Defend");
+                case "2" -> {p1.setDefend(true); p1.defend(m1,p1);   }   //p1.defend(m1, p1);                                         //System.out.println("Defend");
                 case "3" -> p1.fleeing(p1,m1);      //p1.flee(p1,m1);
                 /*{ if (p1.getAgility() > m1.getAgility()) {
                     flee = true;

@@ -169,6 +169,13 @@ public class Player implements ICombat {
         this.baseDamage = baseDamage;
     }
 
+    public boolean getDefend () {
+        return defend;
+    }
+    public void setDefend (boolean defend) {
+        this.defend = defend;;
+    }
+
 
 
 
@@ -319,11 +326,16 @@ public class Player implements ICombat {
             //p1.fightSecond (m1, p1);
             //monsterAttacks(m1,p1);
 
-            if (m1.getCoward() && m1.getStamina() > 0) {
+            if (/*m1.getCoward() && */ m1.getStamina() > 0) {
+                //System.out.println("if ");
                 m1.attacks(m1,p1);
+                if (!m1.getCoward()) {
+                    attacks(m1,p1);
+                }
 
 
             } else {
+                System.out.println("else ");
                 m1.attacks(m1,p1);
                 attacks(m1,p1);
             }
@@ -336,9 +348,9 @@ public class Player implements ICombat {
 
     }
 
-
+    private boolean defend;
     public void defend (Monster m1, Player p1) {
-        boolean defend = true;
+
         int x;
 
         while (defend) {
@@ -373,7 +385,7 @@ public class Player implements ICombat {
 
 
         if (p1.getIntelligence() >= random.nextInt(0,99)) {
-            System.out.println("critical damage");
+            System.out.println("Critical damage");
             p1.setBaseDamage(getBaseDamage() *2);
         }
 

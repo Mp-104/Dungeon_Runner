@@ -116,9 +116,12 @@ public class Monster implements ICombat {
     }
 
 
+
+
     int x;
     @Override
     public void attacks(Monster m1, Player p1) {
+
 
 
         System.out.println("x: " + x);
@@ -126,18 +129,26 @@ public class Monster implements ICombat {
 
 
         if (m1.getHealth() > 0 && stamina > 0) {
+            outmatched(p1,m1);
 
             if (m1.getDamage() >= p1.getHealth() && coward) {
                 System.out.println(name + " sees an opportunity");
                 coward = false;
+            } else {
+                //outmatched(p1,m1);
             }
+
+
+            /*if (m1.getHealth() <= p1.getBaseDamage() && !coward) {
+                System.out.println(name + " is outmatched");
+                coward = true;
+            } */
 
             if (stamina == 1) {
                 System.out.println(name + " is getting tired, it seems in m1.attacks");
             }
 
-            if (coward) {
-
+            if (coward && !p1.getDefend()) {
 
                 fleeing (p1,m1);
             }else {
@@ -179,8 +190,23 @@ public class Monster implements ICombat {
         System.out.println(name + " has to recover");
         stamina += x;
         x = 0;
+        setHealth(getHealth() + 10);
+        System.out.println(name + " recovered 10 health");
     }
 
+    public void outmatched (Player p1, Monster m1) {
+
+
+
+        if (m1.getHealth() > p1.getBaseDamage() ) {
+            System.out.println(name + "  not coward");
+            coward = false;
+        } else {
+            coward = true;
+            System.out.println("is coward");
+        }
+
+    }
 
 
     @Override
