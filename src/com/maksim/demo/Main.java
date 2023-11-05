@@ -40,7 +40,7 @@ public class Main {
         p1.setAgility(30);
         p1.setHealth(50);
         p1.setStrength(10);
-        p1.setIntelligence(10);
+        p1.setIntelligence(50);
         p1.setBaseDamage(10);
         p1.setExp(0);
         p1.setLevel(1);
@@ -53,7 +53,7 @@ public class Main {
 
         m1.setAlive(true);
         m1.setAgility(50);
-        m1.setHealth(30);
+        m1.setHealth(300);
         m1.setDamage(6);
         m1.setExpYield(100);
         m1.setName("Monster 1");

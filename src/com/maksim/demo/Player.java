@@ -1,5 +1,6 @@
 package com.maksim.demo;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Player implements ICombat {
@@ -367,10 +368,25 @@ public class Player implements ICombat {
         scanner.nextLine();
     } */
 
+    public void crit (Player p1) {
+        Random random = new Random();
+
+
+        if (p1.getIntelligence() >= random.nextInt(0,99)) {
+            System.out.println("critical damage");
+            p1.setBaseDamage(getBaseDamage() *2);
+        }
+
+
+    }
+
     @Override
     public void attacks(Monster m1, Player p1) {
+        int x = getBaseDamage();
+
         if (p1.getHealth() > 0) {
 
+            crit(p1);
 
             if (axe == true) {
                 m1.setHealth(m1.getHealth() - ( (p1.getBaseDamage() +p1.getStrength())  *2)  );
@@ -379,6 +395,8 @@ public class Player implements ICombat {
                 m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
                 System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
             }
+
+            setBaseDamage(x);
 
             System.out.println("Remaining monster health: " + m1.getHealth());
 

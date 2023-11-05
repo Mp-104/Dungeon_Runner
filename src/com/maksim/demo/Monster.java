@@ -127,7 +127,7 @@ public class Monster implements ICombat {
 
         if (m1.getHealth() > 0 && stamina > 0) {
 
-            if (m1.getDamage() >= p1.getHealth()) {
+            if (m1.getDamage() >= p1.getHealth() && coward) {
                 System.out.println(name + " sees an opportunity");
                 coward = false;
             }
@@ -137,6 +137,8 @@ public class Monster implements ICombat {
             }
 
             if (coward) {
+
+
                 fleeing (p1,m1);
             }else {
 
