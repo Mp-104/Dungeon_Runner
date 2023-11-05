@@ -37,7 +37,7 @@ public class Main {
         System.out.println();
         System.out.println("---Debugging---");
 
-        p1.setAgility(100);
+        p1.setAgility(200);
         p1.setHealth(100);
         p1.setStrength(10);
         p1.setIntelligence(10);
@@ -55,6 +55,7 @@ public class Main {
         m1.setDamage(6);
         m1.setExpYield(100);
         m1.setName("Monster 1");
+        m1.setStamina(3);
 
         Monster m2 = new Monster();
         m2.setAgility(100);
@@ -62,6 +63,7 @@ public class Main {
         m2.setDamage(50);
         m2.setExpYield(120);
         m2.setName("Quick Strike");
+        m2.setStamina(2);
 
         Monster m3 = new Monster();
         m3.setAgility(110);
@@ -70,6 +72,7 @@ public class Main {
         m3.setExpYield(20);
         m3.setCoward(true);
         m3.setName("Coward");
+        m3.setStamina(5);
 
 
         //List <Monster> monsterList = new ArrayList<>();
@@ -223,7 +226,7 @@ public class Main {
 
         do {
             p1.setFlee(false);
-            m1.flee1 = false;
+            m1.setFlee(false);
             System.out.println("");
             System.out.println("inside fightMenu");
             System.out.println("Battling against " + m1.getName());
@@ -266,7 +269,8 @@ public class Main {
                 playerAlive = false;
             }
 
-        } while (monsterAlive && playerAlive && !p1.getFlee() && !m1.flee1);
+        } while (monsterAlive && playerAlive && !p1.getFlee() && !m1.getFlee());
+
 
 
         if (!monsterAlive && playerAlive) {

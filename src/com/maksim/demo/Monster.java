@@ -20,6 +20,10 @@ public class Monster implements ICombat {
 
     private boolean coward;
 
+    private boolean flee;
+
+    private int stamina;
+
     @Override
     public String toString() {
         return "Monster{" +
@@ -40,11 +44,27 @@ public class Monster implements ICombat {
 
     }
 
+    public int getStamina () {
+        return stamina;
+    }
+
+    public void setStamina (int stamina) {
+        this.stamina = stamina;
+    }
+
     public boolean getCoward () {
         return coward;
     }
     public void setCoward (boolean coward) {
         this.coward = coward;
+    }
+
+    public boolean getFlee () {
+        return flee;
+    }
+
+    public void setFlee (boolean flee) {
+        this.flee = flee;
     }
 
     public int getExpYield () {
@@ -86,37 +106,50 @@ public class Monster implements ICombat {
         this.agility = agility;
     }
 
-    public void flee (Player p1) {
-        if (coward== true) {
-            System.out.println("monster tries to flee ");
-            if (agility > p1.getAgility()) {
-                System.out.println(getName() + "fled successfully");
-              // isFighting = false;
-            } else {
-                System.out.println("monster failed to run");
-            }
 
-        }
-
-    }
-
+    int x;
     @Override
     public void attacks(Monster m1, Player p1) {
 
 
+        System.out.println("x: " + x);
+        System.out.println(name+ "'s stamina in m1.attacks: " + stamina);
 
-        if (m1.getHealth() > 0) {
+
+        if (m1.getHealth() > 0 && stamina > 0) {
+            if (stamina == 1) {
+                System.out.println(name + " is getting tired, it seems in m1.attacks");
+            }
+
             if (coward) {
                 fleeing (p1,m1);
             }else {
 
+
                     System.out.println(m1.getName() + " attacks for " + m1.getDamage());
                     p1.setHealth(p1.getHealth() - m1.getDamage());
                     System.out.println("Remaining player health: " + p1.getHealth());
+                    stamina -= 1 ;
+                    x += 1;
+
+                System.out.println(x);
                 }
 
-            }else {
+            } else {
+
+
+            if (stamina == 0) {
+                exhausted();
+
+                /*System.out.println(name + " is exhausted");
+                System.out.println(name + " has to recover");
+                stamina += x;
+                x = 0;*/
+
+            } else {
                 System.out.println("Monster is dead");
+            }
+
             }
 
 
@@ -124,22 +157,55 @@ public class Monster implements ICombat {
 
     }
 
-    public boolean flee1;
+    public void exhausted () {
+        System.out.println(name + " is exhausted");
+        System.out.println(name + " has to recover");
+        stamina += x;
+        x = 0;
+    }
+
+
 
     @Override
     public void fleeing(Player p1, Monster m1) {
-        if (m1.coward) {
-            System.out.println("monster is a coward");
-            System.out.println("monster tries to run away");
-            if (m1.getAgility() >= p1.getAgility()) {
-                System.out.println("monster ran away successfully");
-                flee1 = true;
+            //System.out.println(name + "'s stamina in fleeing: " + stamina);
+            /*if (stamina == 1) {
+                System.out.println(name + " is getting tired, it seems in fleeing");
+            } */
+
+            if (stamina > 0) {
+                if (m1.coward) {
+                    System.out.println("monster is a coward (in fleeing)");
+                    System.out.println("monster tries to run away (in fleeing)");
+                    if (m1.getAgility() >= p1.getAgility()) {
+                        System.out.println("monster ran away successfully (in fleeing)");
+                        stamina -=1;
+                        x += 1;
+                        flee = true;
+
+                    } else {
+                        System.out.println("monster is too slow and failed to run away");
+                        stamina -=1;
+                        x +=1;
+                        /*exhausted();   // not working
+                        p1.attacks(m1, p1);  // not working
+                        System.out.println("is this working??");  // not working*/
+                        flee = false;
+
+
+
+                        //p1.attacks(m1,p1);
+                    }
+                }
+
             } else {
-                System.out.println("monster failed to run away");
-                flee1 = false;
+                    System.out.println("monster is too tired to run away");
+                    exhausted();
+                    flee = false;
                 //p1.attacks(m1,p1);
+
             }
-        }
 
     }
+
 }

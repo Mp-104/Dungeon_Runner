@@ -292,6 +292,8 @@ public class Player implements ICombat {
                 } else {
                     m1.attacks(m1,p1);
                 }
+            } else {
+                System.out.println("monster is dead inside Player turnOrder");
             }
 
            /* if (m1.getCoward()) {
@@ -308,8 +310,10 @@ public class Player implements ICombat {
             //p1.fightSecond (m1, p1);
             //monsterAttacks(m1,p1);
 
-            if (m1.getCoward()) {
+            if (m1.getCoward() && m1.getStamina() > 0) {
                 m1.fleeing(p1,m1);
+
+
             } else {
                 m1.attacks(m1,p1);
                 attacks(m1,p1);
@@ -330,6 +334,7 @@ public class Player implements ICombat {
             System.out.println(p1.getName() + " defends, monster's damage is halved");
             x = m1.getDamage();
             m1.setDamage(m1.getDamage()/2);
+            System.out.println("m1.attacks(m1, p1); in defend");
             m1.attacks(m1, p1);
             m1.setDamage(x);
 
