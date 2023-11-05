@@ -37,19 +37,21 @@ public class Main {
         System.out.println();
         System.out.println("---Debugging---");
 
-        p1.setAgility(200);
-        p1.setHealth(100);
+        p1.setAgility(30);
+        p1.setHealth(50);
         p1.setStrength(10);
         p1.setIntelligence(10);
         p1.setBaseDamage(10);
         p1.setExp(0);
         p1.setLevel(1);
+        p1.setAlive(true);
 
 
 
 
         Monster m1 = new Monster();
 
+        m1.setAlive(true);
         m1.setAgility(50);
         m1.setHealth(30);
         m1.setDamage(6);
@@ -58,6 +60,8 @@ public class Main {
         m1.setStamina(3);
 
         Monster m2 = new Monster();
+
+        m2.setAlive(true);
         m2.setAgility(100);
         m2.setHealth(1);
         m2.setDamage(50);
@@ -66,10 +70,12 @@ public class Main {
         m2.setStamina(2);
 
         Monster m3 = new Monster();
+
+        m3.setAlive(true);
         m3.setAgility(110);
         m3.setHealth(1);
-        m3.setDamage(5);
-        m3.setExpYield(20);
+        m3.setDamage(35);
+        m3.setExpYield(200);
         m3.setCoward(true);
         m3.setName("Coward");
         m3.setStamina(5);
@@ -179,11 +185,12 @@ public class Main {
         monsterList2.add(m1);
         boolean isPlaying = true;
 
-        //boolean isPlaying = true;
-        do {
+        if (m1.getAlive()){
 
-            System.out.println("inside gameMenu");
-            System.out.println("""
+            do {
+
+                System.out.println("inside gameMenu");
+                System.out.println("""
                 
                 1. Fight
                 2. Status
@@ -193,38 +200,46 @@ public class Main {
                 
                 """);
 
-            switch (sc.nextLine()) {
-                case "1" -> fightMenu(p1,m1);
-                case "2" -> p1.getStatus();
-                case "3" -> {
-                    for (int i = 0; i < monsterList2.size(); i++) {
-                        System.out.println(monsterList2.get(i));
+                switch (sc.nextLine()) {
+                    case "1" -> fightMenu(p1,m1);
+                    case "2" -> p1.getStatus();
+                    case "3" -> {
+                        for (int i = 0; i < monsterList2.size(); i++) {
+                            System.out.println(monsterList2.get(i));
+                        }
                     }
-                }
-                case "4" -> System.out.println(monsterList2);
-                case "5" -> isPlaying= false;        //System.exit(0);
+                    case "4" -> System.out.println(monsterList2);
+                    case "5" -> isPlaying= false;        //System.exit(0);
 
-                default -> System.out.println("try again!");
+                    default -> System.out.println("try again!");
+                }
+                //System.out.println("monsterList.get(0): " );
+                if (m1.getHealth() <= 0) {
+                    monsterList.remove(m1);
+                    isPlaying=false;
+                }
             }
-            //System.out.println("monsterList.get(0): " );
-            if (m1.getHealth() <= 0) {
-                monsterList.remove(m1);
-                isPlaying=false;
-            }
+
+            while ( /*m1.getHealth() > 0 || */isPlaying);
+
+
+        } else {
+
+            System.out.println(m1.getName() + " is dead");
+            sc.nextLine();
         }
 
-        while ( /*m1.getHealth() > 0 || */isPlaying);
+
 
 
     }
 
     public static void fightMenu (Player p1, Monster m1) {
-        boolean monsterAlive = true;
         boolean playerAlive = true;
 
 
-
         do {
+
             p1.setFlee(false);
             m1.setFlee(false);
             System.out.println("");
@@ -259,21 +274,25 @@ public class Main {
             }
 
             if (m1.getHealth() <= 0) {
-                monsterAlive = false;
+                //monsterAlive = false;
+                m1.setAlive(false);
                 System.out.println("you defeated " + m1.getName());
                 System.out.println("");
                 sc.nextLine();
             }
 
             if (p1.getHealth() <= 0) {
-                playerAlive = false;
+                //playerAlive = false;
+                p1.setAlive(false);
             }
 
-        } while (monsterAlive && playerAlive && !p1.getFlee() && !m1.getFlee());
+
+
+        } while (m1.getAlive() && p1.getAlive() && !p1.getFlee() && !m1.getFlee());
 
 
 
-        if (!monsterAlive && playerAlive) {
+        if (!m1.getAlive() && p1.getAlive()) {
             System.out.println("you won");
             System.out.println("You earned " + m1.getExpYield() + " experience!");
             //p1.setExp(p1.getExp() + m1.getExpYield());
@@ -283,7 +302,7 @@ public class Main {
             sc.nextLine();
         }
 
-        if (!playerAlive){
+        if (!p1.getAlive()){
             System.out.println("you lost");
             System.out.println("Game over");
             System.exit(0);

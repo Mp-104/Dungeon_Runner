@@ -22,6 +22,8 @@ public class Monster implements ICombat {
 
     private boolean flee;
 
+    private boolean alive;
+
     private int stamina;
 
     @Override
@@ -42,6 +44,13 @@ public class Monster implements ICombat {
         System.out.println("Damage: " + damage);
         System.out.println("Agility: " + agility);
 
+    }
+    public boolean getAlive () {
+        return alive;
+    }
+
+    public void setAlive (boolean alive) {
+        this.alive = alive;
     }
 
     public int getStamina () {
@@ -117,6 +126,12 @@ public class Monster implements ICombat {
 
 
         if (m1.getHealth() > 0 && stamina > 0) {
+
+            if (m1.getDamage() >= p1.getHealth()) {
+                System.out.println(name + " sees an opportunity");
+                coward = false;
+            }
+
             if (stamina == 1) {
                 System.out.println(name + " is getting tired, it seems in m1.attacks");
             }
@@ -173,7 +188,7 @@ public class Monster implements ICombat {
                 System.out.println(name + " is getting tired, it seems in fleeing");
             } */
 
-            if (stamina > 0) {
+            if (stamina > 0) {   // stamina should probably not be a factor in fleeing...
                 if (m1.coward) {
                     System.out.println("monster is a coward (in fleeing)");
                     System.out.println("monster tries to run away (in fleeing)");

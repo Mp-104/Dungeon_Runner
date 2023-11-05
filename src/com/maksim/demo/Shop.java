@@ -2,11 +2,15 @@ package com.maksim.demo;
 
 public class Shop {
 
-    // TODO - implement axe
+    // TODO - implement items
 
-    void spendCurrency () {
+    void spendCurrency (Player p1) {
+
 
     }
+
+
+
 
 
     void items () {

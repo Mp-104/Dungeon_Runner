@@ -15,6 +15,8 @@ public class Player implements ICombat {
     private int exp;
     private int level;
     private int baseDamage;
+    private boolean flee;
+    private boolean alive;
 
     public Player(int strength, int intelligence, int agility, int health, int level, int baseDamage) {
         this.strength = strength;
@@ -25,7 +27,7 @@ public class Player implements ICombat {
         this.baseDamage = baseDamage;
     }
 
-    private boolean flee;
+
 
     /*public void tryFlee(Player p1, Monster m1) {
 
@@ -42,7 +44,6 @@ public class Player implements ICombat {
             m1.attacks(m1,p1);
         }
     }
-
 
 
     public void takeDamage (int damage) {   // kan finnas i ICombat interface eftersom både player och monster påverkas
@@ -87,6 +88,13 @@ public class Player implements ICombat {
     }
     public void setAxe (boolean axe) {
         this.axe = axe;
+    }
+
+    public boolean getAlive () {
+        return alive;
+    }
+    public void setAlive (boolean alive) {
+        this.alive = alive;
     }
 
     public boolean getFlee () {
@@ -311,13 +319,15 @@ public class Player implements ICombat {
             //monsterAttacks(m1,p1);
 
             if (m1.getCoward() && m1.getStamina() > 0) {
-                m1.fleeing(p1,m1);
+                m1.attacks(m1,p1);
 
 
             } else {
                 m1.attacks(m1,p1);
                 attacks(m1,p1);
             }
+            //m1.attacks(m1,p1);
+            //attacks(m1,p1);
 
 
 
