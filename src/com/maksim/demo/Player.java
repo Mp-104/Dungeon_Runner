@@ -7,10 +7,11 @@ public class Player implements ICombat {
 
     Scanner scanner = new Scanner(System.in);
 
-    private boolean axe;  // Implement in Shop class
+    private boolean sword;  // Implement in Shop class
+    private boolean shield; // Implement in Shop class
     private String name;
     private int strength;
-    private int intelligence;  // Intelligence influences crit damage (double oridinary damage)
+    private int intelligence;  // Intelligence influences crit damage (double ordinary damage)
     private int agility;
     private int health;
     private int exp;
@@ -84,11 +85,18 @@ public class Player implements ICombat {
 
     }
 
-    public boolean getAxe () {
-        return axe;
+    public boolean getShield () {
+        return shield;
     }
-    public void setAxe (boolean axe) {
-        this.axe = axe;
+    public void setShield (boolean shield) {
+        this.shield = shield;
+    }
+
+    public boolean getSword() {
+        return sword;
+    }
+    public void setSword (boolean sword) {
+        this.sword = sword;
     }
 
     public boolean getAlive () {
@@ -296,6 +304,12 @@ public class Player implements ICombat {
 
 
     public void turnOrder (Player p1, Monster m1) {
+        int x = m1.getDamage();
+
+        if (sword && shield) {
+            m1.setDamage( m1.getDamage()/2 );
+            System.out.println(name + " has sword and shield, damage halved");
+        }
 
         if (p1.getAgility() > m1.getAgility()) {
             System.out.println(p1.getName() + " is faster than " + m1.getName());
@@ -335,7 +349,7 @@ public class Player implements ICombat {
 
 
             } else {
-                System.out.println("else ");
+                System.out.println("else in turnOrder");
                 m1.attacks(m1,p1);
                 attacks(m1,p1);
             }
@@ -345,6 +359,15 @@ public class Player implements ICombat {
 
 
         }
+        m1.setDamage(x);
+
+    }
+
+    public void counterAttack (Player p1, Monster m1) {
+        m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
+        System.out.println(p1.getName() + " has sword and shield, counterattacks for " + (p1.getBaseDamage() + p1.getStrength())  );
+        System.out.println("Remaining health of enemy: " +m1.getName() + " is " + m1.getHealth());
+        scanner.nextLine();
 
     }
 
@@ -356,9 +379,26 @@ public class Player implements ICombat {
         while (defend) {
             System.out.println(p1.getName() + " defends, monster's damage is halved");
             x = m1.getDamage();
-            m1.setDamage(m1.getDamage()/2);
+
+            if (shield) {
+                m1.setDamage( m1.getDamage()/4 );
+                System.out.println(name + " defends with shield, damage halved further");
+            } else {
+                m1.setDamage( m1.getDamage()/2 );
+                System.out.println(name + " has no shield");
+            }
+
             System.out.println("m1.attacks(m1, p1); in defend");
             m1.attacks(m1, p1);
+            if (health > 0) {
+                if (sword && shield) {
+                    counterAttack (p1,m1);
+                }
+            } else {
+                alive = false;
+            }
+
+
             m1.setDamage(x);
 
             defend = false;
@@ -400,7 +440,7 @@ public class Player implements ICombat {
 
             crit(p1);
 
-            if (axe == true) {
+            if (sword) {
                 m1.setHealth(m1.getHealth() - ( (p1.getBaseDamage() +p1.getStrength())  *2)  );
                 System.out.println(p1.getName() + " attacks for " + ( (p1.getBaseDamage() +p1.getStrength())  *2) );
             } else {
@@ -408,13 +448,15 @@ public class Player implements ICombat {
                 System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
             }
 
-            setBaseDamage(x);
 
-            System.out.println("Remaining monster health: " + m1.getHealth());
+
+            setBaseDamage(x);  // ties to crit(p1);
+
+            System.out.println("Remaining health of: " +m1.getName() + " is " + m1.getHealth());
 
         } else {
-            System.out.println("You are dead");
-            System.out.println("game over");
+            System.out.println("You are dead in Player attacks");
+            System.out.println("game over in Player attacks");
             System.exit(0);
         }
         scanner.nextLine();

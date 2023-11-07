@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /* TODO
-    implement intelligence ( crit damage modifier) G
+    implement intelligence ( crit damage modifier) G - Gjort !
     Shop VG
-    Weapons? VG
+    Weapons? VG - Delvis, testat
     Colours  VG
     Tests -> enhanced Tests
 * */
@@ -37,14 +37,16 @@ public class Main {
         System.out.println();
         System.out.println("---Debugging---");
 
-        p1.setAgility(30);
-        p1.setHealth(50);
-        p1.setStrength(0);
-        p1.setIntelligence(0);
+        p1.setAgility(100);
+        p1.setHealth(1000);
+        p1.setStrength(100);
+        p1.setIntelligence(00);
         p1.setBaseDamage(10);
         p1.setExp(0);
         p1.setLevel(1);
         p1.setAlive(true);
+        p1.setSword(true);
+        p1.setShield(true);
 
 
 
@@ -52,30 +54,30 @@ public class Main {
         Monster m1 = new Monster();
 
         m1.setAlive(true);
-        m1.setAgility(50);
-        m1.setHealth(50);
+        m1.setAgility(30);
+        m1.setHealth(20);
         m1.setDamage(6);
         m1.setExpYield(100);
         m1.setName("Monster 1");
-        m1.setStamina(4);
+        m1.setStamina(2);
 
         Monster m2 = new Monster();
 
         m2.setAlive(true);
         m2.setAgility(100);
-        m2.setHealth(20);
-        m2.setDamage(50);
+        m2.setHealth(1000);
+        m2.setDamage(500);
         m2.setExpYield(120);
         m2.setName("Quick Strike");
-        m2.setStamina(2);
+        m2.setStamina(3);
 
         Monster m3 = new Monster();
 
         m3.setAlive(true);
-        m3.setAgility(110);
+        m3.setAgility(45);
         m3.setHealth(10);
         m3.setDamage(3);
-        m3.setExpYield(200);
+        m3.setExpYield(190);
         m3.setCoward(true);
         m3.setName("Coward");
         m3.setStamina(5);
