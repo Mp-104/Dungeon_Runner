@@ -21,6 +21,7 @@ public class Main {
     public static void main(String[] args) {
 
         //String playerName;
+        Shop shop = new Shop();
 
         Player p1 = new Player(0,
                                 0,
@@ -45,8 +46,8 @@ public class Main {
         p1.setExp(0);
         p1.setLevel(1);
         p1.setAlive(true);
-        p1.setSword(true);
-        p1.setShield(true);
+        //p1.setSword(true);
+        //p1.setShield(true);
 
 
 
@@ -65,7 +66,7 @@ public class Main {
 
         m2.setAlive(true);
         m2.setAgility(100);
-        m2.setHealth(1000);
+        m2.setHealth(100);
         m2.setDamage(500);
         m2.setExpYield(120);
         m2.setName("Quick Strike");
@@ -128,11 +129,11 @@ public class Main {
 
 
 
-        System.out.println("0. Debugging experience");
+        System.out.println("9. Debugging experience");
 
 
         do {
-            System.out.println("Choose which monster to fight");
+            System.out.println("Choose which monster to fight, 0 for shop");
             System.out.println("1: " + m1.getName());
             System.out.println("2: " + m2.getName());
             System.out.println("3: " + m3.getName());
@@ -154,8 +155,9 @@ public class Main {
                     //monsterList.remove(m2);
                 }
                 case "3" -> gameMenu(p1, m3);
+                case "0" -> shop.menu(p1);
 
-                case "0" -> p1.calculateExpToLvl(125);                       //p1.debugReceiveExperience(125,p1);
+                case "9" -> p1.calculateExpToLvl(125);                       //p1.debugReceiveExperience(125,p1);
 
 
             }
@@ -297,9 +299,9 @@ public class Main {
         if (!m1.getAlive() && p1.getAlive()) {
             System.out.println("you won");
             System.out.println("You earned " + m1.getExpYield() + " experience!");
-            //p1.setExp(p1.getExp() + m1.getExpYield());
-            p1.calculateExpToLvl(m1.getExpYield());
-            p1.growth(p1);
+            p1.setExp(p1.getExp() + m1.getExpYield());
+            //p1.calculateExpToLvl(m1.getExpYield());
+            //p1.growth(p1);
             System.out.println("");
             sc.nextLine();
         }

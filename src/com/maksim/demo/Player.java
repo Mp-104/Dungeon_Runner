@@ -57,7 +57,7 @@ public class Player implements ICombat {
             //System.out.println(i);
             setExp(getExp() + 1);
 
-            if (getExp() == 100) {
+            if (getExp() == (100 + (getLevel()^2) -1  ) ) {
                 setLevel(getLevel() + 1);
                 setExp(0);
             }
@@ -499,7 +499,7 @@ public class Player implements ICombat {
 
     public void growth (Player p1) {
 
-        switch (p1.getLevel()) {
+        switch (p1.getLevel() ) {
             case 2 -> {
                 p1.setStrength(p1.getStrength() + 10);
                 p1.setIntelligence(p1.getIntelligence() + 10);
