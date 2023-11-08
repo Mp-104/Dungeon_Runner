@@ -58,7 +58,7 @@ public class Main {
         m1.setAgility(30);
         m1.setHealth(20);
         m1.setDamage(6);
-        m1.setExpYield(100);
+        m1.setExpYield(10000);
         m1.setName("Monster 1");
         m1.setStamina(2);
 

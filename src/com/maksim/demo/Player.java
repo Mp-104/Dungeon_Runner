@@ -499,23 +499,17 @@ public class Player implements ICombat {
 
     public void growth (Player p1) {
 
-        switch (p1.getLevel() ) {
-            case 2 -> {
+        p1.setStrength(p1.getStrength() + 10);
+        p1.setIntelligence(p1.getIntelligence() + 10);
+        p1.setAgility(p1.getAgility() + 10);
+
+       /* switch (p1.getLevel() ) {
+            case 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 -> {
                 p1.setStrength(p1.getStrength() + 10);
                 p1.setIntelligence(p1.getIntelligence() + 10);
                 p1.setAgility(p1.getAgility() + 10);
             }
-            case 3 -> {
-                p1.setStrength(p1.getStrength() + 10);
-                p1.setIntelligence(p1.getIntelligence() + 10);
-                p1.setAgility(p1.getAgility() + 10);
-            }
-            case 4 -> {
-                p1.setStrength(p1.getStrength() + 10);
-                p1.setIntelligence(p1.getIntelligence() + 10);
-                p1.setAgility(p1.getAgility() + 10);
-            }
-        }
+        } */
 
 
     }
