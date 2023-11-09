@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class Shop {
 
     Scanner scanner = new Scanner(System.in);
+    Weapon weapon = new Weapon();
 
-    void menu (Player p1) {
+    void menu (Player p1, Monster m1) {
         boolean inShop = true;
 
         do {
@@ -27,7 +28,7 @@ public class Shop {
                 case "1" -> buyCola(p1);
                 case "2" -> buyBurger(p1);
                 case "3" -> buySword(p1);
-                case "4" -> buyShield(p1);
+                case "4" -> buyShield(p1,m1);
                 case "5" ->buyLevel(p1);
                 case "0" -> inShop = false;
                 default -> System.out.println("try again");
@@ -154,9 +155,11 @@ public class Shop {
                 switch (scanner.nextLine()) {
                     case "1" -> {
                         if (p1.getExp() >= 20) {
-                            p1.setSword(true);
+                            //p1.setSword(true);
                             p1.setExp(p1.getExp()- 20 );
                             System.out.println("you bought a sword!");
+
+                            weapon.sword(p1);
                             pondering = false;
 
                         } else {
@@ -182,7 +185,7 @@ public class Shop {
 
     }
 
-    void buyShield(Player p1) {
+    void buyShield(Player p1, Monster m1) {
         boolean pondering = true;
 
         if (!p1.getShield()) {
@@ -194,9 +197,10 @@ public class Shop {
                 switch (scanner.nextLine()) {
                     case "1" -> {
                         if (p1.getExp() >= 10) {
-                            p1.setShield(true);
+                            //p1.setShield(true);
                             p1.setExp(p1.getExp()- 10 );
                             System.out.println("you bought a shield!");
+                            weapon.shield(m1,p1);
                             pondering = false;
 
                         } else {

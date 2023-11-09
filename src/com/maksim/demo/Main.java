@@ -43,9 +43,10 @@ public class Main {
         p1.setStrength(100);
         p1.setIntelligence(00);
         p1.setBaseDamage(10);
-        p1.setExp(0);
+        p1.setExp(10000);
         p1.setLevel(1);
         p1.setAlive(true);
+        //p1.setDefence(21);
         //p1.setSword(true);
         //p1.setShield(true);
 
@@ -155,7 +156,7 @@ public class Main {
                     //monsterList.remove(m2);
                 }
                 case "3" -> gameMenu(p1, m3);
-                case "0" -> shop.menu(p1);
+                case "0" -> shop.menu(p1,m1);
 
                 case "9" -> p1.calculateExpToLvl(125);                       //p1.debugReceiveExperience(125,p1);
 

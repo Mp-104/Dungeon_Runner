@@ -16,6 +16,7 @@ public class Player implements ICombat {
     private int health;
     private int exp;
     private int level;
+    private int defence;  // Consider removing
     private int baseDamage;
     private boolean flee;
     private boolean alive;
@@ -82,7 +83,7 @@ public class Player implements ICombat {
         System.out.printf("health: %d %n" , health);
         System.out.printf("Exp: %d %n" , exp);
         System.out.printf("level: %s %n" , level);
-
+        System.out.printf("Defence: %d %n" , defence);
     }
 
     public boolean getShield () {
@@ -119,6 +120,13 @@ public class Player implements ICombat {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getDefence () {
+        return defence;
+    }
+    public void setDefence (int defence) {
+        this.defence = defence;
     }
 
     public int getStrength() {
@@ -435,6 +443,9 @@ public class Player implements ICombat {
     @Override
     public void attacks(Monster m1, Player p1) {
         int x = getBaseDamage();
+        //Weapon weapon = new Weapon();
+        //weapon.sword(p1);
+
 
         if (p1.getHealth() > 0) {
 
@@ -444,7 +455,7 @@ public class Player implements ICombat {
                 m1.setHealth(m1.getHealth() - ( (p1.getBaseDamage() +p1.getStrength())  *2)  );
                 System.out.println(p1.getName() + " attacks for " + ( (p1.getBaseDamage() +p1.getStrength())  *2) );
             } else {
-                m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
+                m1.setHealth(m1.getHealth() - (p1.getBaseDamage() + p1.getStrength()) );
                 System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
             }
 

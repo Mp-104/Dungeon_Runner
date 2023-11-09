@@ -156,6 +156,9 @@ public class Monster implements ICombat {
 
                     System.out.println(m1.getName() + " attacks for " + m1.getDamage());
                     p1.setHealth(p1.getHealth() - m1.getDamage());
+                    //p1.setHealth((int) (p1.getHealth() - (m1.getDamage() / (p1.getDefence() * 0.1) )));
+                    System.out.println("damage calc" + (m1.getDamage() / (p1.getDefence() * 0.1)  )    );
+
                     System.out.println("Remaining player health: " + p1.getHealth());
                     stamina -= 1 ;
                     x += 1;
