@@ -28,7 +28,7 @@ public class Shop {
                 case "1" -> buyCola(p1);
                 case "2" -> buyBurger(p1);
                 case "3" -> buySword(p1);
-                case "4" -> buyShield(p1,m1);
+                case "4" -> buyShield(p1);
                 case "5" ->buyLevel(p1);
                 case "0" -> inShop = false;
                 default -> System.out.println("try again");
@@ -185,7 +185,7 @@ public class Shop {
 
     }
 
-    void buyShield(Player p1, Monster m1) {
+    void buyShield(Player p1) {
         boolean pondering = true;
 
         if (!p1.getShield()) {
@@ -200,7 +200,7 @@ public class Shop {
                             //p1.setShield(true);
                             p1.setExp(p1.getExp()- 10 );
                             System.out.println("you bought a shield!");
-                            weapon.shield(m1,p1);
+                            weapon.shield(p1);
                             pondering = false;
 
                         } else {

@@ -12,7 +12,7 @@ public class Weapon {
 
     }
 
-    void shield (Monster m1, Player p1) {
+    void shield (Player p1) {
         p1.setShield(true);
 
         System.out.println(p1.getName() + " has shield");
