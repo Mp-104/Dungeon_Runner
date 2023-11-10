@@ -170,6 +170,9 @@ public class Main {
 
         System.out.println("You defeated game");
 
+        Result result = new Result();
+        result.myMethod(p1);
+
 
 
 
@@ -240,7 +243,6 @@ public class Main {
     }
 
     public static void fightMenu (Player p1, Monster m1) {
-        boolean playerAlive = true;
 
 
         do {
@@ -281,6 +283,7 @@ public class Main {
             if (m1.getHealth() <= 0) {
                 //monsterAlive = false;
                 m1.setAlive(false);
+                p1.setEnemiesDefeated(p1.getEnemiesDefeated() + 1);
                 System.out.println("you defeated " + m1.getName());
                 System.out.println("");
                 sc.nextLine();
@@ -310,7 +313,13 @@ public class Main {
         if (!p1.getAlive()){
             System.out.println("you lost");
             System.out.println("Game over");
+
+            Result result = new Result();
+            result.myMethod(p1);
+
             System.exit(0);
+
+
         }
 
     }

@@ -10,33 +10,70 @@ public class Shop {
     void menu (Player p1, Monster m1) {
         boolean inShop = true;
 
-        do {
-            System.out.println("""
+        if (!p1.getSword()) {
+
+            do {
+                System.out.println("""
                     Welcome to shop!\s
                     1: Cola - 5 exp
                     2: Burger - 10 exp
                     3: Sword - 20 exp
                     4: Shield - 10 exp""");
-            System.out.println("5: Level up - " + (100 + (p1.getLevel() * p1.getLevel() ) -1) + " exp");
-            System.out.println("");
-            System.out.println("0: Exit Shop");
-            System.out.println("Available currency (exp): " + p1.getExp());
+                System.out.println("5: Level up - " + (100 + (p1.getLevel() * p1.getLevel() ) -1) + " exp");
+                System.out.println("");
+                System.out.println("0: Exit Shop");
+                System.out.println("Available currency (exp): " + p1.getExp());
 
 
 
-            switch (scanner.nextLine()) {
-                case "1" -> buyCola(p1);
-                case "2" -> buyBurger(p1);
-                case "3" -> buySword(p1);
-                case "4" -> buyShield(p1);
-                case "5" ->buyLevel(p1);
-                case "0" -> inShop = false;
-                default -> System.out.println("try again");
+                switch (scanner.nextLine()) {
+                    case "1" -> buyCola(p1);
+                    case "2" -> buyBurger(p1);
+                    case "3" -> buySword(p1);
+                    case "4" -> buyShield(p1);
+                    case "5" -> buyLevel(p1);
+                    case "0" -> inShop = false;
+                    default -> System.out.println("try again");
 
-            }
+                }
 
-        } while (inShop);
+            } while (inShop);
 
+        } else {
+
+            do {
+                System.out.println("""
+                    Welcome to shop!\s
+                    1: Cola - 5 exp
+                    2: Burger - 10 exp
+                    3: Upgrade to laser sword - 200 exp
+                    4: Shield - 10 exp""");
+                System.out.println("5: Level up - " + (100 + (p1.getLevel() * p1.getLevel() ) -1) + " exp");
+                System.out.println("");
+                System.out.println("0: Exit Shop");
+                System.out.println("Available currency (exp): " + p1.getExp());
+
+
+
+                switch (scanner.nextLine()) {
+                    case "1" -> buyCola(p1);
+                    case "2" -> buyBurger(p1);
+                    case "3" -> buyLaserSword(p1); // create new method for upgrading to laser sword
+                    case "4" -> buyShield(p1);
+                    case "5" -> buyLevel(p1);
+                    case "0" -> inShop = false;
+                    default -> System.out.println("try again");
+
+                }
+
+            } while (inShop && p1.getSword());
+
+        }
+
+    }
+
+    void spendCurrency (Player p1, int cost) {
+        p1.setExp(p1.getExp()- cost );
 
     }
 
@@ -50,8 +87,8 @@ public class Shop {
         do {
             switch (scanner.nextLine()) {
                 case "1" -> {
-                    if (p1.getExp() > 100 + (p1.getLevel() * p1.getLevel()) - 1   ) {
-                        p1.setExp(p1.getExp() - (100 + (p1.getLevel() * p1.getLevel()) -1)  );
+                    if (p1.getExp() >= 100 + (p1.getLevel() * p1.getLevel()) - 1   ) {
+                        spendCurrency(p1, (100 + (p1.getLevel() * p1.getLevel()) -1));                //p1.setExp(p1.getExp() - (100 + (p1.getLevel() * p1.getLevel()) -1)  );
                         p1.setLevel(p1.getLevel() + 1);
                         System.out.println("You levelled up!");
                         p1.growth(p1);
@@ -84,7 +121,7 @@ public class Shop {
                 case "1" -> {
                     if (p1.getExp() >= 10) {
                         p1.setHealth(p1.getHealth() + 50 );  // TODO - Set max HP, or can recover health indefinitely
-                        p1.setExp(p1.getExp()- 10 );
+                        spendCurrency(p1,10);                                //p1.setExp(p1.getExp()- 10 );
                         System.out.println("you ate burger!");
                         System.out.println("recovered 50 health");
                         pondering = false;
@@ -119,7 +156,7 @@ public class Shop {
                 case "1" -> {
                     if (p1.getExp() >= 5) {
                         p1.setHealth(p1.getHealth() + 20 );  // TODO - Set max HP, or can recover health indefinitely
-                        p1.setExp(p1.getExp()- 5 );
+                        spendCurrency(p1,5);                //p1.setExp(p1.getExp()- 5 );
                         System.out.println("you drank cola!");
                         System.out.println("recovered 20 health");
                         pondering = false;
@@ -156,10 +193,52 @@ public class Shop {
                     case "1" -> {
                         if (p1.getExp() >= 20) {
                             //p1.setSword(true);
-                            p1.setExp(p1.getExp()- 20 );
+                            spendCurrency(p1,20);                                //p1.setExp(p1.getExp()- 20 );
                             System.out.println("you bought a sword!");
 
                             weapon.sword(p1);
+                            pondering = false;
+
+                        } else {
+                            System.out.println("not enough currency (exp)");
+                            pondering = false;
+                        }
+                    }
+
+                    case "2" -> {
+                        System.out.println("It's your funeral, hehe");
+                        pondering = false;
+                    }
+
+                }
+
+            } while (pondering);
+
+        } else {
+            System.out.println("You already have a sword");
+
+        }
+
+
+    }
+
+    void buyLaserSword(Player p1) {
+        boolean pondering = true;
+
+        if (p1.getSword()) {
+            System.out.println("Upgrade to laser sword?");
+            System.out.println("1: Yes!");
+            System.out.println("2: no.");
+
+            do {
+                switch (scanner.nextLine()) {
+                    case "1" -> {
+                        if (p1.getExp() >= 200) {
+                            //p1.setSword(true);
+                            spendCurrency(p1,200);              //p1.setExp(p1.getExp()- 200 );
+                            System.out.println("you upgraded to laser sword!");
+
+                            weapon.laserSword(p1);
                             pondering = false;
 
                         } else {
@@ -198,7 +277,7 @@ public class Shop {
                     case "1" -> {
                         if (p1.getExp() >= 10) {
                             //p1.setShield(true);
-                            p1.setExp(p1.getExp()- 10 );
+                            spendCurrency(p1,10);                        //p1.setExp(p1.getExp()- 10 );
                             System.out.println("you bought a shield!");
                             weapon.shield(p1);
                             pondering = false;

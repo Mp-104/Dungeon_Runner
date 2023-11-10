@@ -18,6 +18,7 @@ public class Player implements ICombat {
     private int level;
     private int defence;  // Consider removing
     private int baseDamage;
+    private int enemiesDefeated;
     private boolean flee;
     private boolean alive;
 
@@ -83,7 +84,7 @@ public class Player implements ICombat {
         System.out.printf("health: %d %n" , health);
         System.out.printf("Exp: %d %n" , exp);
         System.out.printf("level: %s %n" , level);
-        System.out.printf("Defence: %d %n" , defence);
+
     }
 
     public boolean getShield () {
@@ -122,11 +123,11 @@ public class Player implements ICombat {
         this.name = name;
     }
 
-    public int getDefence () {
-        return defence;
+    public int getEnemiesDefeated () {
+        return enemiesDefeated;
     }
-    public void setDefence (int defence) {
-        this.defence = defence;
+    public void setEnemiesDefeated (int enemiesDefeated) {
+        this.enemiesDefeated = enemiesDefeated;
     }
 
     public int getStrength() {
@@ -451,14 +452,15 @@ public class Player implements ICombat {
 
             crit(p1);
 
-            if (sword) {
+            /*if (sword) {
                 m1.setHealth(m1.getHealth() - ( (p1.getBaseDamage() +p1.getStrength())  *2)  );
                 System.out.println(p1.getName() + " attacks for " + ( (p1.getBaseDamage() +p1.getStrength())  *2) );
             } else {
                 m1.setHealth(m1.getHealth() - (p1.getBaseDamage() + p1.getStrength()) );
                 System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
-            }
-
+            } */
+            m1.setHealth(m1.getHealth() - (p1.getBaseDamage() + p1.getStrength()) );
+            System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
 
 
             setBaseDamage(x);  // ties to crit(p1);
@@ -468,6 +470,9 @@ public class Player implements ICombat {
         } else {
             System.out.println("You are dead in Player attacks");
             System.out.println("game over in Player attacks");
+            Result result = new Result();
+            result.myMethod(p1);
+
             System.exit(0);
         }
         scanner.nextLine();
@@ -510,9 +515,9 @@ public class Player implements ICombat {
 
     public void growth (Player p1) {
 
-        p1.setStrength(p1.getStrength() + 10);
-        p1.setIntelligence(p1.getIntelligence() + 10);
-        p1.setAgility(p1.getAgility() + 10);
+        p1.setStrength(p1.getStrength() + 2);
+        p1.setIntelligence(p1.getIntelligence() + 2);
+        p1.setAgility(p1.getAgility() + 2);
 
        /* switch (p1.getLevel() ) {
             case 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 -> {
