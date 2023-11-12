@@ -1,8 +1,8 @@
-Name: N
-Level: 1
-Enemies defeated: 3
+Name: Mlkhgoegnr 
+Level: 2
+Enemies defeated: 0
 Weapons obtained: 
+  Sword
 
 
-
-You won!
+You lost

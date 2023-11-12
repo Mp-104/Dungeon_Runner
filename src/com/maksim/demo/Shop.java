@@ -7,7 +7,7 @@ public class Shop {
     Scanner scanner = new Scanner(System.in);
     Weapon weapon = new Weapon();
 
-    void menu (Player p1, Monster m1) {
+    void menu (Player p1) {
         boolean inShop = true;
 
         if (!p1.getSword()) {
@@ -89,9 +89,9 @@ public class Shop {
                 case "1" -> {
                     if (p1.getExp() >= 100 + (p1.getLevel() * p1.getLevel()) - 1   ) {
                         spendCurrency(p1, (100 + (p1.getLevel() * p1.getLevel()) -1));                //p1.setExp(p1.getExp() - (100 + (p1.getLevel() * p1.getLevel()) -1)  );
-                        p1.setLevel(p1.getLevel() + 1);
+                        //p1.setLevel(p1.getLevel() + 1);
                         System.out.println("You levelled up!");
-                        p1.growth(p1);
+                        p1.growth();
                         pondering = false;
                     } else {
                         System.out.println("not enough exp");

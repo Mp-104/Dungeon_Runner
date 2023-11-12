@@ -225,13 +225,13 @@ public class Monster implements ICombat {
                     System.out.println("monster tries to run away (in fleeing)");
                     if (m1.getAgility() >= p1.getAgility()) {
                         System.out.println("monster ran away successfully (in fleeing)");
-                        stamina -=1;
+                        //stamina -=1;  // REMOVE ?
                         x += 1;
                         flee = true;
 
                     } else {
                         System.out.println("monster is too slow and failed to run away");
-                        stamina -=1;
+                        //stamina -=1;
                         x +=1;
                         /*exhausted();   // not working
                         p1.attacks(m1, p1);  // not working

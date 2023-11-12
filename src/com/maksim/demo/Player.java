@@ -2,9 +2,11 @@ package com.maksim.demo;
 
 import java.util.Random;
 import java.util.Scanner;
+import static com.maksim.demo.Colours.*;
 
 public class Player implements ICombat {
 
+    Game game = new Game();
     Scanner scanner = new Scanner(System.in);
 
     private boolean sword;  // Implement in Shop class
@@ -49,7 +51,7 @@ public class Player implements ICombat {
         }
     }
 
-
+    // TODO - Handle this ie remove!!!
     public void takeDamage (int damage) {   // kan finnas i ICombat interface eftersom både player och monster påverkas
         setHealth(getHealth() - damage);
     }
@@ -77,13 +79,13 @@ public class Player implements ICombat {
 
 
     public void getStatus () {
-        System.out.printf("Name: %s %n" , name);
-        System.out.printf("Strength: %d %n" , strength);
-        System.out.printf("Intelligence: %d %n" , intelligence);
-        System.out.printf("Agility: %d %n" , agility);
-        System.out.printf("health: %d %n" , health);
-        System.out.printf("Exp: %d %n" , exp);
-        System.out.printf("level: %s %n" , level);
+        System.out.printf(WHITE_BRIGHT +  "Name: %s %n" + RESET + RED, name );
+        System.out.printf("Strength: %d %n" + RESET + BLUE, strength );
+        System.out.printf("Intelligence: %d %n" + RESET + YELLOW , intelligence);
+        System.out.printf("Agility: %d %n" + RESET + GREEN, agility);
+        System.out.printf("Health: %d %n" + RESET + PURPLE, health);
+        System.out.printf("Exp: %d %n" + RESET + CYAN , exp);
+        System.out.printf("Level: %s %n" + RESET, level);
 
     }
 
@@ -373,7 +375,7 @@ public class Player implements ICombat {
     }
 
     public void counterAttack (Player p1, Monster m1) {
-        m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
+        m1.setHealth(m1.getHealth() - calculateDamage() );
         System.out.println(p1.getName() + " has sword and shield, counterattacks for " + (p1.getBaseDamage() + p1.getStrength())  );
         System.out.println("Remaining health of enemy: " +m1.getName() + " is " + m1.getHealth());
         scanner.nextLine();
@@ -429,13 +431,13 @@ public class Player implements ICombat {
         scanner.nextLine();
     } */
 
-    public void crit (Player p1) {
+    public void crit () {
         Random random = new Random();
 
 
-        if (p1.getIntelligence() >= random.nextInt(0,99)) {
+        if (getIntelligence() >= random.nextInt(0,99)) {
             System.out.println("Critical damage");
-            p1.setBaseDamage(getBaseDamage() *2);
+            setBaseDamage(getBaseDamage() *2);
         }
 
 
@@ -450,7 +452,7 @@ public class Player implements ICombat {
 
         if (p1.getHealth() > 0) {
 
-            crit(p1);
+            crit();
 
             /*if (sword) {
                 m1.setHealth(m1.getHealth() - ( (p1.getBaseDamage() +p1.getStrength())  *2)  );
@@ -459,9 +461,10 @@ public class Player implements ICombat {
                 m1.setHealth(m1.getHealth() - (p1.getBaseDamage() + p1.getStrength()) );
                 System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
             } */
-            m1.setHealth(m1.getHealth() - (p1.getBaseDamage() + p1.getStrength()) );
-            System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
-
+            //m1.setHealth(m1.getHealth() - (p1.getBaseDamage() + p1.getStrength()) );
+            m1.setHealth(m1.getHealth() - calculateDamage() );
+            //System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
+            System.out.println(p1.getName() + " attacks for " + calculateDamage() );
 
             setBaseDamage(x);  // ties to crit(p1);
 
@@ -470,15 +473,22 @@ public class Player implements ICombat {
         } else {
             System.out.println("You are dead in Player attacks");
             System.out.println("game over in Player attacks");
-            Result result = new Result();
+
+            game.gameOver(p1);
+
+            /*Result result = new Result();
             result.myMethod(p1);
 
-            System.exit(0);
+            System.exit(0); */
         }
         scanner.nextLine();
 
     }
 
+    public int calculateDamage () {
+
+        return getBaseDamage() + ( getStrength() );
+    }
 
 
 
@@ -513,11 +523,12 @@ public class Player implements ICombat {
 
     } */
 
-    public void growth (Player p1) {
+    public void growth () {
 
-        p1.setStrength(p1.getStrength() + 2);
-        p1.setIntelligence(p1.getIntelligence() + 2);
-        p1.setAgility(p1.getAgility() + 2);
+        setLevel(getLevel() + 1);
+        setStrength(getStrength() + 2);
+        setIntelligence(getIntelligence() + 2);
+        setAgility(getAgility() + 2);
 
        /* switch (p1.getLevel() ) {
             case 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 -> {
