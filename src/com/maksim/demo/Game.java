@@ -2,6 +2,7 @@ package com.maksim.demo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -74,6 +75,10 @@ public class Game {
         m3.setStamina(5);
 
 
+
+
+
+
         //List <Monster> monsterList = new ArrayList<>();
 
         monsterList.add(m1);
@@ -127,6 +132,7 @@ public class Game {
             System.out.println("1: " + m1.getName());
             System.out.println("2: " + m2.getName());
             System.out.println("3: " + m3.getName());
+            System.out.println("4: Random enemies");
             System.out.println("Remaining monsters:");
 
             for (int i = 0; i < monsterList.size(); i++) {
@@ -145,6 +151,7 @@ public class Game {
                     //monsterList.remove(m2);
                 }
                 case "3" -> gameMenu(p1, m3);
+                case "4" -> randomMonsterMenu(p1);
                 case "0" -> shop.menu(p1);
 
                 case "9" -> p1.calculateExpToLvl(125);                       //p1.debugReceiveExperience(125,p1);
@@ -161,6 +168,87 @@ public class Game {
 
         Result result = new Result();
         result.myMethod(p1);
+
+    }
+
+    public void randomMonsterMenu (Player p1) {
+        boolean inMenu = true;
+
+        do {
+            System.out.println("Inside randomMenu");
+            System.out.println("1: Fight a random enemy");
+            System.out.println("2: Exit menu");
+
+            switch (sc.nextLine()) {
+                case "1" -> randomGameMenu(p1);
+                case "2" -> inMenu = false;
+                default -> System.out.println("try again");
+            }
+
+        } while (inMenu);
+
+    }
+
+    public void randomGameMenu (Player p1) {
+
+        Random random = new Random();
+        Monster randomMonster = new Monster();
+
+        randomMonster.setAlive(true);
+        randomMonster.setAgility(random.nextInt(1,10));
+        randomMonster.setHealth(random.nextInt(1,10));
+        randomMonster.setDamage(random.nextInt(1,10));
+        randomMonster.setExpYield(random.nextInt(1,10));
+        randomMonster.setName("Random enemy #" + random.nextInt(1,999));
+        randomMonster.setStamina(random.nextInt(1,5));
+
+
+
+        List<Monster> monsterList2 = new ArrayList<>();
+        monsterList2.add(randomMonster);
+        boolean isPlaying = true;
+
+
+            do {
+
+                System.out.println("inside random gameMenu");
+                System.out.println("Fighting: " + randomMonster.getName());
+                System.out.println("""
+                
+                1. Fight
+                2. Status
+                3. Current monster
+                4. Current monster
+                5. Exit to random enemy menu
+                
+                """);
+
+                switch (sc.nextLine()) {
+                    case "1" -> fightMenu(p1,randomMonster);
+                    case "2" -> p1.getStatus();
+                    case "3" -> {
+                        for (int i = 0; i < monsterList2.size(); i++) {
+                            System.out.println(monsterList2.get(i));
+                        }
+                    }
+                    case "4" -> System.out.println(monsterList2);
+                    case "5" -> isPlaying= false;        //System.exit(0);
+
+                    default -> System.out.println("try again!");
+                }
+                //System.out.println("monsterList.get(0): " );
+                if (randomMonster.getHealth() <= 0) {
+                    monsterList.remove(randomMonster);
+                    isPlaying=false;
+                }
+            }
+
+            while ( /*m1.getHealth() > 0 || */isPlaying);
+
+
+
+            sc.nextLine();
+
 
     }
 
@@ -212,9 +300,6 @@ public class Game {
             System.out.println(m1.getName() + " is dead");
             sc.nextLine();
         }
-
-
-
 
     }
 

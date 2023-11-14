@@ -2,7 +2,9 @@ package com.maksim.test;
 
 import com.maksim.demo.Game;
 import com.maksim.demo.Player;
+import com.maksim.demo.Result;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -117,22 +119,45 @@ class PlayerTest {
         assertNotNull(player);
     }
 
-    @Test
+    @RepeatedTest(10)
     public void critDamage() {
-
-        player.setIntelligence(0);
-        player.crit();
-        assertEquals(5, player.getBaseDamage());
-
+        // Should always crit
         player.setIntelligence(100);
         player.crit();
 
         assertEquals(10, player.getBaseDamage());
 
+    }
+
+    @RepeatedTest(10)
+    public void noCritDamage () {
+        // Should never crit
+        player.setIntelligence(0);
+        player.crit();
+
+        assertEquals(5, player.getBaseDamage());
 
     }
 
 
+    @RepeatedTest(2000)
+    public void FiftyPercentCritDamage () {
+
+        player.setIntelligence(50);
+        player.crit();
+
+        assertEquals(10, player.getBaseDamage());
+    }
+
+    @RepeatedTest(1000)
+    public void TenPercentCritDamage () {
+
+        player.setIntelligence(10);
+        player.crit();
+
+        assertEquals(10, player.getBaseDamage());
+
+    }
 
 }
 
