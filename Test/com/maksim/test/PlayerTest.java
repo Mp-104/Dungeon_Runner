@@ -1,6 +1,7 @@
 package com.maksim.test;
 
 import com.maksim.demo.Game;
+import com.maksim.demo.Monster;
 import com.maksim.demo.Player;
 import com.maksim.demo.Result;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
     Player player;
-    Game game = new Game();
 
 
     @BeforeEach
@@ -31,9 +31,12 @@ class PlayerTest {
 
     @Test
     public void reducePlayerHealth () {
-        player.takeDamage(5);
+        Monster m1 = new Monster();
+        m1.setDamage(10);
 
-        assertEquals(45,player.getHealth());
+        player.setHealth(player.getHealth() - m1.getDamage() );
+
+        assertEquals(40,player.getHealth());
     }
 
     @Test
@@ -53,7 +56,7 @@ class PlayerTest {
     @Test
     public void checkDamage() {
 
-        assertEquals(player.getBaseDamage() + player.getStrength()  , player.calculateDamage() );
+        assertEquals(player.getBaseDamage() + ( player.getStrength()*2/4+1 )  , player.calculateDamage() );
 
     }
 

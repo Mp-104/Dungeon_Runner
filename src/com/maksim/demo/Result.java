@@ -33,7 +33,7 @@ public class Result {
             }
             writer.write(System.getProperty( "line.separator" ));
             writer.write(System.getProperty( "line.separator" ));
-            if (p1.getEnemiesDefeated() >= 3) {
+            if ( Game.monsterList.isEmpty() ) {
                 writer.write("You won!");
             } else {
                 writer.write("You lost");

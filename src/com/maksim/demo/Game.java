@@ -9,6 +9,7 @@ public class Game {
     static Scanner sc = new Scanner(System.in);
     static List <Monster> monsterList = new ArrayList<>();
 
+
     public void menu () {
 
         Shop shop = new Shop();
@@ -20,7 +21,7 @@ public class Game {
                 0,
                 0);
 
-        p1.takeDamage(5);
+
 
         System.out.println(p1.getHealth());
 
@@ -29,8 +30,8 @@ public class Game {
         System.out.println("---Debugging---");
 
         p1.setAgility(100);
-        p1.setHealth(1000);
-        p1.setStrength(100);
+        p1.setHealth(190);
+        p1.setStrength(10);
         p1.setIntelligence(00);
         p1.setBaseDamage(10);
         p1.setExp(10000);
@@ -48,31 +49,37 @@ public class Game {
         m1.setAlive(true);
         m1.setAgility(30);
         m1.setHealth(20);
+        m1.setMaxHealth(20);
         m1.setDamage(6);
         m1.setExpYield(10000);
         m1.setName("Monster 1");
         m1.setStamina(2);
+        m1.setMaxStamina(2);
 
         Monster m2 = new Monster();
 
         m2.setAlive(true);
         m2.setAgility(100);
         m2.setHealth(100);
-        m2.setDamage(500);
+        m2.setMaxHealth(100);
+        m2.setDamage(5);
         m2.setExpYield(120);
         m2.setName("Quick Strike");
         m2.setStamina(3);
+        m2.setMaxStamina(3);
 
         Monster m3 = new Monster();
 
         m3.setAlive(true);
-        m3.setAgility(45);
-        m3.setHealth(10);
-        m3.setDamage(3);
+        m3.setAgility(150);
+        m3.setHealth(110);
+        m3.setMaxHealth(110);
+        m3.setDamage(30);
         m3.setExpYield(190);
         m3.setCoward(true);
         m3.setName("Coward");
         m3.setStamina(5);
+        m3.setMaxStamina(5);
 
 
 
@@ -124,7 +131,7 @@ public class Game {
 
 
 
-        System.out.println("9. Debugging experience");
+        System.out.println("9. Exit game");
 
 
         do {
@@ -154,7 +161,7 @@ public class Game {
                 case "4" -> randomMonsterMenu(p1);
                 case "0" -> shop.menu(p1);
 
-                case "9" -> p1.calculateExpToLvl(125);                       //p1.debugReceiveExperience(125,p1);
+                case "9" -> System.exit(0);                      //p1.debugReceiveExperience(125,p1);
 
 
             }
@@ -247,7 +254,7 @@ public class Game {
 
 
 
-            sc.nextLine();
+            //sc.nextLine();
 
 
     }

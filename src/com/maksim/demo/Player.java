@@ -41,7 +41,7 @@ public class Player implements ICombat {
     @Override
     public void fleeing(Player p1, Monster m1) {
         System.out.println(p1.getName() + " tries to run away");
-        if (p1.getAgility() > m1.getAgility()) {
+        if (p1.getAgility() > m1.getAgility() || m1.getStamina() == 0) {
             System.out.println("Ran away successfully");
             flee = true;
         } else {
@@ -51,30 +51,6 @@ public class Player implements ICombat {
         }
     }
 
-    // TODO - Handle this ie remove!!!
-    public void takeDamage (int damage) {   // kan finnas i ICombat interface eftersom både player och monster påverkas
-        setHealth(getHealth() - damage);
-    }
-
-    public void calculateExpToLvl (int amountOfExp) {
-        for (int i = amountOfExp; i > 0 ; i--) {
-            //System.out.println(i);
-            setExp(getExp() + 1);
-
-            if (getExp() == (100 + (getLevel()^2) -1  ) ) {
-                setLevel(getLevel() + 1);
-                setExp(0);
-            }
-
-        }
-
-        System.out.println("How much exp left?");
-        System.out.println(getExp());
-        System.out.println("Player level");
-        System.out.println(getLevel());
-
-
-    }
 
 
 
@@ -86,6 +62,7 @@ public class Player implements ICombat {
         System.out.printf("Health: %d %n" + RESET + PURPLE, health);
         System.out.printf("Exp: %d %n" + RESET + CYAN , exp);
         System.out.printf("Level: %s %n" + RESET, level);
+
 
     }
 
@@ -377,7 +354,7 @@ public class Player implements ICombat {
     public void counterAttack (Player p1, Monster m1) {
         m1.setHealth(m1.getHealth() - calculateDamage() );
         System.out.println(p1.getName() + " has sword and shield, counterattacks for " + (p1.getBaseDamage() + p1.getStrength())  );
-        System.out.println("Remaining health of enemy: " +m1.getName() + " is " + m1.getHealth());
+        System.out.println("Remaining health of enemy: " +m1.getName() + " is " + m1.getHealth() + "/" + m1.getMaxHealth());
         scanner.nextLine();
 
     }
@@ -468,7 +445,7 @@ public class Player implements ICombat {
 
             setBaseDamage(x);  // ties to crit(p1);
 
-            System.out.println("Remaining health of: " +m1.getName() + " is " + m1.getHealth());
+            System.out.println("Remaining health of: " +m1.getName() + " is " + m1.getHealth() + "/" + m1.getMaxHealth());
 
         } else {
             System.out.println("You are dead in Player attacks");
@@ -487,7 +464,7 @@ public class Player implements ICombat {
 
     public int calculateDamage () {
 
-        return getBaseDamage() + ( getStrength() );
+        return getBaseDamage() + ( getStrength()*2/4 +1 );
     }
 
 
