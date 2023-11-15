@@ -31,9 +31,9 @@ public class Game {
 
         p1.setAgility(100);
         p1.setHealth(190);
-        p1.setStrength(10);
+        p1.setStrength(1);
         p1.setIntelligence(00);
-        p1.setBaseDamage(10);
+        p1.setBaseDamage(1);
         p1.setExp(10000);
         p1.setLevel(1);
         p1.setAlive(true);
@@ -204,11 +204,13 @@ public class Game {
         randomMonster.setAlive(true);
         randomMonster.setAgility(random.nextInt(1,10));
         randomMonster.setHealth(random.nextInt(1,10));
+        randomMonster.setMaxHealth(randomMonster.getHealth());
         randomMonster.setDamage(random.nextInt(1,10));
-        randomMonster.setExpYield(random.nextInt(1,10));
         randomMonster.setName("Random enemy #" + random.nextInt(1,999));
         randomMonster.setStamina(random.nextInt(1,5));
+        randomMonster.setMaxStamina(randomMonster.getStamina());
 
+        randomMonster.setExpYield(randomMonster.getDamage() + randomMonster.getHealth());
 
 
         List<Monster> monsterList2 = new ArrayList<>();

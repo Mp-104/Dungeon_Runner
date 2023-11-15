@@ -43,7 +43,7 @@ public class Monster implements ICombat {
 
     public void monStatus () {
         System.out.println(WHITE_BRIGHT + "Monster name: " + name + RESET);
-        System.out.println(GREEN_BRIGHT + "Health: " + health + RESET);
+        System.out.println(GREEN_BRIGHT + "Health: " + health + "/" + maxHealth + RESET);
         System.out.println(RED_BRIGHT + "Damage: " + damage + RESET);
         System.out.println(YELLOW_BRIGHT + "Agility: " + agility + RESET);
         ;
@@ -143,7 +143,7 @@ public class Monster implements ICombat {
 
 
 
-        System.out.println("x: " + x);
+        //System.out.println("x: " + x);
         System.out.println(name+ "'s stamina in m1.attacks: " + stamina);
 
 
@@ -183,9 +183,9 @@ public class Monster implements ICombat {
 
                     System.out.println("Remaining player health: " + p1.getHealth());
                     stamina -= 1;
-                    x += 1;
+                    //x += 1;
 
-                    System.out.println(x);
+                    //System.out.println(x);
                 }
 
                     }
@@ -214,8 +214,8 @@ public class Monster implements ICombat {
     public void exhausted () {
         System.out.println(name + " is exhausted");
         System.out.println(name + " has to recover");
-        stamina += x;
-        x = 0;
+        stamina += maxStamina;
+        // setHealth(getHealth() + 10);
         // setHealth(getHealth() + 10);
         // System.out.println(name + " recovered 10 health");
     }

@@ -352,8 +352,8 @@ public class Player implements ICombat {
     }
 
     public void counterAttack (Player p1, Monster m1) {
-        m1.setHealth(m1.getHealth() - calculateDamage() );
-        System.out.println(p1.getName() + " has sword and shield, counterattacks for " + ( calculateDamage() ) );
+        m1.setHealth(m1.getHealth() - (calculateDamage()/2 ));
+        System.out.println(p1.getName() + " has sword and shield, counterattacks for " + ( calculateDamage()/2 ) );
         System.out.println("Remaining health of enemy: " +m1.getName() + " is " + m1.getHealth() + "/" + m1.getMaxHealth());
         scanner.nextLine();
 

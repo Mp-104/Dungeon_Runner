@@ -1,8 +1,8 @@
-Name: s
+Name: d
 Level: 1
-Enemies defeated: 2
+Enemies defeated: 5
 Weapons obtained: 
-  Sword
-  Shield
+
+
 
 You lost
