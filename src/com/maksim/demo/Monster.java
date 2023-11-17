@@ -1,5 +1,6 @@
 package com.maksim.demo;
 
+import java.util.Random;
 import java.util.Scanner;
 import static com.maksim.demo.Colours.*;
 
@@ -21,6 +22,8 @@ public class Monster implements ICombat {
     private int agility;
 
     private boolean coward;
+
+    private boolean smart;
 
     private boolean flee;
 
@@ -55,6 +58,13 @@ public class Monster implements ICombat {
 
     public void setAlive (boolean alive) {
         this.alive = alive;
+    }
+
+    public boolean getSmart () {
+        return smart;
+    }
+    public void setSmart (boolean smart) {
+        this.smart = smart;
     }
 
     public int getStamina () {
@@ -137,11 +147,9 @@ public class Monster implements ICombat {
 
 
 
-    int x;
+
     @Override
     public void attacks(Monster m1, Player p1) {
-
-
 
         //System.out.println("x: " + x);
         System.out.println(name+ "'s stamina in m1.attacks: " + stamina);
@@ -152,6 +160,7 @@ public class Monster implements ICombat {
 
             if (damage >= p1.getHealth() && agility >= p1.getAgility() && coward) {
                 System.out.println(name + " sees an opportunity");
+                System.out.println(name + " becomes emboldened");
                 coward = false;
             } else {
                 //outmatched(p1,m1);
@@ -167,7 +176,10 @@ public class Monster implements ICombat {
                 System.out.println(name + " is getting tired, it seems in m1.attacks");
             }
 
-            if (coward && !p1.getDefend()) {
+
+
+
+            if (coward && !p1.getDefend() ) {
 
                 fleeing (p1,m1);
             }else {
@@ -175,17 +187,23 @@ public class Monster implements ICombat {
                 if (p1.getDefend() && coward && stamina <2) {
                     fleeing(p1,m1);
                 } else {
+                    if (smart && health <= maxHealth/10) {
+                        tacticalRetreat(p1);
+                    } else {
+                        System.out.println(m1.getName() + " attacks for " + m1.getDamage());
+                        p1.setHealth(p1.getHealth() - m1.getDamage());
+                        //p1.setHealth((int) (p1.getHealth() - (m1.getDamage() / (p1.getDefence() * 0.1) )));
+                        //System.out.println("damage calc" + (m1.getDamage() / (p1.getDefence() * 0.1)  )    );
 
-                    System.out.println(m1.getName() + " attacks for " + m1.getDamage());
-                    p1.setHealth(p1.getHealth() - m1.getDamage());
-                    //p1.setHealth((int) (p1.getHealth() - (m1.getDamage() / (p1.getDefence() * 0.1) )));
-                    //System.out.println("damage calc" + (m1.getDamage() / (p1.getDefence() * 0.1)  )    );
+                        System.out.println("Remaining player health: " + p1.getHealth());
+                        stamina -= 1;
+                        //x += 1;
 
-                    System.out.println("Remaining player health: " + p1.getHealth());
-                    stamina -= 1;
-                    //x += 1;
+                        //System.out.println(x);
 
-                    //System.out.println(x);
+                    }
+
+
                 }
 
                     }
@@ -218,6 +236,43 @@ public class Monster implements ICombat {
         // setHealth(getHealth() + 10);
         // setHealth(getHealth() + 10);
         // System.out.println(name + " recovered 10 health");
+    }
+
+    public void tacticalRetreat (Player p1) {
+        if (stamina > 0) {
+            if (smart) {
+                System.out.println("monster is retreating (in tacticalRetreat)");
+                if (agility >= p1.getAgility()) {
+                    System.out.println(name + " retreated successfully (in tactical retreat)");
+                    System.out.println(name + " restored health and stamina to full");
+                    //stamina -=1;  // REMOVE ?
+                    //x += 1;
+                    setStamina(maxStamina);
+                    setHealth( maxHealth );
+                    flee = true;
+
+                } else {
+                    System.out.println(name + " is too slow, failed to retreat");
+                    //stamina -=1;
+                    //x +=1;
+                        /*exhausted();   // not working
+                        p1.attacks(m1, p1);  // not working
+                        System.out.println("is this working??");  // not working*/
+                    flee = false;
+
+
+
+                    //p1.attacks(m1,p1);
+                }
+            }
+
+        } else {
+            System.out.println(name + " is too tired to retreat");
+            exhausted();
+            flee = false;
+            //p1.attacks(m1,p1);
+
+        }
     }
 
    /* public void outmatched (Player p1, Monster m1) {
@@ -258,6 +313,11 @@ public class Monster implements ICombat {
     } */
 
 
+    public void dodge () {
+            System.out.println(name + " dodged the attack");
+
+    }
+
     @Override
     public void fleeing(Player p1, Monster m1) {
             //System.out.println(name + "'s stamina in fleeing: " + stamina);
@@ -267,10 +327,10 @@ public class Monster implements ICombat {
 
             if (stamina > 0) {   // stamina should probably not be a factor in fleeing...
                 if (m1.coward) {
-                    System.out.println("monster is a coward (in fleeing)");
-                    System.out.println("monster tries to run away (in fleeing)");
+                    System.out.println(name + " is a coward (in fleeing)");
+                    System.out.println(name + " tries to run away (in fleeing)");
                     if (m1.getAgility() >= p1.getAgility()) {
-                        System.out.println("monster ran away successfully (in fleeing)");
+                        System.out.println(name + " ran away successfully (in fleeing)");
                         System.out.println(name + " restored health and stamina to full");
                         //stamina -=1;  // REMOVE ?
                         //x += 1;
@@ -279,7 +339,7 @@ public class Monster implements ICombat {
                         flee = true;
 
                     } else {
-                        System.out.println("monster is too slow and failed to run away");
+                        System.out.println(name + " is too slow and failed to run away");
                         //stamina -=1;
                         //x +=1;
                         /*exhausted();   // not working
@@ -294,7 +354,7 @@ public class Monster implements ICombat {
                 }
 
             } else {
-                    System.out.println("monster is too tired to run away");
+                    System.out.println(name + "is too tired to run away");
                     exhausted();
                     flee = false;
                 //p1.attacks(m1,p1);

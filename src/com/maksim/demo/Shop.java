@@ -58,7 +58,7 @@ public class Shop {
                 switch (scanner.nextLine()) {
                     case "1" -> buyCola(p1);
                     case "2" -> buyBurger(p1);
-                    case "3" -> buyLaserSword(p1); // create new method for upgrading to laser sword
+                    case "3" -> buyLaserSword(p1);
                     case "4" -> buyShield(p1);
                     case "5" -> buyLevel(p1);
                     case "0" -> inShop = false;
@@ -221,11 +221,12 @@ public class Shop {
 
 
     }
-
+    boolean laserSword;
     void buyLaserSword(Player p1) {
         boolean pondering = true;
 
-        if (p1.getSword()) {
+
+        if (p1.getSword() && !laserSword) {
             System.out.println("Upgrade to laser sword?");
             System.out.println("1: Yes!");
             System.out.println("2: no.");
@@ -239,6 +240,7 @@ public class Shop {
                             System.out.println("you upgraded to laser sword!");
 
                             weapon.laserSword(p1);
+                            laserSword = true;
                             pondering = false;
 
                         } else {
@@ -257,7 +259,7 @@ public class Shop {
             } while (pondering);
 
         } else {
-            System.out.println("You already have a sword");
+            System.out.println("You already have a laser sword");
 
         }
 

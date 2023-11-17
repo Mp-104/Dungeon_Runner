@@ -5,14 +5,14 @@ import java.nio.charset.StandardCharsets;
 
 public class Result {
 
-    void myMethod (Player p1) {
+    void writeResult(Player p1) {
 
 
 
         try (
                 Writer writer = new BufferedWriter(
                                 new OutputStreamWriter(
-                                new FileOutputStream("myFile.txt"), StandardCharsets.UTF_8));
+                                new FileOutputStream("Result.txt"), StandardCharsets.UTF_8));
         )
 
         {
@@ -33,7 +33,7 @@ public class Result {
             }
             writer.write(System.getProperty( "line.separator" ));
             writer.write(System.getProperty( "line.separator" ));
-            if ( Game.monsterList.isEmpty() ) {
+            if ( Game.enemyList.isEmpty() && Game.nextEnemyList.isEmpty() ) {
                 writer.write("You won!");
             } else {
                 writer.write("You lost");

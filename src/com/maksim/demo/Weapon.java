@@ -1,7 +1,6 @@
 package com.maksim.demo;
 
 public class Weapon {
-// Inherit from Shop interface buy()
 
     void sword (Player p1) {
         p1.setSword(true);

@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 
 /* TODO
-    implement intelligence ( crit damage modifier) G - Gjort !
-    Shop - Gjort
-    Weapons? VG - Gjort
-    Colours  VG - Gjort
     Tests - Gjort -> enhanced Tests - In progress
 
-    TODO - Laser sword upgrade is infinite, let it be, or?
-    TODO - Enemy getting tired when fleeing?
+    TODO - Balancing enemy HP, Damage, Exp yields, Level costs, etc
+        more Tests
+        Polish it up
 
 
 * */

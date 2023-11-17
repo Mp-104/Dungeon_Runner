@@ -323,7 +323,7 @@ public class Player implements ICombat {
             //monsterAttacks(m1,p1);
 
         } else {
-            System.out.println("monster is faster");
+            System.out.println(m1.getName() + " is faster");
             // Insert method for monster attacking first
             //p1.fightSecond (m1, p1);
             //monsterAttacks(m1,p1);
@@ -331,7 +331,7 @@ public class Player implements ICombat {
             if (/*m1.getCoward() && */ m1.getStamina() > 0) {
                 //System.out.println("if ");
                 m1.attacks(m1,p1);
-                if (!m1.getCoward()) {
+                if (!m1.getFlee()) {
                     attacks(m1,p1);
                 }
 
@@ -422,28 +422,31 @@ public class Player implements ICombat {
 
     @Override
     public void attacks(Monster m1, Player p1) {
-        int x = getBaseDamage();
+        int x = baseDamage;
+        //int y = strength;
         //Weapon weapon = new Weapon();
         //weapon.sword(p1);
 
 
+
         if (p1.getHealth() > 0) {
 
-            crit();
-
-            /*if (sword) {
-                m1.setHealth(m1.getHealth() - ( (p1.getBaseDamage() +p1.getStrength())  *2)  );
-                System.out.println(p1.getName() + " attacks for " + ( (p1.getBaseDamage() +p1.getStrength())  *2) );
+            Random random = new Random();
+            if (m1.getAgility() > agility + (agility/2) && 50 > random.nextInt(0,99) && m1.getStamina() > 0 && m1.getSmart()) {
+                m1.dodge();
             } else {
-                m1.setHealth(m1.getHealth() - (p1.getBaseDamage() + p1.getStrength()) );
-                System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
-            } */
-            //m1.setHealth(m1.getHealth() - (p1.getBaseDamage() + p1.getStrength()) );
-            m1.setHealth(m1.getHealth() - calculateDamage() );
-            //System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
-            System.out.println(p1.getName() + " attacks for " + calculateDamage() );
+
+                crit();
+                m1.setHealth(m1.getHealth() - calculateDamage() );
+                System.out.println(p1.getName() + " attacks for " + calculateDamage() );
+
+            }
+
+
+
 
             setBaseDamage(x);  // ties to crit(p1);
+
 
             System.out.println("Remaining health of: " +m1.getName() + " is " + m1.getHealth() + "/" + m1.getMaxHealth());
 
