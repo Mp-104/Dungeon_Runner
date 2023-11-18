@@ -29,97 +29,93 @@ public class Game {
 
 
         p1.setAgility(10);
-        p1.setHealth(2900);
-        p1.setStrength(100);
-        p1.setIntelligence(500);
-        p1.setBaseDamage(1);
-        p1.setExp(10000);
-        p1.setLevel(100);
+        p1.setHealth(100);
+        p1.setStrength(10);
+        p1.setIntelligence(1);
+        p1.setBaseDamage(10);
+        p1.setExp(0);
+        p1.setLevel(1);
         p1.setAlive(true);
-        //p1.setDefence(21);
-        //p1.setSword(true);
-        //p1.setShield(true);
-
-
 
 
         Monster m1 = new Monster();
 
         m1.setAlive(true);
-        m1.setAgility(300);
-        m1.setHealth(300);
-        m1.setMaxHealth(1);
-        m1.setDamage(6);
-        m1.setExpYield(10000);
-        m1.setName("Monster 1");
+        m1.setAgility(15);
+        m1.setHealth(30);
+        m1.setMaxHealth(m1.getHealth());
+        m1.setDamage(10);
+        m1.setExpYield(100);
+        m1.setName("1st Enemy");
         m1.setStamina(2);
-        m1.setMaxStamina(2);
+        m1.setMaxStamina(m1.getStamina());
 
         Monster m2 = new Monster();
 
         m2.setAlive(true);
-        m2.setAgility(1000);
-        m2.setHealth(9);
-        m2.setMaxHealth(107);
+        m2.setAgility(100);
+        m2.setHealth(50);
+        m2.setMaxHealth(m2.getHealth());
         m2.setDamage(5);
         m2.setExpYield(120);
         m2.setName("Quick Strike");
         m2.setStamina(3);
-        m2.setMaxStamina(3);
+        m2.setMaxStamina(m2.getStamina());
         m2.setSmart(true);
         m2.setCoward(false);
 
         Monster m3 = new Monster();
 
         m3.setAlive(true);
-        m3.setAgility(150);
+        m3.setAgility(110);
         m3.setHealth(1);
-        m3.setMaxHealth(1);
-        m3.setDamage(30);
+        m3.setMaxHealth(m3.getHealth());
+        m3.setDamage(10);
         m3.setExpYield(190);
         m3.setCoward(true);
         m3.setName("Coward");
         m3.setStamina(5);
-        m3.setMaxStamina(5);
+        m3.setMaxStamina(m3.getStamina());
 
         Monster m4 = new Monster();
 
         m4.setAlive(true);
         m4.setAgility(150);
-        m4.setHealth(1);
-        m4.setMaxHealth(1);
-        m4.setDamage(30);
-        m4.setExpYield(190);
+        m4.setHealth(100);
+        m4.setMaxHealth(m4.getHealth());
+        m4.setDamage(10);
+        m4.setExpYield(230);
         m4.setCoward(false);
         m4.setName("Number 1");
-        m4.setStamina(5);
-        m4.setMaxStamina(5);
+        m4.setStamina(2);
+        m4.setMaxStamina(m4.getStamina());
 
         Monster m5 = new Monster();
 
         m5.setAlive(true);
         m5.setAgility(150);
-        m5.setHealth(1);
-        m5.setMaxHealth(1);
+        m5.setHealth(50);
+        m5.setMaxHealth(m5.getHealth());
         m5.setDamage(30);
-        m5.setExpYield(190);
+        m5.setExpYield(300);
         m5.setCoward(false);
         m5.setName("Number 2");
         m5.setStamina(5);
-        m5.setMaxStamina(5);
+        m5.setMaxStamina(m5.getStamina());
 
         Monster m6 = new Monster();
 
         m6.setAlive(true);
-        m6.setAgility(150);
-        m6.setHealth(1);
-        m6.setMaxHealth(1);
-        m6.setDamage(30);
-        m6.setExpYield(190);
+        m6.setAgility(120);
+        m6.setHealth(300);
+        m6.setMaxHealth(m6.getHealth());
+        m6.setDamage(70);
+        m6.setExpYield(1030);
         m6.setCoward(false);
         m6.setName("Number 3");
         m6.setStamina(5);
-        m6.setMaxStamina(5);
+        m6.setMaxStamina(m6.getStamina());
+        m6.setSmart(true);
 
 
 
