@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import static com.maksim.demo.Colours.*;
 
 public class Game {
     Result result = new Result();
@@ -33,13 +34,13 @@ public class Game {
         System.out.println();
         System.out.println("---Debugging---");
 
-        p1.setAgility(100);
+        p1.setAgility(10);
         p1.setHealth(2900);
         p1.setStrength(100);
-        p1.setIntelligence(50);
+        p1.setIntelligence(500);
         p1.setBaseDamage(1);
         p1.setExp(10000);
-        p1.setLevel(1);
+        p1.setLevel(100);
         p1.setAlive(true);
         //p1.setDefence(21);
         //p1.setSword(true);
@@ -216,6 +217,7 @@ public class Game {
                     result.writeResult(p1);
                     System.exit(0);
                 }
+                default -> System.out.println("Try again");
 
 
             }
@@ -229,6 +231,8 @@ public class Game {
         System.out.println("");
 
         System.out.println("Welcome to The Next Level");
+        System.out.println("");
+
         sc.nextLine();
 
 
@@ -236,7 +240,7 @@ public class Game {
         do {
 
 
-            System.out.println("Choose which monster to fight, 0 for shop");
+            System.out.println("Choose which enemy to fight");
             System.out.println("1: " + m4.getName());
             System.out.println("2: " + m5.getName());
             System.out.println("3: " + m6.getName());
@@ -264,6 +268,7 @@ public class Game {
                     result.writeResult(p1);
                     System.exit(0);
                 }
+                default -> System.out.println("Try again");
 
 
             }
@@ -302,7 +307,7 @@ public class Game {
             switch (sc.nextLine()) {
                 case "1" -> randomGameMenu(p1);
                 case "2" -> inMenu = false;
-                default -> System.out.println("try again");
+                default -> System.out.println("Try again");
             }
 
         } while (inMenu);
@@ -355,7 +360,7 @@ public class Game {
                     //case "4" -> System.out.println(monsterList2);
                     case "4" -> isPlaying= false;        //System.exit(0);
 
-                    default -> System.out.println("try again!");
+                    default -> System.out.println("Try again!");
                 }
                 //System.out.println("monsterList.get(0): " );
                 if (randomMonster.getHealth() <= 0) {
@@ -379,7 +384,7 @@ public class Game {
             switch (sc.nextLine()) {
                 case "1" -> randomGameMenuNext(p1);
                 case "2" -> inMenu = false;
-                default -> System.out.println("try again");
+                default -> System.out.println("Try again");
             }
 
         } while (inMenu);
@@ -433,7 +438,7 @@ public class Game {
                 //case "4" -> System.out.println(monsterList2);
                 case "4" -> isPlaying= false;        //System.exit(0);
 
-                default -> System.out.println("try again!");
+                default -> System.out.println("Try again!");
             }
             //System.out.println("monsterList.get(0): " );
             if (randomMonster.getHealth() <= 0) {
@@ -475,7 +480,7 @@ public class Game {
                     }
                     case "4" -> isPlaying= false;        //System.exit(0);
 
-                    default -> System.out.println("try again!");
+                    default -> System.out.println("Try again!");
                 }
                 //System.out.println("monsterList.get(0): " );
                 if (m1.getHealth() <= 0) {

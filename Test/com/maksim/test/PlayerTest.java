@@ -1,12 +1,14 @@
 package com.maksim.test;
 
-import com.maksim.demo.Game;
 import com.maksim.demo.Monster;
 import com.maksim.demo.Player;
 import com.maksim.demo.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -159,6 +161,27 @@ class PlayerTest {
         player.crit();
 
         assertEquals(10, player.getBaseDamage());
+
+    }
+
+
+    @Test
+    public void writerExists () throws IOException {
+
+        Writer writer = new BufferedWriter(
+                        new OutputStreamWriter(
+                        new FileOutputStream("test.txt"), StandardCharsets.UTF_8));
+
+
+        assertNotNull( writer );
+
+    }
+
+    @Test
+    public void resultExists () {
+        Result result = new Result();
+
+        assertNotNull(result);
 
     }
 

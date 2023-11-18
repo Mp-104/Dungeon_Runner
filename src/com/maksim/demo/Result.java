@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Result {
 
-    void writeResult(Player p1) {
+    public void writeResult(Player p1) {
 
 
 

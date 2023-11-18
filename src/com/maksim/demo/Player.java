@@ -24,6 +24,9 @@ public class Player implements ICombat {
     private boolean flee;
     private boolean alive;
 
+    public Player () {
+
+    }
     public Player(int strength, int intelligence, int agility, int health, int level, int baseDamage) {
         this.strength = strength;
         this.intelligence = intelligence;
@@ -379,7 +382,7 @@ public class Player implements ICombat {
             System.out.println("m1.attacks(m1, p1); in defend");
             m1.attacks(m1, p1);
             if (health > 0) {
-                if (sword && shield) {
+                if (sword && shield && !m1.getFlee()) {
                     counterAttack (p1,m1);
                 }
             } else {

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.maksim.demo.Colours.BLUE_BOLD;
+import static com.maksim.demo.Colours.RESET;
+
 /* TODO
     Tests - Gjort -> enhanced Tests - In progress
 

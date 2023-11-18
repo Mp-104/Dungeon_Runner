@@ -237,14 +237,14 @@ public class Shop {
                         if (p1.getExp() >= 200) {
                             //p1.setSword(true);
                             spendCurrency(p1,200);              //p1.setExp(p1.getExp()- 200 );
-                            System.out.println("you upgraded to laser sword!");
+                            System.out.println("You upgraded to laser sword!");
 
                             weapon.laserSword(p1);
                             laserSword = true;
                             pondering = false;
 
                         } else {
-                            System.out.println("not enough currency (exp)");
+                            System.out.println("Not enough currency (exp)");
                             pondering = false;
                         }
                     }

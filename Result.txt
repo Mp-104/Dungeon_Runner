@@ -1,8 +1,8 @@
-Name: d
-Level: 27
-Enemies defeated: 6
+Name: M
+Level: 102
+Enemies defeated: 13
 Weapons obtained: 
-
-
+  Sword
+  Shield
 
 You won!
