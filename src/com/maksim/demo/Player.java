@@ -37,18 +37,14 @@ public class Player implements ICombat {
     }
 
 
-
-    /*public void tryFlee(Player p1, Monster m1) {
-
-    }*/
     @Override
     public void fleeing(Player p1, Monster m1) {
-        System.out.println(p1.getName() + " tries to run away");
+        System.out.println(WHITE_BRIGHT + name + RESET + " tries to run away");
         if (p1.getAgility() > m1.getAgility() || m1.getStamina() == 0) {
-            System.out.println("Ran away successfully");
+            System.out.println(GREEN + "Ran away successfully" + RESET);
             flee = true;
         } else {
-            System.out.println("Failed to run away");
+            System.out.println(RED + "Failed to run away" + RESET);
             flee = false;
             m1.attacks(m1,p1);
         }
@@ -177,134 +173,17 @@ public class Player implements ICombat {
 
 
 
-
-
-
-
-
-
-
-    /*@Override
-    public void fight (Player p1, Monster m1) {
-        boolean monsterAlive = true;
-        boolean playerAlive = true;
-
-
-
-        //do {
-            System.out.println("Attacking!");
-            System.out.println("Base damage: " + p1.getBaseDamage());
-            System.out.println("Strength: " + p1.getStrength());
-            System.out.println("Total power: " + (p1.getStrength() + p1.getBaseDamage()));
-
-            System.out.println("Monster health: " + m1.getHealth());
-            System.out.println(p1.getName() + " deals " + (p1.getStrength() + p1.getBaseDamage()) + " damage to " + m1.getName());
-            m1.setHealth(m1.getHealth() - (p1.getStrength() + p1.getBaseDamage()));
-            System.out.println("Remaining monster health: " + m1.getHealth());
-
-            if (m1.getHealth() <= 0) {
-                System.out.println("You defeated " + m1.getName());
-                monsterAlive = false;
-                p1.setExp(p1.getExp() + m1.getExpYield());
-                // Monster dead, ceases to exist
-                // System.out.println("m1 " + m1);
-
-            }
-
-
-            scanner.nextLine();
-
-        if (monsterAlive) {
-
-            System.out.println("Monster retaliates");
-            System.out.println(m1.getName() + " inflicts " + m1.getDamage() + " damage on " + p1.getName());
-            p1.setHealth(p1.getHealth() - m1.getDamage());
-            System.out.println("Remaining player health: " + p1.getHealth());
-
-            if (p1.getHealth() <= 0) {
-                System.out.println("you lost");
-                playerAlive = false;
-            }
-                scanner.nextLine();
-
-        }
-
-        //} while (monsterAlive && playerAlive);
-
-       /* if (playerAlive) {
-            System.out.println("You won");
-        } else {
-            System.out.println("Game over");
-        } */
-
-
-
-
-   /* @Override
-    public void fightSecond (Monster m1, Player p1) {
-
-        boolean monsterAlive = true;
-        boolean playerAlive = true;
-
-
-        //do {
-            System.out.println("Monster is attacking!");
-            System.out.println("damage: " + m1.getDamage());
-
-            System.out.println(p1.getName() + "'s health: " + p1.getHealth());
-            System.out.println(m1.getName() + " deals " + (m1.getDamage()) + " damage to " + p1.getName());
-            p1.setHealth(p1.getHealth() - (m1.getDamage()));
-            System.out.println("Remaining " +p1.getName() + " health: " + p1.getHealth());
-
-            if (p1.getHealth() <= 0) {
-                System.out.println("You lost ");
-                playerAlive = false;
-                // Monster dead, ceases to exist
-                //System.out.println("m1 " + m1);
-
-            }
-
-
-            scanner.nextLine();
-
-            if (playerAlive) {
-
-                System.out.println( p1.getName() + " retaliates");
-                System.out.println(p1.getName() + " inflicts " + (p1.getBaseDamage() + p1.getStrength() )+ " damage on " + m1.getName());
-                m1.setHealth(m1.getHealth() - ( p1.getBaseDamage() + p1.getStrength() ) );
-                System.out.println("Remaining monster health: " + m1.getHealth());
-
-                if (m1.getHealth() <= 0) {
-                    System.out.println("you defeated: " + m1.getName());
-                    p1.setExp(p1.getExp() + m1.getExpYield());
-
-                    monsterAlive = false;
-                }
-                scanner.nextLine();
-
-            } */
-
-        //} while (monsterAlive && playerAlive);
-
-       /* if (playerAlive) {
-            System.out.println("You won");
-        } else {
-            System.out.println("Game over");
-        }*/
-
-
-
     public void turnOrder (Player p1, Monster m1) {
         int x = m1.getDamage();
 
         if (sword && shield) {
             m1.setDamage( m1.getDamage()/2 );
-            System.out.println(name + " has sword and shield, damage halved");
+            System.out.println(WHITE_BRIGHT + name + RESET + " has sword and shield, damage halved");
         }
 
         if (p1.getAgility() > m1.getAgility()) {
-            System.out.println(p1.getName() + " is faster than " + m1.getName());
-            //p1.fight (p1,m1);
+            System.out.println(WHITE_BRIGHT + name + RESET + " is faster than " + m1.getName());
+
             attacks(m1,p1);
 
             if (m1.getHealth() > 0) {
@@ -314,25 +193,14 @@ public class Player implements ICombat {
                     m1.attacks(m1,p1);
                 }
             } else {
-                System.out.println("monster is dead inside Player turnOrder");
+                System.out.println(WHITE_BRIGHT + m1.getName() + RESET + " is dead");
             }
 
-           /* if (m1.getCoward()) {
-                m1.fleeing(p1,m1);
-            } else {
-                m1.attacks(m1,p1);
-            } */
-
-            //monsterAttacks(m1,p1);
 
         } else {
-            System.out.println(m1.getName() + " is faster");
-            // Insert method for monster attacking first
-            //p1.fightSecond (m1, p1);
-            //monsterAttacks(m1,p1);
+            System.out.println(WHITE_BRIGHT + m1.getName() + RESET + " is faster");
 
-            if (/*m1.getCoward() && */ m1.getStamina() > 0) {
-                //System.out.println("if ");
+            if (m1.getStamina() > 0) {
                 m1.attacks(m1,p1);
                 if (!m1.getFlee()) {
                     attacks(m1,p1);
@@ -340,24 +208,19 @@ public class Player implements ICombat {
 
 
             } else {
-                System.out.println("else in turnOrder");
                 m1.attacks(m1,p1);
                 attacks(m1,p1);
             }
-            //m1.attacks(m1,p1);
-            //attacks(m1,p1);
-
-
 
         }
         m1.setDamage(x);
 
     }
 
-    public void counterAttack (Player p1, Monster m1) {
+    public void counterAttack (Monster m1) {
         m1.setHealth(m1.getHealth() - (calculateDamage()/2 ));
-        System.out.println(p1.getName() + " has sword and shield, counterattacks for " + ( calculateDamage()/2 ) );
-        System.out.println("Remaining health of enemy: " +m1.getName() + " is " + m1.getHealth() + "/" + m1.getMaxHealth());
+        System.out.println(WHITE_BRIGHT + name + RESET + " Counterattacks for " + ( calculateDamage()/2 ) );
+        System.out.println("Remaining health of enemy: " +WHITE_BRIGHT + m1.getName() + RESET + " is " + GREEN_BRIGHT+ m1.getHealth() + "/" + m1.getMaxHealth()+ RESET);
         scanner.nextLine();
 
     }
@@ -368,22 +231,20 @@ public class Player implements ICombat {
         int x;
 
         while (defend) {
-            System.out.println(p1.getName() + " defends, monster's damage is halved");
+            System.out.println(WHITE_BRIGHT + name + RESET + " defends, enemy damage is halved");
             x = m1.getDamage();
 
             if (shield) {
                 m1.setDamage( m1.getDamage()/4 );
-                System.out.println(name + " defends with shield, damage halved further");
+                System.out.println(WHITE_BRIGHT + name + RESET + " defends with shield, damage halved further");
             } else {
                 m1.setDamage( m1.getDamage()/2 );
-                System.out.println(name + " has no shield");
             }
 
-            System.out.println("m1.attacks(m1, p1); in defend");
             m1.attacks(m1, p1);
             if (health > 0) {
                 if (sword && shield && !m1.getFlee()) {
-                    counterAttack (p1,m1);
+                    counterAttack (m1);
                 }
             } else {
                 alive = false;
@@ -397,26 +258,13 @@ public class Player implements ICombat {
 
     }
 
-    /*public void playerAttacks (Player p1, Monster m1) {
-        if (p1.getHealth() > 0) {
-            System.out.println(p1.getName() + " attacks for " + (p1.getBaseDamage() + p1.getStrength()) );
-            m1.setHealth(m1.getHealth() - (p1.getBaseDamage() +p1.getStrength()) );
-            System.out.println("Remaining monster health: " + m1.getHealth());
-
-        } else {
-            System.out.println("You are dead");
-            System.out.println("game over");
-            System.exit(0);
-        }
-        scanner.nextLine();
-    } */
 
     public void crit () {
         Random random = new Random();
 
 
         if (getIntelligence() >= random.nextInt(0,99)) {
-            System.out.println("Critical damage");
+            System.out.println(RED_BRIGHT+"Critical damage"+RESET);
             setBaseDamage(getBaseDamage() *2);
         }
 
@@ -426,22 +274,19 @@ public class Player implements ICombat {
     @Override
     public void attacks(Monster m1, Player p1) {
         int x = baseDamage;
-        //int y = strength;
-        //Weapon weapon = new Weapon();
-        //weapon.sword(p1);
-
-
 
         if (p1.getHealth() > 0) {
 
             Random random = new Random();
             if (m1.getAgility() > agility + (agility/2) && 50 > random.nextInt(0,99) && m1.getStamina() > 0 && m1.getSmart()) {
+                System.out.println(WHITE_BRIGHT + name + RESET+ " attacks..");
+                System.out.println("but");
                 m1.dodge();
             } else {
 
                 crit();
                 m1.setHealth(m1.getHealth() - calculateDamage() );
-                System.out.println(p1.getName() + " attacks for " + calculateDamage() );
+                System.out.println(p1.getName() + " attacks for " + RED + calculateDamage() + RESET );
 
             }
 
@@ -451,18 +296,12 @@ public class Player implements ICombat {
             setBaseDamage(x);  // ties to crit(p1);
 
 
-            System.out.println("Remaining health of: " +m1.getName() + " is " + m1.getHealth() + "/" + m1.getMaxHealth());
+            System.out.println("Remaining health of: " +m1.getName() + " is " + GREEN_BRIGHT+ m1.getHealth() + "/" + m1.getMaxHealth() + RESET);
 
         } else {
-            System.out.println("You are dead in Player attacks");
-            System.out.println("game over in Player attacks");
 
             game.gameOver(p1);
 
-            /*Result result = new Result();
-            result.myMethod(p1);
-
-            System.exit(0); */
         }
         scanner.nextLine();
 
@@ -474,53 +313,12 @@ public class Player implements ICombat {
     }
 
 
-
-
-    /*public void monsterAttacks (Monster m1, Player p1) {
-        if (m1.getHealth() > 0) {
-            System.out.println(m1.getName() + " attacks for " + m1.getDamage());
-            p1.setHealth(p1.getHealth() - m1.getDamage());
-            System.out.println("Remaining player health: " + p1.getHealth());
-        } else {
-            System.out.println("Monster is dead");
-        }
-        scanner.nextLine();
-
-    } */
-
-    /*public void flee (Player p1, Monster m1, boolean flee) {
-
-        //Main main = new Main();
-
-
-        if (p1.getAgility() > m1.getAgility()) {
-            System.out.println("Successfully ran away!");
-            flee = true; //gameMenu(p1,m1);
-
-
-        } else {
-            flee = false;
-            System.out.println("Failed to run away");
-            m1.attacks(m1,p1);
-        }
-
-    } */
-
     public void growth () {
 
         setLevel(getLevel() + 1);
         setStrength(getStrength() + 2);
         setIntelligence(getIntelligence() + 2);
         setAgility(getAgility() + 2);
-
-       /* switch (p1.getLevel() ) {
-            case 2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 -> {
-                p1.setStrength(p1.getStrength() + 10);
-                p1.setIntelligence(p1.getIntelligence() + 10);
-                p1.setAgility(p1.getAgility() + 10);
-            }
-        } */
-
 
     }
 

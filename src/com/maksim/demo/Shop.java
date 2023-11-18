@@ -120,20 +120,20 @@ public class Shop {
             switch (scanner.nextLine()) {
                 case "1" -> {
                     if (p1.getExp() >= 10) {
-                        p1.setHealth(p1.getHealth() + 50 );  // TODO - Set max HP, or can recover health indefinitely
-                        spendCurrency(p1,10);                                //p1.setExp(p1.getExp()- 10 );
-                        System.out.println("you ate burger!");
-                        System.out.println("recovered 50 health");
+                        p1.setHealth(p1.getHealth() + 50 );
+                        spendCurrency(p1,10);
+                        System.out.println("You ate burger!");
+                        System.out.println("Recovered 50 health");
                         pondering = false;
 
                     } else {
-                        System.out.println("not enough currency (exp)");
+                        System.out.println("Not enough currency (exp)");
                         pondering = false;
                     }
                 }
 
                 case "2" -> {
-                    System.out.println("no burger?");
+                    System.out.println("No burger?");
                     pondering = false;
                 }
 
@@ -157,18 +157,18 @@ public class Shop {
                     if (p1.getExp() >= 5) {
                         p1.setHealth(p1.getHealth() + 20 );  // TODO - Set max HP, or can recover health indefinitely
                         spendCurrency(p1,5);                //p1.setExp(p1.getExp()- 5 );
-                        System.out.println("you drank cola!");
-                        System.out.println("recovered 20 health");
+                        System.out.println("You drank cola!");
+                        System.out.println("Recovered 20 health");
                         pondering = false;
 
                     } else {
-                        System.out.println("not enough currency (exp)");
+                        System.out.println("Not enough currency (exp)");
                         pondering = false;
                     }
                 }
 
                 case "2" -> {
-                    System.out.println("no cola?");
+                    System.out.println("No cola?");
                     pondering = false;
                 }
 
@@ -194,19 +194,19 @@ public class Shop {
                         if (p1.getExp() >= 20) {
                             //p1.setSword(true);
                             spendCurrency(p1,20);                                //p1.setExp(p1.getExp()- 20 );
-                            System.out.println("you bought a sword!");
+                            System.out.println("You bought a sword!");
 
                             weapon.sword(p1);
                             pondering = false;
 
                         } else {
-                            System.out.println("not enough currency (exp)");
+                            System.out.println("Not enough currency (exp)");
                             pondering = false;
                         }
                     }
 
                     case "2" -> {
-                        System.out.println("It's your funeral, hehe");
+                        System.out.println("Too bad");
                         pondering = false;
                     }
 
@@ -250,7 +250,7 @@ public class Shop {
                     }
 
                     case "2" -> {
-                        System.out.println("It's your funeral, hehe");
+                        System.out.println("But it's really cool!");
                         pondering = false;
                     }
 
@@ -280,7 +280,7 @@ public class Shop {
                         if (p1.getExp() >= 10) {
                             //p1.setShield(true);
                             spendCurrency(p1,10);                        //p1.setExp(p1.getExp()- 10 );
-                            System.out.println("you bought a shield!");
+                            System.out.println("You bought a shield!");
                             weapon.shield(p1);
                             pondering = false;
 
@@ -291,7 +291,7 @@ public class Shop {
                     }
 
                     case "2" -> {
-                        System.out.println("you decided against buying a shield");
+                        System.out.println("You decided against buying a shield");
                         pondering = false;
                     }
 
