@@ -130,7 +130,7 @@ class PlayerTest {
         player.setIntelligence(100);
         player.crit();
 
-        assertEquals(10, player.getBaseDamage());
+        assertEquals(20, player.getBaseDamage());
 
     }
 
@@ -146,21 +146,21 @@ class PlayerTest {
 
 
     @RepeatedTest(2000)
-    public void FiftyPercentCritDamage () {
+    public void FiftyPercentCritDamage () { // about 50% of tests should pass
 
         player.setIntelligence(50);
         player.crit();
 
-        assertEquals(10, player.getBaseDamage());
+        assertEquals(20, player.getBaseDamage());
     }
 
     @RepeatedTest(1000)
-    public void TenPercentCritDamage () {
+    public void TenPercentCritDamage () { // about 10% of tests should pass.
 
         player.setIntelligence(10);
         player.crit();
 
-        assertEquals(10, player.getBaseDamage());
+        assertEquals(20, player.getBaseDamage());
 
     }
 
