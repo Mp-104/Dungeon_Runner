@@ -15,8 +15,8 @@ public class Weapon {
     void laserSword (Player p1) {
 
         System.out.println(p1.getName() + " has laser sword");
-        System.out.println("Strength + 200");
-        p1.setStrength(p1.getStrength() + 200);
+        System.out.println("Strength + 100");
+        p1.setStrength(p1.getStrength() + 100);
     }
 
     void shield (Player p1) {

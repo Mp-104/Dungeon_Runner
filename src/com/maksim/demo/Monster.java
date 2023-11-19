@@ -1,6 +1,7 @@
 package com.maksim.demo;
 
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 import static com.maksim.demo.Colours.*;
 
@@ -8,6 +9,7 @@ public class Monster implements ICombat {
 
     Scanner scanner = new Scanner(System.in);
     private String name;
+    private String info;
 
     private int health;
     private int maxHealth;
@@ -42,11 +44,12 @@ public class Monster implements ICombat {
 
 
     public void monStatus () {
-        System.out.println(WHITE_BRIGHT + "Monster name: " + name + RESET);
+        System.out.println(WHITE_BRIGHT + name + RESET);
         System.out.println(GREEN_BRIGHT + "Health: " + health + "/" + maxHealth + RESET);
         System.out.println(RED_BRIGHT + "Damage: " + damage + RESET);
         System.out.println(YELLOW_BRIGHT + "Agility: " + agility + RESET);
-        ;
+        System.out.println("Stamina: " +stamina);
+        System.out.println(info);
 
     }
     public boolean getAlive () {
@@ -108,6 +111,12 @@ public class Monster implements ICombat {
     public void setName(String name) {
         this.name = name;
     }
+    public String getInfo() {
+        return info;
+    }
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public int getHealth() {
         return health;
@@ -158,7 +167,7 @@ public class Monster implements ICombat {
             }
 
             if (stamina == 1) {
-                System.out.println(WHITE_BRIGHT + name + RESET + " is getting tired");
+                System.out.println(WHITE_BRIGHT + name + RESET + YELLOW_BRIGHT +" is getting tired" + RESET);
             }
 
 
@@ -172,7 +181,7 @@ public class Monster implements ICombat {
                 if (p1.getDefend() && coward && stamina <2) {
                     fleeing(p1,m1);
                 } else {
-                    if (smart && health <= maxHealth/10) {
+                    if (smart && health <= maxHealth/8) {
                         tacticalRetreat(p1);
                     } else {
                         System.out.println(WHITE_BRIGHT + name + RESET + " attacks for " + RED + m1.getDamage() + RESET);
@@ -213,7 +222,7 @@ public class Monster implements ICombat {
         if (stamina > 0) {
             if (smart) {
                 System.out.println(WHITE_BRIGHT + name + RESET + " is hurt, attempts to retreat");
-                if (agility >= p1.getAgility()) {
+                if (agility > p1.getAgility() + p1.getAgility()/2) {
                     System.out.println(WHITE_BRIGHT + name + RESET + " retreated successfully");
                     System.out.println(WHITE_BRIGHT + name + RESET + " restored health and stamina to full");
                     setStamina(maxStamina);
@@ -221,7 +230,7 @@ public class Monster implements ICombat {
                     flee = true;
 
                 } else {
-                    System.out.println(WHITE_BRIGHT + name + RESET + " is too slow, failed to retreat");
+                    System.out.println(WHITE_BRIGHT + name + RESET + " failed to retreat.");
                     flee = false;
 
                 }
@@ -243,10 +252,7 @@ public class Monster implements ICombat {
 
     @Override
     public void fleeing(Player p1, Monster m1) {
-            //System.out.println(name + "'s stamina in fleeing: " + stamina);
-            /*if (stamina == 1) {
-                System.out.println(name + " is getting tired, it seems in fleeing");
-            } */
+
 
             if (stamina > 0) {
                 if (m1.coward) {

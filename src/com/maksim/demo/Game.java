@@ -28,7 +28,7 @@ public class Game {
 
 
 
-        p1.setAgility(10);
+        p1.setAgility(50);
         p1.setHealth(100);
         p1.setStrength(10);
         p1.setIntelligence(1);
@@ -41,28 +41,30 @@ public class Game {
         Monster m1 = new Monster();
 
         m1.setAlive(true);
-        m1.setAgility(15);
+        m1.setAgility(40);
         m1.setHealth(30);
         m1.setMaxHealth(m1.getHealth());
-        m1.setDamage(10);
+        m1.setDamage(30);
         m1.setExpYield(100);
         m1.setName("1st Enemy");
         m1.setStamina(2);
         m1.setMaxStamina(m1.getStamina());
+        m1.setInfo("Just your average enemy! Keep on attacking and it should go down");
 
         Monster m2 = new Monster();
 
         m2.setAlive(true);
-        m2.setAgility(100);
-        m2.setHealth(50);
+        m2.setAgility(80);
+        m2.setHealth(60);
         m2.setMaxHealth(m2.getHealth());
-        m2.setDamage(5);
+        m2.setDamage(20);
         m2.setExpYield(120);
         m2.setName("Quick Strike");
-        m2.setStamina(3);
+        m2.setStamina(4);
         m2.setMaxStamina(m2.getStamina());
         m2.setSmart(true);
         m2.setCoward(false);
+        m2.setInfo("Fast and smart, don't get careless");
 
         Monster m3 = new Monster();
 
@@ -76,46 +78,50 @@ public class Game {
         m3.setName("Coward");
         m3.setStamina(5);
         m3.setMaxStamina(m3.getStamina());
+        m3.setInfo("Will run away to avoid fighting, but can't keep himself from attacking a "+BLUE+"Defending"+RESET+" opponent..");
 
         Monster m4 = new Monster();
 
         m4.setAlive(true);
-        m4.setAgility(150);
+        m4.setAgility(60);
         m4.setHealth(100);
         m4.setMaxHealth(m4.getHealth());
-        m4.setDamage(10);
+        m4.setDamage(45);
         m4.setExpYield(230);
         m4.setCoward(false);
-        m4.setName("Number 1");
-        m4.setStamina(2);
+        m4.setName("Devout");
+        m4.setStamina(4);
         m4.setMaxStamina(m4.getStamina());
+        m4.setInfo("...");
 
         Monster m5 = new Monster();
 
         m5.setAlive(true);
-        m5.setAgility(150);
-        m5.setHealth(50);
+        m5.setAgility(70);
+        m5.setHealth(500);
         m5.setMaxHealth(m5.getHealth());
         m5.setDamage(30);
         m5.setExpYield(300);
         m5.setCoward(false);
-        m5.setName("Number 2");
+        m5.setName("Second in Command");
         m5.setStamina(5);
         m5.setMaxStamina(m5.getStamina());
+        m5.setInfo("Can take a lot of hits");
 
         Monster m6 = new Monster();
 
         m6.setAlive(true);
-        m6.setAgility(120);
-        m6.setHealth(300);
+        m6.setAgility(105);
+        m6.setHealth(1000);
         m6.setMaxHealth(m6.getHealth());
         m6.setDamage(70);
         m6.setExpYield(1030);
         m6.setCoward(false);
-        m6.setName("Number 3");
+        m6.setName("Dark False");
         m6.setStamina(5);
         m6.setMaxStamina(m6.getStamina());
         m6.setSmart(true);
+        m6.setInfo("The most powerful enemy in the game. Good luck!");
 
 
 
@@ -145,17 +151,11 @@ public class Game {
         System.out.println("Your name is " + p1.getName());
 
 
-        System.out.printf("hello %s, ", p1.getName()); // format
+        System.out.printf("Hello, %s, ", p1.getName()); // format
         System.out.println();
         System.out.println("This is your current status: ");
         p1.getStatus();
-        System.out.println();
-        System.out.println();
-
-
-
-
-
+        System.out.println("");
 
         do {
             System.out.println("Choose which enemy to fight");
@@ -168,7 +168,7 @@ public class Game {
             System.out.println("0: Shop");
             System.out.println("9. Exit game");
             System.out.println("");
-            System.out.println("Remaining monsters:");
+            System.out.println("Remaining enemies:");
 
             for (int i = 0; i < enemyList.size(); i++) {
                 System.out.println(enemyList.get(i).getName() );
@@ -197,11 +197,15 @@ public class Game {
 
 
             }
-            p1.getStatus();  // TODO - Remove later, used for testing
+            p1.getStatus();
+            System.out.println("");
 
         } while (!enemyList.isEmpty());
         System.out.println("");
         System.out.println("The first enemies have been dealt with!");
+        System.out.println("Got 1000 exp!");
+        p1.setExp(p1.getExp() + 1000);
+        sc.nextLine();
         System.out.println("");
         System.out.println("New enemies approaching");
         System.out.println("");
@@ -226,7 +230,7 @@ public class Game {
             System.out.println("9. Exit game");
             System.out.println("");
 
-            System.out.println("Remaining monsters:");
+            System.out.println("Remaining enemies:");
 
             for (int i = 0; i < nextEnemyList.size(); i++) {
                 System.out.println(nextEnemyList.get(i).getName() );
@@ -253,8 +257,11 @@ public class Game {
 
             } while (!nextEnemyList.isEmpty());
 
+
+        System.out.println("");
         System.out.println("All enemies dead");
         System.out.println("You won");
+        sc.nextLine();
 
         Result result = new Result();
         result.writeResult(p1);
@@ -357,15 +364,15 @@ public class Game {
         Monster randomMonster = new Monster();
 
         randomMonster.setAlive(true);
-        randomMonster.setAgility(random.nextInt(100,1000));
-        randomMonster.setHealth(random.nextInt(100,1000));
+        randomMonster.setAgility(random.nextInt(10,100));
+        randomMonster.setHealth(random.nextInt(50,300));
         randomMonster.setMaxHealth(randomMonster.getHealth());
-        randomMonster.setDamage(random.nextInt(100,1000));
+        randomMonster.setDamage(random.nextInt(10,100));
         randomMonster.setName("Random enemy #" + random.nextInt(1,999));
         randomMonster.setStamina(random.nextInt(5,10));
         randomMonster.setMaxStamina(randomMonster.getStamina());
-
         randomMonster.setExpYield(randomMonster.getDamage() + randomMonster.getHealth());
+        randomMonster.setInfo("A random enemy");
 
         boolean isPlaying = true;
 
@@ -484,8 +491,7 @@ public class Game {
             if (m1.getHealth() <= 0) {
                 m1.setAlive(false);
                 p1.setEnemiesDefeated(p1.getEnemiesDefeated() + 1);
-                System.out.println("you defeated " + WHITE_BRIGHT + m1.getName() + RESET);
-                System.out.println("");
+                System.out.println("You defeated " + WHITE_BRIGHT + m1.getName() + RESET);
                 sc.nextLine();
             }
 
@@ -500,7 +506,6 @@ public class Game {
 
 
         if (!m1.getAlive() && p1.getAlive()) {
-            System.out.println("You won!");
             System.out.println("You earned " + PURPLE + m1.getExpYield() +  RESET + " experience!");
             p1.setExp(p1.getExp() + m1.getExpYield());
             System.out.println("");
@@ -524,7 +529,7 @@ public class Game {
             System.out.println("You used your exp to reawaken");
             p1.setFlee(true);
             p1.setAlive(true);
-            p1.setHealth(1);
+            p1.setHealth(100);
 
         } else {
             result.writeResult(p1);

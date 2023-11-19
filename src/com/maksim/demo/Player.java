@@ -55,10 +55,10 @@ public class Player implements ICombat {
 
     public void getStatus () {
         System.out.printf(WHITE_BRIGHT +  "Name: %s %n" + RESET + RED, name );
-        System.out.printf("Strength: %d %n" + RESET + BLUE, strength );
+        System.out.printf("Health: %d %n" + RESET + PURPLE, health);
         System.out.printf("Intelligence: %d %n" + RESET + YELLOW , intelligence);
         System.out.printf("Agility: %d %n" + RESET + GREEN, agility);
-        System.out.printf("Health: %d %n" + RESET + PURPLE, health);
+        System.out.printf("Strength: %d %n" + RESET + BLUE, strength );
         System.out.printf("Exp: %d %n" + RESET + CYAN , exp);
         System.out.printf("Level: %s %n" + RESET, level);
 
@@ -220,7 +220,7 @@ public class Player implements ICombat {
     public void counterAttack (Monster m1) {
         m1.setHealth(m1.getHealth() - (calculateDamage()/2 ));
         System.out.println(WHITE_BRIGHT + name + RESET + " Counterattacks for " + ( calculateDamage()/2 ) );
-        System.out.println("Remaining health of enemy: " +WHITE_BRIGHT + m1.getName() + RESET + " is " + GREEN_BRIGHT+ m1.getHealth() + "/" + m1.getMaxHealth()+ RESET);
+        System.out.println("Remaining health of " +WHITE_BRIGHT + m1.getName() + RESET + ": " + GREEN_BRIGHT+ m1.getHealth() + "/" + m1.getMaxHealth()+ RESET);
         scanner.nextLine();
 
     }
@@ -265,7 +265,7 @@ public class Player implements ICombat {
 
         if (getIntelligence() >= random.nextInt(0,99)) {
             System.out.println(RED_BRIGHT+"Critical damage"+RESET);
-            setBaseDamage(getBaseDamage() *2);
+            setBaseDamage(getBaseDamage() *4);
         }
 
 

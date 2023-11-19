@@ -1,6 +1,7 @@
 package com.maksim.demo;
 
 import java.util.Scanner;
+import static com.maksim.demo.Colours.*;
 
 public class Shop {
 
@@ -13,16 +14,17 @@ public class Shop {
         if (!p1.getSword()) {
 
             do {
-                System.out.println("""
-                    Welcome to shop!\s
-                    1: Cola - 5 exp
-                    2: Burger - 10 exp
-                    3: Sword - 20 exp
-                    4: Shield - 10 exp""");
-                System.out.println("5: Level up - " + (100 + (p1.getLevel() * p1.getLevel() ) -1) + " exp");
+                System.out.println("");
+                System.out.println("Welcome to shop!");
+                System.out.println("1: Cola - " + PURPLE+ 5 + RESET+ " exp");
+                System.out.println("2: Burger - "+PURPLE + 10 +RESET +" exp");
+                System.out.println("3: Sword - " +PURPLE+20+RESET+ " exp");
+                System.out.println("4: Shield - "+ PURPLE+"10 "+RESET + " exp");
+                System.out.println("5: Level up - " + PURPLE+(100 + (p1.getLevel() * p1.getLevel() ) -1) + RESET+ " exp");
+                System.out.println("(Tip: Having Sword and Shield will allow you to do a counterattack after a successful Defend!)");
                 System.out.println("");
                 System.out.println("0: Exit Shop");
-                System.out.println("Available currency (exp): " + p1.getExp());
+                System.out.println("Available exp: " + PURPLE+ p1.getExp()+RESET);
 
 
 
@@ -42,16 +44,16 @@ public class Shop {
         } else {
 
             do {
-                System.out.println("""
-                    Welcome to shop!\s
-                    1: Cola - 5 exp
-                    2: Burger - 10 exp
-                    3: Upgrade to laser sword - 200 exp
-                    4: Shield - 10 exp""");
-                System.out.println("5: Level up - " + (100 + (p1.getLevel() * p1.getLevel() ) -1) + " exp");
+                System.out.println("Welcome to shop!");
+                System.out.println("1: Cola - " + PURPLE+ 5 + RESET+ " exp");
+                System.out.println("2: Burger - "+PURPLE + 10 + RESET+" exp");
+                System.out.println("3: Upgrade to laser sword - " +PURPLE+200+RESET+ " exp");
+                System.out.println("4: Shield - "+ PURPLE+10 +RESET + " exp");
+                System.out.println("5: Level up - " + PURPLE+(100 + (p1.getLevel() * p1.getLevel() ) -1) + RESET+ " exp");
+                System.out.println("(Tip: Having Sword and Shield will allow you to do a counterattack after a successful Defend!)");
                 System.out.println("");
                 System.out.println("0: Exit Shop");
-                System.out.println("Available currency (exp): " + p1.getExp());
+                System.out.println("Available exp: " + PURPLE+ p1.getExp()+RESET);
 
 
 

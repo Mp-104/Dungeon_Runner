@@ -18,6 +18,7 @@ public class MonsterTest {
         monster.setDamage(10);
         monster.setStamina(3);
         monster.setAgility(20);
+        monster.setName("test");
 
     }
 
@@ -43,5 +44,7 @@ public class MonsterTest {
         assertNotEquals(monster.getMaxHealth(),monster.getHealth());
 
     }
+
+
 
 }

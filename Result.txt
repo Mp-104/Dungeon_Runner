@@ -1,6 +1,6 @@
-Name: M
-Level: 102
-Enemies defeated: 13
+Name: d
+Level: 12
+Enemies defeated: 6
 Weapons obtained: 
   Sword
   Shield
