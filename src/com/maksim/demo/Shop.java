@@ -90,8 +90,7 @@ public class Shop {
             switch (scanner.nextLine()) {
                 case "1" -> {
                     if (p1.getExp() >= 100 + (p1.getLevel() * p1.getLevel()) - 1   ) {
-                        spendCurrency(p1, (100 + (p1.getLevel() * p1.getLevel()) -1));                //p1.setExp(p1.getExp() - (100 + (p1.getLevel() * p1.getLevel()) -1)  );
-                        //p1.setLevel(p1.getLevel() + 1);
+                        spendCurrency(p1, (100 + (p1.getLevel() * p1.getLevel()) -1));
                         System.out.println("You levelled up!");
                         p1.growth();
                         pondering = false;
@@ -158,7 +157,7 @@ public class Shop {
                 case "1" -> {
                     if (p1.getExp() >= 5) {
                         p1.setHealth(p1.getHealth() + 20 );  // TODO - Set max HP, or can recover health indefinitely
-                        spendCurrency(p1,5);                //p1.setExp(p1.getExp()- 5 );
+                        spendCurrency(p1,5);
                         System.out.println("You drank cola!");
                         System.out.println("Recovered 20 health");
                         pondering = false;
@@ -195,7 +194,7 @@ public class Shop {
                     case "1" -> {
                         if (p1.getExp() >= 20) {
                             //p1.setSword(true);
-                            spendCurrency(p1,20);                                //p1.setExp(p1.getExp()- 20 );
+                            spendCurrency(p1,20);
                             System.out.println("You bought a sword!");
 
                             weapon.sword(p1);
@@ -238,7 +237,7 @@ public class Shop {
                     case "1" -> {
                         if (p1.getExp() >= 200) {
                             //p1.setSword(true);
-                            spendCurrency(p1,200);              //p1.setExp(p1.getExp()- 200 );
+                            spendCurrency(p1,200);
                             System.out.println("You upgraded to laser sword!");
 
                             weapon.laserSword(p1);
@@ -281,7 +280,7 @@ public class Shop {
                     case "1" -> {
                         if (p1.getExp() >= 10) {
                             //p1.setShield(true);
-                            spendCurrency(p1,10);                        //p1.setExp(p1.getExp()- 10 );
+                            spendCurrency(p1,10);
                             System.out.println("You bought a shield!");
                             weapon.shield(p1);
                             pondering = false;

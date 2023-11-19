@@ -1,7 +1,6 @@
 package com.maksim.demo;
 
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import static com.maksim.demo.Colours.*;
 
@@ -157,7 +156,7 @@ public class Monster implements ICombat {
     @Override
     public void attacks(Monster m1, Player p1) {
 
-        if (m1.getHealth() > 0 && stamina > 0) {
+        if (health > 0 && stamina > 0) {
 
 
             if (damage >= p1.getHealth() && agility >= p1.getAgility() && coward) {
@@ -184,8 +183,8 @@ public class Monster implements ICombat {
                     if (smart && health <= maxHealth/8) {
                         tacticalRetreat(p1);
                     } else {
-                        System.out.println(WHITE_BRIGHT + name + RESET + " attacks for " + RED + m1.getDamage() + RESET);
-                        p1.setHealth(p1.getHealth() - m1.getDamage());
+                        System.out.println(WHITE_BRIGHT + name + RESET + " attacks for " + RED + damage + RESET);
+                        p1.setHealth(p1.getHealth() - damage);
 
                         System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
                         stamina -= 1;
@@ -255,10 +254,10 @@ public class Monster implements ICombat {
 
 
             if (stamina > 0) {
-                if (m1.coward) {
+                if (coward) {
 
                     System.out.println(WHITE_BRIGHT + name + RESET + " tries to run away");
-                    if (m1.getAgility() >= p1.getAgility()) {
+                    if (agility >= p1.getAgility()) {
                         System.out.println(WHITE_BRIGHT + name + RESET + " ran away successfully");
                         System.out.println(WHITE_BRIGHT + name + RESET + " restored health and stamina to full");
                         setStamina(maxStamina);

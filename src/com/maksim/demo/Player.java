@@ -9,16 +9,15 @@ public class Player implements ICombat {
     Game game = new Game();
     Scanner scanner = new Scanner(System.in);
 
-    private boolean sword;  // Implement in Shop class
-    private boolean shield; // Implement in Shop class
+    private boolean sword;
+    private boolean shield;
     private String name;
     private int strength;
-    private int intelligence;  // Intelligence influences crit damage (double ordinary damage)
+    private int intelligence;
     private int agility;
     private int health;
     private int exp;
     private int level;
-    private int defence;  // Consider removing
     private int baseDamage;
     private int enemiesDefeated;
     private boolean flee;
@@ -40,7 +39,7 @@ public class Player implements ICombat {
     @Override
     public void fleeing(Player p1, Monster m1) {
         System.out.println(WHITE_BRIGHT + name + RESET + " tries to run away");
-        if (p1.getAgility() > m1.getAgility() || m1.getStamina() == 0) {
+        if (agility > m1.getAgility() || m1.getStamina() == 0) {
             System.out.println(GREEN + "Ran away successfully" + RESET);
             flee = true;
         } else {
@@ -181,7 +180,7 @@ public class Player implements ICombat {
             System.out.println(WHITE_BRIGHT + name + RESET + " has sword and shield, damage halved");
         }
 
-        if (p1.getAgility() > m1.getAgility()) {
+        if (agility > m1.getAgility()) {
             System.out.println(WHITE_BRIGHT + name + RESET + " is faster than " + m1.getName());
 
             attacks(m1,p1);
@@ -265,7 +264,7 @@ public class Player implements ICombat {
 
         if (getIntelligence() >= random.nextInt(0,99)) {
             System.out.println(RED_BRIGHT+"Critical damage"+RESET);
-            setBaseDamage(getBaseDamage() *4);
+            setBaseDamage( (baseDamage + strength) * 2);
         }
 
 
@@ -275,7 +274,7 @@ public class Player implements ICombat {
     public void attacks(Monster m1, Player p1) {
         int x = baseDamage;
 
-        if (p1.getHealth() > 0) {
+        if (health > 0) {
 
             Random random = new Random();
             if (m1.getAgility() > agility + (agility/2) && 50 > random.nextInt(0,99) && m1.getStamina() > 0 && m1.getSmart()) {
@@ -286,7 +285,7 @@ public class Player implements ICombat {
 
                 crit();
                 m1.setHealth(m1.getHealth() - calculateDamage() );
-                System.out.println(p1.getName() + " attacks for " + RED + calculateDamage() + RESET );
+                System.out.println(name + " attacks for " + RED + calculateDamage() + RESET );
 
             }
 
