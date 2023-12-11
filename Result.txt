@@ -1,8 +1,8 @@
-Name: d
-Level: 12
-Enemies defeated: 6
+Name: max
+Level: 1
+Enemies defeated: 2
 Weapons obtained: 
-  Sword
-  Shield
 
-You won!
+
+
+You lost

@@ -2,6 +2,7 @@ package com.maksim.demo;
 
 import java.util.Scanner;
 import static com.maksim.demo.Colours.*;
+import static com.maksim.demo.Game.dbConnection;
 
 public class Shop {
 
@@ -76,6 +77,7 @@ public class Shop {
 
     void spendCurrency (Player p1, int cost) {
         p1.setExp(p1.getExp()- cost );
+        dbConnection.updateExp(p1);
 
     }
 
@@ -93,6 +95,10 @@ public class Shop {
                         spendCurrency(p1, (100 + (p1.getLevel() * p1.getLevel()) -1));
                         System.out.println("You levelled up!");
                         p1.growth();
+                        dbConnection.updateLevel(p1);
+                        dbConnection.updateStrength(p1);
+                        dbConnection.updateIntelligence(p1);
+                        dbConnection.updateAgility(p1);
                         pondering = false;
                     } else {
                         System.out.println("not enough exp");
@@ -122,6 +128,7 @@ public class Shop {
                 case "1" -> {
                     if (p1.getExp() >= 10) {
                         p1.setHealth(p1.getHealth() + 50 );
+                        dbConnection.updateHealth(p1);
                         spendCurrency(p1,10);
                         System.out.println("You ate burger!");
                         System.out.println("Recovered 50 health");
@@ -157,6 +164,7 @@ public class Shop {
                 case "1" -> {
                     if (p1.getExp() >= 5) {
                         p1.setHealth(p1.getHealth() + 20 );  // TODO - Set max HP, or can recover health indefinitely
+                        dbConnection.updateHealth(p1);
                         spendCurrency(p1,5);
                         System.out.println("You drank cola!");
                         System.out.println("Recovered 20 health");
@@ -281,6 +289,7 @@ public class Shop {
                         if (p1.getExp() >= 10) {
                             //p1.setShield(true);
                             spendCurrency(p1,10);
+
                             System.out.println("You bought a shield!");
                             weapon.shield(p1);
                             pondering = false;

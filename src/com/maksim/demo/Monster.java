@@ -3,6 +3,7 @@ package com.maksim.demo;
 
 import java.util.Scanner;
 import static com.maksim.demo.Colours.*;
+import static com.maksim.demo.Game.dbConnection;
 
 public class Monster implements ICombat {
 
@@ -185,6 +186,8 @@ public class Monster implements ICombat {
                     } else {
                         System.out.println(WHITE_BRIGHT + name + RESET + " attacks for " + RED + damage + RESET);
                         p1.setHealth(p1.getHealth() - damage);
+
+                        dbConnection.updateHealth(p1);
 
                         System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
                         stamina -= 1;

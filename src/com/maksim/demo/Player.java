@@ -3,6 +3,7 @@ package com.maksim.demo;
 import java.util.Random;
 import java.util.Scanner;
 import static com.maksim.demo.Colours.*;
+import static com.maksim.demo.Game.dbConnection;
 
 public class Player implements ICombat {
 

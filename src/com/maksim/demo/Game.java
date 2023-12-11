@@ -11,12 +11,16 @@ public class Game {
     static Scanner sc = new Scanner(System.in);
     static List <Monster> enemyList = new ArrayList<>();
 
+    static DBConnection dbConnection = new DBConnection();
     static List <Monster> nextEnemyList = new ArrayList<>();
 
 
 
     public void menu () {
 
+        dbConnection.open();
+        dbConnection.createMonsterTable3();
+        dbConnection.createTablePlayer();
         Shop shop = new Shop();
 
         Player p1 = new Player(0,
@@ -38,6 +42,7 @@ public class Game {
         p1.setAlive(true);
 
 
+
         Monster m1 = new Monster();
 
         m1.setAlive(true);
@@ -50,6 +55,8 @@ public class Game {
         m1.setStamina(2);
         m1.setMaxStamina(m1.getStamina());
         m1.setInfo("Just your average enemy! Keep on attacking and it should go down");
+
+        dbConnection.createMonster3(m1);
 
         Monster m2 = new Monster();
 
@@ -66,6 +73,8 @@ public class Game {
         m2.setCoward(false);
         m2.setInfo("Fast and smart, don't get careless");
 
+        dbConnection.createMonster3(m2);
+
         Monster m3 = new Monster();
 
         m3.setAlive(true);
@@ -79,6 +88,9 @@ public class Game {
         m3.setStamina(5);
         m3.setMaxStamina(m3.getStamina());
         m3.setInfo("Will run away to avoid fighting, but can't keep himself from attacking a "+BLUE+"Defending"+RESET+" opponent..");
+
+        dbConnection.createMonster3(m3);
+
 
         Monster m4 = new Monster();
 
@@ -147,6 +159,7 @@ public class Game {
         System.out.println("Input your name? ");
         p1.setName(sc.nextLine());
 
+        dbConnection.createPlayer(p1);
 
         System.out.println("Your name is " + p1.getName());
 
@@ -491,6 +504,7 @@ public class Game {
             if (m1.getHealth() <= 0) {
                 m1.setAlive(false);
                 p1.setEnemiesDefeated(p1.getEnemiesDefeated() + 1);
+                dbConnection.updateEnemiesDefeated(p1);
                 System.out.println("You defeated " + WHITE_BRIGHT + m1.getName() + RESET);
                 sc.nextLine();
             }
@@ -508,6 +522,7 @@ public class Game {
         if (!m1.getAlive() && p1.getAlive()) {
             System.out.println("You earned " + PURPLE + m1.getExpYield() +  RESET + " experience!");
             p1.setExp(p1.getExp() + m1.getExpYield());
+            dbConnection.updateExp(p1);
             System.out.println("");
             sc.nextLine();
         }
