@@ -23,6 +23,24 @@ public class Game {
         dbConnection.createTablePlayer();
         Shop shop = new Shop();
 
+        System.out.println(dbConnection.getPlayerWithId(1));
+        System.out.println(dbConnection.getPlayerWithId(2));
+        System.out.println(dbConnection.getPlayerWithId(3));
+        System.out.println(dbConnection.getPlayerWithId(4));
+        System.out.println(dbConnection.getPlayer(1) + " " + dbConnection.getPlayerWithId(1));
+
+
+        int NumberOfPlayers = (int) dbConnection.getPlayerIDCount();
+
+        for (int i = 1; i < NumberOfPlayers+1; i++) {
+            System.out.println(dbConnection.getPlayer(i));
+            System.out.println("");
+        }
+
+
+
+
+
         Player p1 = new Player(0,
                 0,
                 0,
@@ -158,6 +176,8 @@ public class Game {
         System.out.println("Welcome to game adventure");   // green text
         System.out.println("Input your name? ");
         p1.setName(sc.nextLine());
+
+
 
         dbConnection.createPlayer(p1);
 

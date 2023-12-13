@@ -1,5 +1,7 @@
 package com.maksim.demo;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBConnection {
 
@@ -342,6 +344,77 @@ public class DBConnection {
         }
         return null;
     }
+
+    public List<String> getPlayer(int id) {
+
+        String sql = "SELECT * from player where playerID = ?";
+        String playerName;
+        String playerHealth;
+        String playerID;
+        String playerStrength;
+        String playerAgility;
+        String playerIntelligence;
+        String playerExp;
+        String playerLevel;
+        String enemies_defeated;
+
+        List<String> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                playerID = "PlayerID: " + rs.getString("playerid");
+                playerName = "Name: " + rs.getString("name");
+                playerHealth = "Health: " + rs.getString("health");
+                playerStrength = "Strength: " + rs.getString("strength");
+                playerAgility = "Agility: " + rs.getString("agility");
+                playerIntelligence = "Intelligence: " + rs.getString("intelligence");
+                playerExp = "Exp: " + rs.getString("exp");
+                playerLevel = "Level: " + rs.getString("level");
+                enemies_defeated = "Enemies defeated: " + rs.getString("enemies_defeated");
+
+                list.add(playerID);
+                list.add(playerName);
+                list.add(playerHealth);
+                list.add(playerStrength);
+                list.add(playerAgility);
+                list.add(playerIntelligence);
+                list.add(playerExp);
+                list.add(playerLevel);
+                list.add(enemies_defeated);
+                return list;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return null;
+    }
+
+    public Object getPlayerIDCount() {
+
+        String sql = "select count(playerId) pid from player";
+
+        int pid;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                pid = rs.getInt("pid");
+                
+                return pid;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return null;
+    }
+
 
     public int updatePlayerHealth(int health, int id) {
 
