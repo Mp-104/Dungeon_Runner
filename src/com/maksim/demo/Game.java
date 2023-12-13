@@ -15,7 +15,7 @@ public class Game {
     static List <Monster> nextEnemyList = new ArrayList<>();
 
 
-
+// TODO make a menu2, to load game
     public void menu () {
 
         dbConnection.open();
@@ -62,6 +62,15 @@ public class Game {
                 0);
 
 
+        // TODO - Change id: to a variable, implement scanner that takes in int as a variable ex: dbConnection.getPlayerTest(x).get(1) etc
+        p1.setHealth(dbConnection.getPlayerTest(5).get(1));
+        p1.setStrength(dbConnection.getPlayerTest(5).get(2));
+        p1.setAgility(dbConnection.getPlayerTest(5).get(3));
+        p1.setIntelligence(dbConnection.getPlayerTest(5).get(4));
+        p1.setExp(dbConnection.getPlayerTest(5).get(5));
+        p1.setLevel(dbConnection.getPlayerTest(5).get(6));
+
+
 
         p1.setAgility(50);
         p1.setHealth(100);
@@ -71,6 +80,8 @@ public class Game {
         p1.setExp(0);
         p1.setLevel(1);
         p1.setAlive(true);
+
+
 
 
 

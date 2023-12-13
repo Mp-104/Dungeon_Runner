@@ -413,7 +413,7 @@ public class DBConnection {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 playerID = rs.getInt("playerid");
-                //playerName = "Name: " + rs.getString("name");
+                playerName = "Name: " + rs.getString("name");
                 playerHealth = rs.getInt("health");
                 playerStrength = rs.getInt("strength");
                 playerAgility = rs.getInt("agility");
