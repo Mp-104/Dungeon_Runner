@@ -36,6 +36,19 @@ public class Game {
             System.out.println(dbConnection.getPlayer(i));
             System.out.println("");
         }
+        System.out.println("");
+        System.out.println("");
+
+        for (int i = 1; i < NumberOfPlayers+1; i++) {
+
+            System.out.println(dbConnection.getPlayerTest(i));
+
+        }
+        int y = dbConnection.getPlayerTest(5).get(1);
+        System.out.println(y);
+
+        int x = dbConnection.getPlayerTest(1).get(2);
+        //System.out.println(dbConnection.getPlayerTest(1).get(2) );
 
 
 

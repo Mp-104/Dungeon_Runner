@@ -8,6 +8,7 @@ public class Main {
 
         game.menu();
 
+        // loadgame.menu2(); + switch sats för att välja new game eller ladda spelare från databas
 
     }
 

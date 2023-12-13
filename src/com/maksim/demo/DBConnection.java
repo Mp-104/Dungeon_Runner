@@ -393,6 +393,54 @@ public class DBConnection {
         return null;
     }
 
+    public List<Integer> getPlayerTest (int id) {
+
+        String sql = "SELECT * from player where playerID = ?";
+        String playerName;
+        int playerHealth;
+        int playerID;
+        int playerStrength;
+        int playerAgility;
+        int playerIntelligence;
+        int playerExp;
+        int playerLevel;
+        int enemies_defeated;
+
+        List<Integer> list = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                playerID = rs.getInt("playerid");
+                //playerName = "Name: " + rs.getString("name");
+                playerHealth = rs.getInt("health");
+                playerStrength = rs.getInt("strength");
+                playerAgility = rs.getInt("agility");
+                playerIntelligence = rs.getInt("intelligence");
+                playerExp = rs.getInt("exp");
+                playerLevel = rs.getInt("level");
+                enemies_defeated = rs.getInt("enemies_defeated");
+
+                list.add(playerID);
+                //list.add(playerName);
+                list.add(playerHealth);
+                list.add(playerStrength);
+                list.add(playerAgility);
+                list.add(playerIntelligence);
+                list.add(playerExp);
+                list.add(playerLevel);
+                list.add(enemies_defeated);
+                return list;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return null;
+    }
+
     public Object getPlayerIDCount() {
 
         String sql = "select count(playerId) pid from player";
