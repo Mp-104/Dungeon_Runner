@@ -1,8 +1,8 @@
-Name: Klart
-Level: 12
-Enemies defeated: 7
+Name: What
+Level: 1
+Enemies defeated: 0
 Weapons obtained: 
-  Sword
-  Shield
+
+
 
 You won!

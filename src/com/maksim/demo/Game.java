@@ -15,44 +15,12 @@ public class Game {
     static List <Monster> nextEnemyList = new ArrayList<>();
 
 
-// TODO make a menu2, to load game
     public void menu () {
 
         dbConnection.open();
         dbConnection.createMonsterTable3();
         dbConnection.createTablePlayer();
         Shop shop = new Shop();
-
-        System.out.println(dbConnection.getPlayerWithId(1));
-        System.out.println(dbConnection.getPlayerWithId(2));
-        System.out.println(dbConnection.getPlayerWithId(3));
-        System.out.println(dbConnection.getPlayerWithId(4));
-        System.out.println(dbConnection.getPlayer(1) + " " + dbConnection.getPlayerWithId(1));
-
-
-        int NumberOfPlayers = (int) dbConnection.getPlayerIDCount();
-
-        for (int i = 1; i < NumberOfPlayers+1; i++) {
-            System.out.println(dbConnection.getPlayer(i));
-            System.out.println("");
-        }
-        System.out.println("");
-        System.out.println("");
-
-        for (int i = 1; i < NumberOfPlayers+1; i++) {
-
-            System.out.println(dbConnection.getPlayerTest(i));
-
-        }
-        int y = dbConnection.getPlayerTest(5).get(1);
-        System.out.println(y);
-
-        int x = dbConnection.getPlayerTest(1).get(2);
-        //System.out.println(dbConnection.getPlayerTest(1).get(2) );
-
-
-
-
 
         Player p1 = new Player(0,
                 0,
@@ -61,14 +29,6 @@ public class Game {
                 0,
                 0);
 
-
-        // TODO - Change id: to a variable, implement scanner that takes in int as a variable ex: dbConnection.getPlayerTest(x).get(1) etc
-        p1.setHealth(dbConnection.getPlayerTest(5).get(1));
-        p1.setStrength(dbConnection.getPlayerTest(5).get(2));
-        p1.setAgility(dbConnection.getPlayerTest(5).get(3));
-        p1.setIntelligence(dbConnection.getPlayerTest(5).get(4));
-        p1.setExp(dbConnection.getPlayerTest(5).get(5));
-        p1.setLevel(dbConnection.getPlayerTest(5).get(6));
 
 
 
@@ -313,6 +273,325 @@ public class Game {
 
 
             } while (!nextEnemyList.isEmpty());
+
+
+        System.out.println("");
+        System.out.println("All enemies dead");
+        System.out.println("You won");
+        sc.nextLine();
+
+        Result result = new Result();
+        result.writeResult(p1);
+
+    }
+
+    public void loadMenu () {
+
+        dbConnection.open();
+        dbConnection.createMonsterTable3();
+        dbConnection.createTablePlayer();
+        Shop shop = new Shop();
+
+        /*System.out.println(dbConnection.getPlayerWithId(1));
+        System.out.println(dbConnection.getPlayerWithId(2));
+        System.out.println(dbConnection.getPlayerWithId(3));
+        System.out.println(dbConnection.getPlayerWithId(4));
+        System.out.println(dbConnection.getPlayer(1) + " " + dbConnection.getPlayerWithId(1));
+
+         */
+
+        System.out.println("");
+        System.out.println("");
+
+        int NumberOfPlayers = (int) dbConnection.getPlayerIDCount();
+
+        for (int i = 1; i < NumberOfPlayers+1; i++) {
+            System.out.println(dbConnection.getPlayer(i));
+            System.out.println("");
+        }
+        System.out.println("");
+        //System.out.println("");
+
+       /* for (int i = 1; i < NumberOfPlayers+1; i++) {
+
+            System.out.println(dbConnection.getPlayerTest(i));
+
+        }
+        int y = dbConnection.getPlayerTest(5).get(1);
+        System.out.println(y);
+        */
+        int x = dbConnection.getPlayerTest(1).get(2);
+        //System.out.println(dbConnection.getPlayerTest(1).get(2) );
+
+
+
+
+
+        Player p1 = new Player(0,
+                0,
+                0,
+                50,
+                0,
+                0);
+
+
+        // TODO - Change id: to a variable, implement scanner that takes in int as a variable ex: dbConnection.getPlayerTest(x).get(1) etc
+
+        System.out.println("Load player by providing PlayerID");
+
+
+        while (!sc.hasNextInt()) {                             // Checks for valid input, will loop until valid input is provided
+            System.out.println("Not a number");
+            sc.next();
+        }
+        int playerLoad = sc.nextInt();
+
+        p1.setName(dbConnection.getPlayerWithId(playerLoad));
+        //System.out.println(p1.getName());
+        p1.setHealth(dbConnection.getPlayerTest(playerLoad).get(1));
+        p1.setStrength(dbConnection.getPlayerTest(playerLoad).get(2));
+        p1.setAgility(dbConnection.getPlayerTest(playerLoad).get(3));
+        p1.setIntelligence(dbConnection.getPlayerTest(playerLoad).get(4));
+        p1.setExp(dbConnection.getPlayerTest(playerLoad).get(5));
+        p1.setLevel(dbConnection.getPlayerTest(playerLoad).get(6));
+        p1.setEnemiesDefeated(dbConnection.getPlayerTest(playerLoad).get(7));
+
+
+        if (p1.getHealth()<1) {
+            System.out.println("No hp left..");
+            p1.setAlive(false);
+            gameOver(p1);
+        } else {
+            p1.setAlive(true);
+        }
+
+
+
+        System.out.println("Loaded player: " + p1.getName());
+
+        sc.nextLine();
+
+
+
+        Monster m1 = new Monster();
+
+        m1.setAlive(true);
+        m1.setAgility(40);
+        m1.setHealth(30);
+        m1.setMaxHealth(m1.getHealth());
+        m1.setDamage(30);
+        m1.setExpYield(100);
+        m1.setName("1st Enemy");
+        m1.setStamina(2);
+        m1.setMaxStamina(m1.getStamina());
+        m1.setInfo("Just your average enemy! Keep on attacking and it should go down");
+
+        dbConnection.createMonster3(m1);
+
+        Monster m2 = new Monster();
+
+        m2.setAlive(true);
+        m2.setAgility(80);
+        m2.setHealth(60);
+        m2.setMaxHealth(m2.getHealth());
+        m2.setDamage(20);
+        m2.setExpYield(120);
+        m2.setName("Quick Strike");
+        m2.setStamina(4);
+        m2.setMaxStamina(m2.getStamina());
+        m2.setSmart(true);
+        m2.setCoward(false);
+        m2.setInfo("Fast and smart, don't get careless");
+
+        dbConnection.createMonster3(m2);
+
+        Monster m3 = new Monster();
+
+        m3.setAlive(true);
+        m3.setAgility(110);
+        m3.setHealth(1);
+        m3.setMaxHealth(m3.getHealth());
+        m3.setDamage(10);
+        m3.setExpYield(190);
+        m3.setCoward(true);
+        m3.setName("Coward");
+        m3.setStamina(5);
+        m3.setMaxStamina(m3.getStamina());
+        m3.setInfo("Will run away to avoid fighting, but can't keep himself from attacking a "+BLUE+"Defending"+RESET+" opponent..");
+
+        dbConnection.createMonster3(m3);
+
+
+        Monster m4 = new Monster();
+
+        m4.setAlive(true);
+        m4.setAgility(60);
+        m4.setHealth(100);
+        m4.setMaxHealth(m4.getHealth());
+        m4.setDamage(45);
+        m4.setExpYield(230);
+        m4.setCoward(false);
+        m4.setName("Devout");
+        m4.setStamina(4);
+        m4.setMaxStamina(m4.getStamina());
+        m4.setInfo("...");
+
+        Monster m5 = new Monster();
+
+        m5.setAlive(true);
+        m5.setAgility(70);
+        m5.setHealth(500);
+        m5.setMaxHealth(m5.getHealth());
+        m5.setDamage(30);
+        m5.setExpYield(300);
+        m5.setCoward(false);
+        m5.setName("Second in Command");
+        m5.setStamina(5);
+        m5.setMaxStamina(m5.getStamina());
+        m5.setInfo("Can take a lot of hits");
+
+        Monster m6 = new Monster();
+
+        m6.setAlive(true);
+        m6.setAgility(105);
+        m6.setHealth(1000);
+        m6.setMaxHealth(m6.getHealth());
+        m6.setDamage(70);
+        m6.setExpYield(1030);
+        m6.setCoward(false);
+        m6.setName("Dark False");
+        m6.setStamina(5);
+        m6.setMaxStamina(m6.getStamina());
+        m6.setSmart(true);
+        m6.setInfo("The most powerful enemy in the game. Good luck!");
+
+
+
+        //List <Monster> monsterList = new ArrayList<>();
+
+        enemyList.add(m1);
+        enemyList.add(m2);
+        enemyList.add(m3);
+
+        nextEnemyList.add(m4);
+        nextEnemyList.add(m5);
+        nextEnemyList.add(m6);
+
+        //System.out.println("p1.speed(): " + p1.speed());  // ??
+
+        //p1.fight(m1,p1);
+
+
+
+        //p1.setName(sc.nextLine());
+
+
+
+        System.out.printf("Welcome back, %s, ", p1.getName()); // format
+        System.out.println();
+        System.out.println("This is your current status: ");
+        p1.getStatus();
+        System.out.println("");
+
+        do {
+            System.out.println("Choose which enemy to fight");
+
+            System.out.println("1: " + m1.getName());
+            System.out.println("2: " + m2.getName());
+            System.out.println("3: " + m3.getName());
+            System.out.println("4: Random enemies");
+            System.out.println("");
+            System.out.println("0: Shop");
+            System.out.println("9. Exit game");
+            System.out.println("");
+            System.out.println("Remaining enemies:");
+
+            for (int i = 0; i < enemyList.size(); i++) {
+                System.out.println(enemyList.get(i).getName() );
+            }
+
+
+            switch (sc.nextLine()) {
+                case "1" -> {
+                    gameMenu(p1, m1);
+                    //monsterList.remove(m1);
+
+                }
+                case "2" -> {
+                    gameMenu(p1, m2);
+                    //monsterList.remove(m2);
+                }
+                case "3" -> gameMenu(p1, m3);
+                case "4" -> randomMonsterMenu(p1);
+                case "0" -> shop.menu(p1);
+
+                case "9" -> {
+                    result.writeResult(p1);
+                    System.exit(0);
+                }
+                default -> System.out.println("Try again");
+
+
+            }
+            p1.getStatus();
+            System.out.println("");
+
+        } while (!enemyList.isEmpty());
+        System.out.println("");
+        System.out.println("The first enemies have been dealt with!");
+        System.out.println("Got 1000 exp!");
+        p1.setExp(p1.getExp() + 1000);
+        sc.nextLine();
+        System.out.println("");
+        System.out.println("New enemies approaching");
+        System.out.println("");
+
+        System.out.println("Welcome to The Next Level");
+        System.out.println("");
+
+        sc.nextLine();
+
+
+
+        do {
+
+
+            System.out.println("Choose which enemy to fight");
+            System.out.println("1: " + m4.getName());
+            System.out.println("2: " + m5.getName());
+            System.out.println("3: " + m6.getName());
+            System.out.println("4: Random enemies");
+            System.out.println("");
+            System.out.println("0: Shop");
+            System.out.println("9. Exit game");
+            System.out.println("");
+
+            System.out.println("Remaining enemies:");
+
+            for (int i = 0; i < nextEnemyList.size(); i++) {
+                System.out.println(nextEnemyList.get(i).getName() );
+            }
+
+
+            switch (sc.nextLine()) {
+                case "1" -> gameMenu(p1, m4);
+                case "2" -> gameMenu(p1, m5);
+                case "3" -> gameMenu(p1, m6);
+                case "4" -> randomMonsterMenuNext(p1);
+                case "0" -> shop.menu(p1);
+
+                case "9" -> {
+                    result.writeResult(p1);
+                    System.exit(0);
+                }
+                default -> System.out.println("Try again");
+
+
+            }
+            p1.getStatus();
+
+
+        } while (!nextEnemyList.isEmpty());
 
 
         System.out.println("");
