@@ -19,6 +19,9 @@ public class Game {
 
         dbConnection.open();
         dbConnection.createMonsterTable3();
+
+
+
         dbConnection.createTablePlayer();
         Shop shop = new Shop();
 
@@ -288,8 +291,23 @@ public class Game {
     public void loadMenu () {
 
         dbConnection.open();
-        dbConnection.createMonsterTable3();
-        dbConnection.createTablePlayer();
+
+        if (dbConnection.checkTable("player") > 0) {
+
+        } else {
+            dbConnection.createTablePlayer();
+        }
+
+        if (dbConnection.checkTable("monster3") > 0) {
+
+        } else {
+            dbConnection.createMonsterTable3();
+        }
+
+
+
+
+
         Shop shop = new Shop();
 
         /*System.out.println(dbConnection.getPlayerWithId(1));
@@ -303,16 +321,16 @@ public class Game {
         System.out.println("");
         System.out.println("");
 
-        int NumberOfPlayers = (int) dbConnection.getPlayerIDCount();
+        int numberOfPlayers = (int) dbConnection.getPlayerIDCount();
 
-        for (int i = 1; i < NumberOfPlayers+1; i++) {
+        for (int i = 1; i < numberOfPlayers+1; i++) {
             System.out.println(dbConnection.getPlayer(i));
             System.out.println("");
         }
         System.out.println("");
         //System.out.println("");
 
-       /* for (int i = 1; i < NumberOfPlayers+1; i++) {
+       /* for (int i = 1; i < numberOfPlayers+1; i++) {
 
             System.out.println(dbConnection.getPlayerTest(i));
 
@@ -336,6 +354,8 @@ public class Game {
 
 
         // TODO - Change id: to a variable, implement scanner that takes in int as a variable ex: dbConnection.getPlayerTest(x).get(1) etc
+
+        dbConnection.getPlayerWithId1(5);
 
         System.out.println("Load player by providing PlayerID");
 

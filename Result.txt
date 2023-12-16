@@ -1,8 +1,8 @@
-Name: What
-Level: 1
-Enemies defeated: 0
+Name: Klart
+Level: 30
+Enemies defeated: 31
 Weapons obtained: 
 
 
 
-You won!
+You lost

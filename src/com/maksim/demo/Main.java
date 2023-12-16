@@ -9,17 +9,36 @@ public class Main {
         Game game = new Game();
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("1. New player");
-        System.out.println("2. Load player");
+        DBConnection db = new DBConnection();
+        db.open();
 
-        do {
-            switch (sc.nextInt()) {
-                case 1 -> game.menu();
-                case 2 -> game.loadMenu();
-                default -> System.out.println("Try again");
-            }
 
-        } while (true);
+        if (db.getPlayerIDCount() < 1) {
+            System.out.println("1. New player");
+            do {
+                switch (sc.nextInt()) {
+                    case 1 -> game.menu();
+
+                    default -> System.out.println("Try again");
+                }
+
+            } while (true);
+
+        } else {
+            do {
+                System.out.println("1. New player");
+                System.out.println("2. Load player");
+                switch (sc.nextInt()) {
+                    case 1 -> game.menu();
+                    case 2 -> game.loadMenu();
+                    default -> System.out.println("Try again");
+                }
+
+            } while (true);
+
+        }
+
+
 
 
 

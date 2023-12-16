@@ -41,6 +41,48 @@ public class DBConnection {
         return "Table created";
     }
 
+    boolean tableExistsSQL(String tableName)  {
+
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT count(*) "
+                    + "FROM information_schema.tables "
+                    + "WHERE table_name = ?"
+                    + "LIMIT 1;");
+
+            preparedStatement.setString(1, tableName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1) != 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public boolean tableExists(String tableName) {
+        boolean found = false;
+        DatabaseMetaData databaseMetaData = null;
+        try {
+            databaseMetaData = connection.getMetaData();
+            ResultSet rs = databaseMetaData.getTables(null, null, tableName, null);
+            while (rs.next()) {
+                String name = rs.getString("TABLE_NAME");
+                if (tableName.equals(name)) {
+                    found = true;
+                    break;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return found;
+    }
+
     public int createPlayer (Player p1) {
 
         int incrementID = 0;
@@ -345,6 +387,29 @@ public class DBConnection {
         return null;
     }
 
+    public void getPlayerWithId1(int id) {
+
+        String sql = "SELECT * from player where PlayerID = ?";
+        String playerName;
+        String playerHealth;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                playerName = rs.getString("name");
+                playerHealth = rs.getString("Health");
+                System.out.println(playerName + playerHealth);
+
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+
+    }
+
     public List<String> getPlayer(int id) {
 
         String sql = "SELECT * from player where playerID = ?";
@@ -441,7 +506,7 @@ public class DBConnection {
         return null;
     }
 
-    public Object getPlayerIDCount() {
+    public int getPlayerIDCount() {
 
         String sql = "select count(playerId) pid from player";
 
@@ -460,7 +525,29 @@ public class DBConnection {
             System.out.println(e);
 
         }
-        return null;
+        return 0;
+    }
+
+    public int checkTable(String table) {
+
+        String sql = "select count(*) as count from INFORMATION_SCHEMA.TABLES where TABLE_NAME = ? and table_schema = 'dungeonrun'";
+
+        int count;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, table);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("count");
+
+                return count;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return 0;
     }
 
 
