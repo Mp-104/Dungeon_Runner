@@ -300,7 +300,10 @@ public class Player implements ICombat {
 
         } else {
 
-            game.gameOver(p1);
+            //dbConnection.open();
+            //dbConnection.updateBattleFinish(p1);
+            //dbConnection.updateBattleLost(p1,m1);
+            //game.gameOver(p1);
 
         }
         scanner.nextLine();

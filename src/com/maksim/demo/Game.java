@@ -1,9 +1,7 @@
 package com.maksim.demo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+
 import static com.maksim.demo.Colours.*;
 
 public class Game {
@@ -18,11 +16,27 @@ public class Game {
     public void menu () {
 
         dbConnection.open();
-        dbConnection.createMonsterTable3();
+
+        if (dbConnection.checkTable("player") > 0) {
+
+        } else {
+            dbConnection.createTablePlayer();
+        }
+
+        if (dbConnection.checkTable("monster3") > 0) {
+
+        } else {
+            dbConnection.createMonsterTable3();
+        }
+
+        if (dbConnection.checkTable("battles") > 0){
+
+        } else {
+            dbConnection.createTableBattles();
+        }
 
 
 
-        dbConnection.createTablePlayer();
         Shop shop = new Shop();
 
         Player p1 = new Player(0,
@@ -61,7 +75,10 @@ public class Game {
         m1.setMaxStamina(m1.getStamina());
         m1.setInfo("Just your average enemy! Keep on attacking and it should go down");
 
-        dbConnection.createMonster3(m1);
+        if (dbConnection.getMonsterName(m1.getName()) == null) {
+            dbConnection.createMonster3(m1);
+        }
+
 
         Monster m2 = new Monster();
 
@@ -78,7 +95,9 @@ public class Game {
         m2.setCoward(false);
         m2.setInfo("Fast and smart, don't get careless");
 
-        dbConnection.createMonster3(m2);
+        if (dbConnection.getMonsterName(m2.getName()) == null) {
+            dbConnection.createMonster3(m2);
+        }
 
         Monster m3 = new Monster();
 
@@ -94,7 +113,9 @@ public class Game {
         m3.setMaxStamina(m3.getStamina());
         m3.setInfo("Will run away to avoid fighting, but can't keep himself from attacking a "+BLUE+"Defending"+RESET+" opponent..");
 
-        dbConnection.createMonster3(m3);
+        if (dbConnection.getMonsterName(m3.getName()) == null) {
+            dbConnection.createMonster3(m3);
+        }
 
 
         Monster m4 = new Monster();
@@ -111,6 +132,10 @@ public class Game {
         m4.setMaxStamina(m4.getStamina());
         m4.setInfo("...");
 
+        if (dbConnection.getMonsterName(m4.getName()) == null) {
+            dbConnection.createMonster3(m4);
+        }
+
         Monster m5 = new Monster();
 
         m5.setAlive(true);
@@ -124,6 +149,10 @@ public class Game {
         m5.setStamina(5);
         m5.setMaxStamina(m5.getStamina());
         m5.setInfo("Can take a lot of hits");
+
+        if (dbConnection.getMonsterName(m5.getName()) == null) {
+            dbConnection.createMonster3(m5);
+        }
 
         Monster m6 = new Monster();
 
@@ -140,7 +169,9 @@ public class Game {
         m6.setSmart(true);
         m6.setInfo("The most powerful enemy in the game. Good luck!");
 
-
+        if (dbConnection.getMonsterName(m6.getName()) == null) {
+            dbConnection.createMonster3(m6);
+        }
 
         //List <Monster> monsterList = new ArrayList<>();
 
@@ -304,6 +335,12 @@ public class Game {
             dbConnection.createMonsterTable3();
         }
 
+        if (dbConnection.checkTable("battles") > 0){
+
+        } else {
+            dbConnection.createTableBattles();
+        }
+
 
 
 
@@ -338,7 +375,7 @@ public class Game {
         int y = dbConnection.getPlayerTest(5).get(1);
         System.out.println(y);
         */
-        int x = dbConnection.getPlayerTest(1).get(2);
+        //int x = dbConnection.getPlayerTest(1).get(2);
         //System.out.println(dbConnection.getPlayerTest(1).get(2) );
 
 
@@ -355,7 +392,8 @@ public class Game {
 
         // TODO - Change id: to a variable, implement scanner that takes in int as a variable ex: dbConnection.getPlayerTest(x).get(1) etc
 
-        dbConnection.getPlayerWithId1(5);
+        //dbConnection.getPlayerWithId1(5);
+        //dbConnection.getMonsterName("Quick Strike");
 
         System.out.println("Load player by providing PlayerID");
 
@@ -406,7 +444,10 @@ public class Game {
         m1.setMaxStamina(m1.getStamina());
         m1.setInfo("Just your average enemy! Keep on attacking and it should go down");
 
-        dbConnection.createMonster3(m1);
+        if (dbConnection.getMonsterName(m1.getName()) == null) {
+            dbConnection.createMonster3(m1);
+        }
+
 
         Monster m2 = new Monster();
 
@@ -423,7 +464,11 @@ public class Game {
         m2.setCoward(false);
         m2.setInfo("Fast and smart, don't get careless");
 
-        dbConnection.createMonster3(m2);
+        if (dbConnection.getMonsterName(m2.getName()) == null) {
+            dbConnection.createMonster3(m2);
+        }
+
+
 
         Monster m3 = new Monster();
 
@@ -439,7 +484,10 @@ public class Game {
         m3.setMaxStamina(m3.getStamina());
         m3.setInfo("Will run away to avoid fighting, but can't keep himself from attacking a "+BLUE+"Defending"+RESET+" opponent..");
 
-        dbConnection.createMonster3(m3);
+        if (dbConnection.getMonsterName(m3.getName()) == null) {
+            dbConnection.createMonster3(m3);
+        }
+
 
 
         Monster m4 = new Monster();
@@ -456,6 +504,10 @@ public class Game {
         m4.setMaxStamina(m4.getStamina());
         m4.setInfo("...");
 
+        if (dbConnection.getMonsterName(m4.getName()) == null) {
+            dbConnection.createMonster3(m4);
+        }
+
         Monster m5 = new Monster();
 
         m5.setAlive(true);
@@ -469,6 +521,10 @@ public class Game {
         m5.setStamina(5);
         m5.setMaxStamina(m5.getStamina());
         m5.setInfo("Can take a lot of hits");
+
+        if (dbConnection.getMonsterName(m5.getName()) == null) {
+            dbConnection.createMonster3(m5);
+        }
 
         Monster m6 = new Monster();
 
@@ -484,6 +540,10 @@ public class Game {
         m6.setMaxStamina(m6.getStamina());
         m6.setSmart(true);
         m6.setInfo("The most powerful enemy in the game. Good luck!");
+
+        if (dbConnection.getMonsterName(m6.getName()) == null) {
+            dbConnection.createMonster3(m6);
+        }
 
 
 
@@ -652,11 +712,15 @@ public class Game {
         randomMonster.setHealth(random.nextInt(1,10));
         randomMonster.setMaxHealth(randomMonster.getHealth());
         randomMonster.setDamage(random.nextInt(1,10));
-        randomMonster.setName(WHITE_BRIGHT+"Random enemy #" + random.nextInt(1,999)+RESET);
+        randomMonster.setName("Random enemy #" + random.nextInt(1,999));
         randomMonster.setStamina(random.nextInt(1,5));
         randomMonster.setMaxStamina(randomMonster.getStamina());
 
         randomMonster.setExpYield(randomMonster.getDamage() + randomMonster.getHealth());
+
+        if (dbConnection.getMonsterName(randomMonster.getName()) == null) {
+            dbConnection.createMonster3(randomMonster);
+        }
 
 
 
@@ -817,6 +881,7 @@ public class Game {
 
     public void fightMenu (Player p1, Monster m1) {
 
+        dbConnection.createBattle(p1,m1);
 
         do {
 
@@ -853,6 +918,7 @@ public class Game {
             }
 
             if (p1.getHealth() <= 0) {
+
                 p1.setAlive(false);
             }
 
@@ -860,18 +926,20 @@ public class Game {
 
         } while (m1.getAlive() && p1.getAlive() && !p1.getFlee() && !m1.getFlee());
 
-
+        dbConnection.updateBattleFinish(p1);
 
         if (!m1.getAlive() && p1.getAlive()) {
             System.out.println("You earned " + PURPLE + m1.getExpYield() +  RESET + " experience!");
             p1.setExp(p1.getExp() + m1.getExpYield());
             dbConnection.updateExp(p1);
+            dbConnection.updateBattleWon(p1, m1);
             System.out.println("");
             sc.nextLine();
         }
 
         if (!p1.getAlive()){
-
+            //System.out.println("if lost !p1.getAlive()");
+            dbConnection.updateBattleLost(p1,m1);
             gameOver(p1);
         }
 
@@ -879,15 +947,18 @@ public class Game {
 
     public void gameOver (Player p1) {
 
+
         System.out.println("You lost");
         System.out.println();
 
         if (p1.getExp() > 0) {
+            p1.setHealth(p1.getExp());
+            dbConnection.updateHealth(p1);
             p1.setExp(0);
             System.out.println("You used your exp to reawaken");
             p1.setFlee(true);
             p1.setAlive(true);
-            p1.setHealth(100);
+
 
         } else {
             result.writeResult(p1);

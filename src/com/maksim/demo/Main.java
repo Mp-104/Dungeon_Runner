@@ -28,9 +28,9 @@ public class Main {
             do {
                 System.out.println("1. New player");
                 System.out.println("2. Load player");
-                switch (sc.nextInt()) {
-                    case 1 -> game.menu();
-                    case 2 -> game.loadMenu();
+                switch (sc.nextLine()) {
+                    case "1" -> game.menu();
+                    case "2" -> game.loadMenu();
                     default -> System.out.println("Try again");
                 }
 

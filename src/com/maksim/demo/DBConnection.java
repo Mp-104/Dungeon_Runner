@@ -41,6 +41,103 @@ public class DBConnection {
         return "Table created";
     }
 
+    public String createTableBattles () {
+        String sql = "CREATE TABLE battles (battleID INT NOT NULL AUTO_INCREMENT, PlayerName VARCHAR(100), EnemyName VARCHAR(100), Result VARCHAR(50), Start VARCHAR(50), Finish VARCHAR (50), primary KEY(battleID))";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+
+            System.out.println(e);
+
+            return "Something went wrong";
+
+        }
+        return "Table created";
+    }
+
+    public int createBattle (Player p1, Monster m1) {
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        int incrementID = 0;
+        String sql = "INSERT INTO battles (playername, enemyname, start) values (?, ?, ?)";
+
+        try {
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, p1.getName());
+            preparedStatement.setString(2, m1.getName());
+            preparedStatement.setTimestamp(3, timestamp);
+            //preparedStatement.setInt(3, p1.getStrength());
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            while (generatedKeys.next()) {
+                incrementID = generatedKeys.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return incrementID;
+    }
+
+    public int updateBattleFinish(Player p1) {
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        String sql = "UPDATE battles set finish = ?  where playername = ?";
+        int affectedRows = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setTimestamp(1, timestamp);
+            preparedStatement.setString(2, p1.getName());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return affectedRows;
+    }
+
+    public int updateBattleWon(Player p1, Monster m1) {
+
+        String sql = "UPDATE battles set result = 'Won'  where playername = ? and enemyname = ?";
+        int affectedRows = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //preparedStatement.setTimestamp(1, timestamp);
+            preparedStatement.setString(1, p1.getName());
+            preparedStatement.setString(2, m1.getName());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return affectedRows;
+    }
+
+    public int updateBattleLost(Player p1, Monster m1) {
+
+        String sql = "UPDATE battles set result = 'Lost'  where playername = ? and enemyname = ?";
+        int affectedRows = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //preparedStatement.setTimestamp(1, timestamp);
+            preparedStatement.setString(1, p1.getName());
+            preparedStatement.setString(2, m1.getName());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return affectedRows;
+    }
+
     boolean tableExistsSQL(String tableName)  {
 
         PreparedStatement preparedStatement = null;
@@ -167,7 +264,7 @@ public class DBConnection {
     public int createMonster3 (Monster m1) {
 
         int incrementID = 0;
-        String sql = "INSERT INTO monster3 (name, health) values (?, ?)";
+        String sql = "INSERT INTO monster3 (name, health, agility, damage, ExpYield, Stamina) values (?, ?, ?, ?, ?, ?)";
 
         try {
 
@@ -175,7 +272,10 @@ public class DBConnection {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, m1.getName());
             preparedStatement.setInt(2, m1.getHealth());
-            //preparedStatement.setString(3, m1.getName());
+            preparedStatement.setInt(3, m1.getAgility());
+            preparedStatement.setInt(4, m1.getDamage());
+            preparedStatement.setInt(5, m1.getExpYield());
+            preparedStatement.setInt(6, m1.getStamina());
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             while (generatedKeys.next()) {
@@ -223,7 +323,7 @@ public class DBConnection {
     }
 
     public String createMonsterTable3 () {
-        String sql = "CREATE TABLE monster3 (monsterID INT NOT NULL AUTO_INCREMENT, name VARCHAR(100), health int, primary KEY(monsterID))";
+        String sql = "CREATE TABLE monster3 (monsterID INT NOT NULL AUTO_INCREMENT, Name VARCHAR(100), Health int, Agility int, Damage int, ExpYield int, Stamina int, primary KEY(monsterID))";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -408,6 +508,31 @@ public class DBConnection {
 
         }
 
+
+    }
+
+    public String getMonsterName (String name) {
+
+        String sql = "SELECT * from monster3 where name = ?";
+        String monsterName;
+        //String playerHealth;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                monsterName = rs.getString("name");
+                //playerHealth = rs.getString("Health");
+                //System.out.println(monsterName);
+                return monsterName;
+
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return null;
     }
 
     public List<String> getPlayer(int id) {

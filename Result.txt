@@ -1,6 +1,6 @@
-Name: Klart
-Level: 30
-Enemies defeated: 31
+Name: Blacky
+Level: 1
+Enemies defeated: 3
 Weapons obtained: 
 
 
