@@ -229,6 +229,7 @@ public class Monster implements ICombat {
                     System.out.println(WHITE_BRIGHT + name + RESET + " restored health and stamina to full");
                     setStamina(maxStamina);
                     setHealth( maxHealth );
+                    dbConnection.updateBattleEnemyFled();
                     flee = true;
 
                 } else {
@@ -265,6 +266,7 @@ public class Monster implements ICombat {
                         System.out.println(WHITE_BRIGHT + name + RESET + " restored health and stamina to full");
                         setStamina(maxStamina);
                         setHealth( maxHealth );
+                        dbConnection.updateBattleEnemyFled();
                         flee = true;
 
                     } else {

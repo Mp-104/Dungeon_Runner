@@ -42,7 +42,7 @@ public class DBConnection {
     }
 
     public String createTableBattles () {
-        String sql = "CREATE TABLE battles (battleID INT NOT NULL AUTO_INCREMENT, PlayerName VARCHAR(100), EnemyName VARCHAR(100), Result VARCHAR(50), Start VARCHAR(50), Finish VARCHAR (50), primary KEY(battleID))";
+        String sql = "CREATE TABLE battle (battleID INT NOT NULL AUTO_INCREMENT, PlayerName VARCHAR(100), EnemyName VARCHAR(100), Result VARCHAR(50), Start VARCHAR(50), Finish VARCHAR (50), primary KEY(battleID))";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -62,7 +62,7 @@ public class DBConnection {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
         int incrementID = 0;
-        String sql = "INSERT INTO battles (playername, enemyname, start) values (?, ?, ?)";
+        String sql = "INSERT INTO battle (playername, enemyname, start) values (?, ?, ?)";
 
         try {
 
@@ -90,12 +90,12 @@ public class DBConnection {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        String sql = "UPDATE battles set finish = ?  where playername = ?";
+        String sql = "UPDATE battle set finish = ?  where battleid = (select count(*) from battle)";
         int affectedRows = 0;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setTimestamp(1, timestamp);
-            preparedStatement.setString(2, p1.getName());
+            //preparedStatement.setString(2, p1.getName());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -104,15 +104,15 @@ public class DBConnection {
         return affectedRows;
     }
 
-    public int updateBattleWon(Player p1, Monster m1) {
+    public int updateBattleWon() {
 
-        String sql = "UPDATE battles set result = 'Won'  where playername = ? and enemyname = ?";
+        String sql = "UPDATE battle set result = 'Won'  where battleid = (select count(*) from battle)";
         int affectedRows = 0;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             //preparedStatement.setTimestamp(1, timestamp);
-            preparedStatement.setString(1, p1.getName());
-            preparedStatement.setString(2, m1.getName());
+            //preparedStatement.setString(1, p1.getName());
+            // preparedStatement.setString(2, m1.getName());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -121,15 +121,49 @@ public class DBConnection {
         return affectedRows;
     }
 
-    public int updateBattleLost(Player p1, Monster m1) {
+    public int updateBattleLost() {
 
-        String sql = "UPDATE battles set result = 'Lost'  where playername = ? and enemyname = ?";
+        String sql = "UPDATE battle set result = 'Lost'  where battleid = (select count(*) from battle)";
         int affectedRows = 0;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             //preparedStatement.setTimestamp(1, timestamp);
-            preparedStatement.setString(1, p1.getName());
-            preparedStatement.setString(2, m1.getName());
+            //preparedStatement.setString(1, p1.getName());
+            //preparedStatement.setString(2, m1.getName());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return affectedRows;
+    }
+
+    public int updateBattleFled () {
+
+        String sql = "UPDATE battle set result = 'Fled'  where battleid = (select count(*) from battle)";
+        int affectedRows = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //preparedStatement.setTimestamp(1, timestamp);
+            //preparedStatement.setString(1, p1.getName());
+            //preparedStatement.setString(2, m1.getName());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return affectedRows;
+    }
+
+    public int updateBattleEnemyFled() {
+
+        String sql = "UPDATE battle set result = 'Enemy fled'  where battleid = (select count(*) from battle)";
+        int affectedRows = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //preparedStatement.setTimestamp(1, timestamp);
+            //preparedStatement.setString(1, p1.getName());
+            //preparedStatement.setString(2, m1.getName());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

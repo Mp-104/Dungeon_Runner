@@ -1,8 +1,8 @@
-Name: Blacky
-Level: 1
-Enemies defeated: 3
+Name: Klart
+Level: 32
+Enemies defeated: 49
 Weapons obtained: 
 
 
 
-You lost
+You won!

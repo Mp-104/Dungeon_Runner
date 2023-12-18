@@ -42,6 +42,7 @@ public class Player implements ICombat {
         System.out.println(WHITE_BRIGHT + name + RESET + " tries to run away");
         if (agility > m1.getAgility() || m1.getStamina() == 0) {
             System.out.println(GREEN + "Ran away successfully" + RESET);
+            dbConnection.updateBattleFled();
             flee = true;
         } else {
             System.out.println(RED + "Failed to run away" + RESET);
@@ -300,10 +301,11 @@ public class Player implements ICombat {
 
         } else {
 
+            setAlive(false);
             //dbConnection.open();
             //dbConnection.updateBattleFinish(p1);
             //dbConnection.updateBattleLost(p1,m1);
-            //game.gameOver(p1);
+            //game.gameOver(p1);   // Unnecessary
 
         }
         scanner.nextLine();

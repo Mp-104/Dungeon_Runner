@@ -29,7 +29,7 @@ public class Game {
             dbConnection.createMonsterTable3();
         }
 
-        if (dbConnection.checkTable("battles") > 0){
+        if (dbConnection.checkTable("battle") > 0){
 
         } else {
             dbConnection.createTableBattles();
@@ -335,7 +335,7 @@ public class Game {
             dbConnection.createMonsterTable3();
         }
 
-        if (dbConnection.checkTable("battles") > 0){
+        if (dbConnection.checkTable("battle") > 0){
 
         } else {
             dbConnection.createTableBattles();
@@ -413,6 +413,7 @@ public class Game {
         p1.setExp(dbConnection.getPlayerTest(playerLoad).get(5));
         p1.setLevel(dbConnection.getPlayerTest(playerLoad).get(6));
         p1.setEnemiesDefeated(dbConnection.getPlayerTest(playerLoad).get(7));
+        p1.setBaseDamage(10);
 
 
         if (p1.getHealth()<1) {
@@ -715,6 +716,7 @@ public class Game {
         randomMonster.setName("Random enemy #" + random.nextInt(1,999));
         randomMonster.setStamina(random.nextInt(1,5));
         randomMonster.setMaxStamina(randomMonster.getStamina());
+        randomMonster.setInfo("A weak random enemy");
 
         randomMonster.setExpYield(randomMonster.getDamage() + randomMonster.getHealth());
 
@@ -788,11 +790,15 @@ public class Game {
         randomMonster.setHealth(random.nextInt(50,300));
         randomMonster.setMaxHealth(randomMonster.getHealth());
         randomMonster.setDamage(random.nextInt(10,100));
-        randomMonster.setName("Random enemy #" + random.nextInt(1,999));
+        randomMonster.setName("Hard enemy #" + random.nextInt(1,999));
         randomMonster.setStamina(random.nextInt(5,10));
         randomMonster.setMaxStamina(randomMonster.getStamina());
         randomMonster.setExpYield(randomMonster.getDamage() + randomMonster.getHealth());
-        randomMonster.setInfo("A random enemy");
+        randomMonster.setInfo("A hard random enemy");
+
+        if (dbConnection.getMonsterName(randomMonster.getName()) == null) {
+            dbConnection.createMonster3(randomMonster);
+        }
 
         boolean isPlaying = true;
 
@@ -932,14 +938,14 @@ public class Game {
             System.out.println("You earned " + PURPLE + m1.getExpYield() +  RESET + " experience!");
             p1.setExp(p1.getExp() + m1.getExpYield());
             dbConnection.updateExp(p1);
-            dbConnection.updateBattleWon(p1, m1);
+            dbConnection.updateBattleWon();
             System.out.println("");
             sc.nextLine();
         }
 
         if (!p1.getAlive()){
             //System.out.println("if lost !p1.getAlive()");
-            dbConnection.updateBattleLost(p1,m1);
+            dbConnection.updateBattleLost();
             gameOver(p1);
         }
 
