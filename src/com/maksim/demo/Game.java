@@ -215,6 +215,7 @@ public class Game {
             System.out.println("2: " + m2.getName());
             System.out.println("3: " + m3.getName());
             System.out.println("4: Random enemies");
+            System.out.println("5: Check Battle History");
             System.out.println("");
             System.out.println("0: Shop");
             System.out.println("9. Exit game");
@@ -238,6 +239,14 @@ public class Game {
                 }
                 case "3" -> gameMenu(p1, m3);
                 case "4" -> randomMonsterMenu(p1);
+                case "5" -> {
+                    if (dbConnection.getBattleCount(p1) == 0) {
+                        System.out.println("You haven't fought any battles, yet.. ");
+                        sc.nextLine();
+                    } else {
+                        dbConnection.getBattle(p1);
+                        }
+                }
                 case "0" -> shop.menu(p1);
 
                 case "9" -> {
@@ -428,6 +437,8 @@ public class Game {
 
         System.out.println("Loaded player: " + p1.getName());
 
+        //dbConnection.getBattle(p1);
+
         sc.nextLine();
 
 
@@ -581,6 +592,7 @@ public class Game {
             System.out.println("2: " + m2.getName());
             System.out.println("3: " + m3.getName());
             System.out.println("4: Random enemies");
+            System.out.println("5: Check Battle History");
             System.out.println("");
             System.out.println("0: Shop");
             System.out.println("9. Exit game");
@@ -604,6 +616,14 @@ public class Game {
                 }
                 case "3" -> gameMenu(p1, m3);
                 case "4" -> randomMonsterMenu(p1);
+                case "5" -> {
+                    if (dbConnection.getBattleCount(p1) == 0) {
+                        System.out.println("You haven't fought any battles, yet.. ");
+                        sc.nextLine();
+                    } else {
+                        dbConnection.getBattle(p1);
+                    }
+                }
                 case "0" -> shop.menu(p1);
 
                 case "9" -> {

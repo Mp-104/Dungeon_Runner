@@ -2,6 +2,7 @@ package com.maksim.demo;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class DBConnection {
 
@@ -567,6 +568,65 @@ public class DBConnection {
 
         }
         return null;
+    }
+
+    public void getBattle (Player p1) {
+
+        Scanner scanner = new Scanner(System.in);
+        String sql = "SELECT * from battle where playername = ?";
+        String result;
+        String playerName;
+        String enemyName;
+        int battleID;
+        String start;
+        String finish;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, p1.getName());
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                battleID = rs.getInt("battleid");
+                playerName = rs.getString("PlayerName");
+                enemyName = rs.getString("enemyname");
+                result = rs.getString("result");
+                start = rs.getString("start");
+                finish = rs.getString("finish");
+                //System.out.println("BattleID  PlayerName  EnemyName  Result  ");
+                System.out.println("BattleID: " + battleID + ", PlayerName: " + playerName + ", EnemyName: " + enemyName+ ", Result: " + result + ", Battle ended: " + finish);
+                System.out.println("");
+
+
+            }
+            scanner.nextLine();
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+
+    }
+
+    public int getBattleCount (Player p1) {
+
+        String sql = "select count(*) from battle where playername = ?";
+
+        int count;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, p1.getName());
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("count(*)");
+
+                return count;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return 0;
     }
 
     public List<String> getPlayer(int id) {
