@@ -1,6 +1,6 @@
-Name: Klart
-Level: 32
-Enemies defeated: 49
+Name: What
+Level: 1
+Enemies defeated: 0
 Weapons obtained: 
 
 
