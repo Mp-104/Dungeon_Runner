@@ -1,8 +1,8 @@
-Name: Lans
-Level: 12
-Enemies defeated: 6
+Name: PakDA
+Level: 1
+Enemies defeated: 1
 Weapons obtained: 
-  Sword
-  Shield
 
-You won!
+
+
+You lost

@@ -261,39 +261,45 @@ public class Monster implements ICombat {
     public void lightAttack (Player p1) {
         System.out.println(WHITE_BRIGHT + name + RESET + " does a light attack for " + RED + damage/2 + RESET);
         p1.setHealth(p1.getHealth() - damage/2);
+        stamina -= 0;
+        System.out.println(name + "stamina: " + stamina);
 
         dbConnection.updateHealth(p1);
 
         System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
-        stamina -= 0;
+
     }
 
     public void normalAttack (Player p1) {
 
         System.out.println(WHITE_BRIGHT + name + RESET + " does a normal attack for " + RED + (damage) + RESET);
         p1.setHealth(p1.getHealth() - (damage));
+        stamina -= 1;
+        System.out.println(name + " stamina: " + stamina);
 
         dbConnection.updateHealth(p1);
 
         System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
-        stamina -= 1;
+
     }
 
     public void heavyAttack (Player p1) {
         System.out.println(WHITE_BRIGHT + name + RESET + " does a heavy attack for " + RED + damage * 2 + RESET);
         p1.setHealth(p1.getHealth() - damage*2 );
-
+        stamina -= 2;
+        System.out.println(name + " stamina: " + stamina);
         dbConnection.updateHealth(p1);
 
         System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
-        stamina -= 2;
+
     }
 
     boolean defend = false;
     public void defend () {
-        System.out.println(name + " defends");
+        System.out.println(name + " defends, slightly recovers stamina");
         defend = true;
         stamina += 1;
+        System.out.println(name + " stamina: " + stamina);
     }
 
     public void exhausted () {

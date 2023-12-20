@@ -367,7 +367,7 @@ public class Game {
         System.out.println("");
         System.out.println("");
 
-        int numberOfPlayers = (int) dbConnection.getPlayerIDCount();
+        int numberOfPlayers = dbConnection.getPlayerIDCount();
 
         for (int i = 1; i < numberOfPlayers+1; i++) {
             System.out.println(dbConnection.getPlayer(i));

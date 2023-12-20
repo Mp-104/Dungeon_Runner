@@ -30,7 +30,7 @@ public class Main {
                 System.out.println("2. Load player");
                 switch (sc.nextLine()) {
                     case "1" -> game.menu();
-                    case "2"-> game.loadMenu();
+                    case "2" -> game.loadMenu();
                     default -> System.out.println("Try again");
                 }
 
