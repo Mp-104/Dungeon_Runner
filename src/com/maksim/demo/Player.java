@@ -285,9 +285,18 @@ public class Player implements ICombat {
                 m1.dodge();
             } else {
 
-                crit();
-                m1.setHealth(m1.getHealth() - calculateDamage() );
-                System.out.println(name + " attacks for " + RED + calculateDamage() + RESET );
+                if (m1.defend) {
+
+                    m1.setHealth(m1.getHealth() - calculateDamage()/2 );
+                    System.out.println(name + " attacks for " + RED + calculateDamage()/2 + RESET );
+                } else {
+
+                    crit();
+                    m1.setHealth(m1.getHealth() - calculateDamage() );
+                    System.out.println(name + " attacks for " + RED + calculateDamage() + RESET );
+                }
+
+
 
             }
 

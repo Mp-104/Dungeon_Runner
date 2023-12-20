@@ -1,6 +1,7 @@
 package com.maksim.demo;
 
 
+import java.util.Random;
 import java.util.Scanner;
 import static com.maksim.demo.Colours.*;
 import static com.maksim.demo.Game.dbConnection;
@@ -184,13 +185,56 @@ public class Monster implements ICombat {
                     if (smart && health <= maxHealth/8) {
                         tacticalRetreat(p1);
                     } else {
+
+                        Random random = new Random();
+
+                        if (stamina > 2) {
+                            switch (random.nextInt(1,4)) {
+                                case 1 -> {
+                                    defend = false;
+                                    lightAttack(p1);
+                                }
+                                case 2 -> {
+                                    defend = false;
+                                    normalAttack(p1);
+                                }
+                                case 3 -> {
+                                    defend = false;
+                                    heavyAttack(p1);
+                                }
+                            }
+
+                        } else if (stamina == 2) {
+                            switch (random.nextInt(1,3)) {
+                                case 1 -> {
+                                    defend=false;
+                                    lightAttack(p1);
+                                }
+                                case 2 -> {
+                                    defend = false;
+                                    normalAttack(p1);
+                                }
+                            }
+                        } else {
+                            switch (random.nextInt(1,3)) {
+                                case 1 -> {defend=false; lightAttack(p1);}
+                                case 2 -> defend();
+                            }
+
+
+                        }
+
+
+
+
+                        /*
                         System.out.println(WHITE_BRIGHT + name + RESET + " attacks for " + RED + damage + RESET);
                         p1.setHealth(p1.getHealth() - damage);
 
                         dbConnection.updateHealth(p1);
 
                         System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
-                        stamina -= 1;
+                        stamina -= 1; */
 
                     }
 
@@ -212,6 +256,44 @@ public class Monster implements ICombat {
 
         scanner.nextLine();
 
+    }
+
+    public void lightAttack (Player p1) {
+        System.out.println(WHITE_BRIGHT + name + RESET + " does a light attack for " + RED + damage/2 + RESET);
+        p1.setHealth(p1.getHealth() - damage/2);
+
+        dbConnection.updateHealth(p1);
+
+        System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
+        stamina -= 0;
+    }
+
+    public void normalAttack (Player p1) {
+
+        System.out.println(WHITE_BRIGHT + name + RESET + " does a normal attack for " + RED + (damage) + RESET);
+        p1.setHealth(p1.getHealth() - (damage));
+
+        dbConnection.updateHealth(p1);
+
+        System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
+        stamina -= 1;
+    }
+
+    public void heavyAttack (Player p1) {
+        System.out.println(WHITE_BRIGHT + name + RESET + " does a heavy attack for " + RED + damage * 2 + RESET);
+        p1.setHealth(p1.getHealth() - damage*2 );
+
+        dbConnection.updateHealth(p1);
+
+        System.out.println("Remaining player health: " + GREEN + p1.getHealth() + RESET);
+        stamina -= 2;
+    }
+
+    boolean defend = false;
+    public void defend () {
+        System.out.println(name + " defends");
+        defend = true;
+        stamina += 1;
     }
 
     public void exhausted () {

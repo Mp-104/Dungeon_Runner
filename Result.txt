@@ -1,8 +1,8 @@
-Name: What
-Level: 1
-Enemies defeated: 0
+Name: Lans
+Level: 12
+Enemies defeated: 6
 Weapons obtained: 
-
-
+  Sword
+  Shield
 
 You won!
